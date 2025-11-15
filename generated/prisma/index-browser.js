@@ -121,49 +121,148 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
-exports.Prisma.AccountScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  type: 'type',
-  provider: 'provider',
-  providerAccountId: 'providerAccountId',
-  refresh_token: 'refresh_token',
-  access_token: 'access_token',
-  expires_at: 'expires_at',
-  token_type: 'token_type',
-  scope: 'scope',
-  id_token: 'id_token',
-  session_state: 'session_state',
-  refresh_token_expires_in: 'refresh_token_expires_in'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  username: 'username',
   email: 'email',
-  emailVerified: 'emailVerified',
-  image: 'image'
+  role: 'role',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VerificationTokenScalarFieldEnum = {
+exports.Prisma.VendorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  phoneNumber: 'phoneNumber',
+  allowedStaffCount: 'allowedStaffCount',
+  accessToken: 'accessToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  gateId: 'gateId',
+  zoneId: 'zoneId'
+};
+
+exports.Prisma.ZoneScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.GateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
   identifier: 'identifier',
-  token: 'token',
-  expires: 'expires'
+  name: 'name',
+  job: 'job',
+  description: 'description',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  status: 'status',
+  vendorId: 'vendorId',
+  gateId: 'gateId',
+  zoneId: 'zoneId'
+};
+
+exports.Prisma.WorkingHoursScalarFieldEnum = {
+  id: 'id',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId'
+};
+
+exports.Prisma.AlertScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  severity: 'severity',
+  isResolved: 'isResolved',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId',
+  userId: 'userId',
+  activityId: 'activityId'
+};
+
+exports.Prisma.ActivityScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  denialReason: 'denialReason',
+  scannedAt: 'scannedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId',
+  scannerId: 'scannerId',
+  gateId: 'gateId'
+};
+
+exports.Prisma.AttachmentScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  key: 'key',
+  name: 'name',
+  mimeType: 'mimeType',
+  size: 'size',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VendorAttachmentScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  attachmentId: 'attachmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeeAttachmentScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  employeeId: 'employeeId',
+  attachmentId: 'attachmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeePermissionScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  permissionId: 'permissionId',
+  grantedAt: 'grantedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -180,14 +279,58 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Role = exports.$Enums.Role = {
+  admin: 'admin',
+  usher: 'usher'
+};
 
+exports.EmployeeStatus = exports.$Enums.EmployeeStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
+exports.DayOfWeek = exports.$Enums.DayOfWeek = {
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY',
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY'
+};
+
+exports.ActivityType = exports.$Enums.ActivityType = {
+  ENTRY: 'ENTRY',
+  EXIT: 'EXIT',
+  DENIED: 'DENIED'
+};
+
+exports.AccessStatus = exports.$Enums.AccessStatus = {
+  GRANTED: 'GRANTED',
+  DENIED: 'DENIED'
+};
+
+exports.EmployeeAttachmentType = exports.$Enums.EmployeeAttachmentType = {
+  ID_CARD: 'ID_CARD',
+  PROFILE_PHOTO: 'PROFILE_PHOTO',
+  OTHER: 'OTHER'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
-  Account: 'Account',
-  Session: 'Session',
   User: 'User',
-  VerificationToken: 'VerificationToken'
+  Vendor: 'Vendor',
+  Zone: 'Zone',
+  Gate: 'Gate',
+  Permission: 'Permission',
+  Employee: 'Employee',
+  WorkingHours: 'WorkingHours',
+  Alert: 'Alert',
+  Activity: 'Activity',
+  Attachment: 'Attachment',
+  VendorAttachment: 'VendorAttachment',
+  EmployeeAttachment: 'EmployeeAttachment',
+  EmployeePermission: 'EmployeePermission'
 };
 
 /**

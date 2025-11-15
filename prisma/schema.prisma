@@ -15,61 +15,259 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+enum Role {
+    admin
+    usher
+    // vendor
+    // user
+    // guest
+    // employee
 }
 
-// Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
-
-    @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+enum EmployeeStatus {
+    PENDING
+    ACTIVE
+    SUSPENDED
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+    id         String     @id @default(cuid())
+    name       String?
+    username   String?    @unique
+    email      String?    @unique
+    role       Role
+    password   String
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+    activities Activity[]
+    alerts     Alert[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Vendor {
+    id                String             @id @default(cuid())
+    name              String
+    description       String?
+    phoneNumber       String?
+    allowedStaffCount Int // Maximum number of employees allowed
+    accessToken       String             @unique @default(cuid()) // Secure link token for employee registration
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @updatedAt
+    deletedAt         DateTime?
+    employees         Employee[]
+    vendorAttachments VendorAttachment[]
+    gateId            String?
+    gate              Gate?              @relation(fields: [gateId], references: [id])
+    zoneId            String?
+    zone              Zone?              @relation(fields: [zoneId], references: [id])
 
-    @@unique([identifier, token])
+    @@index([accessToken])
+}
+
+model Zone {
+    id          String     @id @default(cuid())
+    name        String
+    description String?
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    deletedAt   DateTime?
+    vendors     Vendor[]
+    employees   Employee[]
+}
+
+model Gate {
+    id          String     @id @default(cuid())
+    name        String
+    description String?
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    deletedAt   DateTime?
+    vendors     Vendor[]
+    employees   Employee[]
+    activities  Activity[]
+}
+
+model Permission {
+    id                  String               @id @default(cuid())
+    name                String
+    description         String?
+    createdAt           DateTime             @default(now())
+    updatedAt           DateTime             @updatedAt
+    deletedAt           DateTime?
+    employeePermissions EmployeePermission[]
+}
+
+model Employee {
+    id                  String               @id @default(cuid())
+    identifier          String               @default(cuid()) // Unique identifier for QR code (persists across replacements)
+    name                String
+    job                 String // Business name or role
+    description         String?
+    version             Int                  @default(1) // Version control for employee replacements
+    createdAt           DateTime             @default(now())
+    updatedAt           DateTime             @updatedAt
+    deletedAt           DateTime?
+    status              EmployeeStatus       @default(PENDING)
+    vendorId            String
+    vendor              Vendor               @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+    gateId              String? // Assigned gate for access
+    gate                Gate?                @relation(fields: [gateId], references: [id])
+    zoneId              String? // Assigned zone for access
+    zone                Zone?                @relation(fields: [zoneId], references: [id])
+    activities          Activity[]
+    workingHours        WorkingHours[]
+    employeeAttachments EmployeeAttachment[]
+    employeePermissions EmployeePermission[]
+    alerts              Alert[]
+
+    @@unique([identifier, deletedAt])
+    @@index([vendorId])
+}
+
+enum DayOfWeek {
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+}
+
+model WorkingHours {
+    id        String    @id @default(cuid())
+    dayOfWeek DayOfWeek
+    startTime String // Format: "HH:mm" (e.g., "09:00")
+    endTime   String // Format: "HH:mm" (e.g., "17:00")
+    isActive  Boolean   @default(true) // Whether this day is a working day
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    employeeId String
+    employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+    @@unique([employeeId, dayOfWeek])
+    @@index([employeeId])
+}
+
+// this table in case i want to flag any unauthorized access
+model Alert {
+    id         String    @id @default(cuid())
+    text       String
+    severity   String    @default("warning") // e.g., "info", "warning", "error"
+    isResolved Boolean   @default(false)
+    resolvedAt DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    employeeId String?
+    employee   Employee? @relation(fields: [employeeId], references: [id])
+    userId     String? // Admin/Usher who created the alert
+    user       User?     @relation(fields: [userId], references: [id])
+    activityId String? // Related activity/scan that triggered the alert
+    activity   Activity? @relation(fields: [activityId], references: [id])
+
+    @@index([employeeId])
+    @@index([userId])
+    @@index([activityId])
+}
+
+enum ActivityType {
+    ENTRY // Employee entered
+    EXIT // Employee exited
+    DENIED // Access denied
+}
+
+enum AccessStatus {
+    GRANTED
+    DENIED
+}
+
+model Activity {
+    id           String       @id @default(cuid())
+    type         ActivityType @default(ENTRY)
+    status       AccessStatus
+    denialReason String? // Reason for denial (e.g., "Wrong gate", "Outside working hours")
+    scannedAt    DateTime     @default(now())
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    employeeId   String
+    employee     Employee     @relation(fields: [employeeId], references: [id])
+    scannerId    String? // Usher who scanned
+    scanner      User?        @relation(fields: [scannerId], references: [id])
+    gateId       String? // Gate where scan occurred
+    gate         Gate?        @relation(fields: [gateId], references: [id])
+    alerts       Alert[]
+
+    @@index([employeeId])
+    @@index([scannerId])
+    @@index([gateId])
+    @@index([scannedAt])
+}
+
+model Attachment {
+    id                  String               @id @default(cuid())
+    url                 String
+    key                 String? // Storage key (e.g., S3 key)
+    name                String?              @default("")
+    mimeType            String? // e.g., "image/jpeg", "application/pdf"
+    size                Int? // File size in bytes
+    description         String?
+    createdAt           DateTime             @default(now())
+    updatedAt           DateTime             @updatedAt
+    vendorAttachments   VendorAttachment[]
+    employeeAttachments EmployeeAttachment[]
+}
+
+enum EmployeeAttachmentType {
+    ID_CARD // Employee ID card image
+    PROFILE_PHOTO // Employee profile photo
+    OTHER // Other documents
+}
+
+// Junction table for Vendor-Attachment many-to-many relationship
+model VendorAttachment {
+    id           String     @id @default(cuid())
+    vendorId     String
+    vendor       Vendor     @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+    attachmentId String
+    attachment   Attachment @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
+
+    @@unique([vendorId, attachmentId])
+    @@index([vendorId])
+    @@index([attachmentId])
+}
+
+// Junction table for Employee-Attachment many-to-many relationship with type
+model EmployeeAttachment {
+    id           String                 @id @default(cuid())
+    type         EmployeeAttachmentType // Type of attachment (ID card, profile photo, etc.)
+    employeeId   String
+    employee     Employee               @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+    attachmentId String
+    attachment   Attachment             @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+    createdAt    DateTime               @default(now())
+    updatedAt    DateTime               @updatedAt
+
+    @@unique([employeeId, attachmentId])
+    @@index([employeeId])
+    @@index([attachmentId])
+    @@index([type])
+}
+
+// Junction table for Employee-Permission many-to-many relationship
+model EmployeePermission {
+    id           String     @id @default(cuid())
+    employeeId   String
+    employee     Employee   @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+    permissionId String
+    permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+    grantedAt    DateTime   @default(now())
+    expiresAt    DateTime? // Optional expiration date for the permission
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
+
+    @@unique([employeeId, permissionId])
+    @@index([employeeId])
+    @@index([permissionId])
 }

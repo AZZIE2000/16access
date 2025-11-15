@@ -93,49 +93,148 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
-exports.Prisma.AccountScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  type: 'type',
-  provider: 'provider',
-  providerAccountId: 'providerAccountId',
-  refresh_token: 'refresh_token',
-  access_token: 'access_token',
-  expires_at: 'expires_at',
-  token_type: 'token_type',
-  scope: 'scope',
-  id_token: 'id_token',
-  session_state: 'session_state',
-  refresh_token_expires_in: 'refresh_token_expires_in'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  username: 'username',
   email: 'email',
-  emailVerified: 'emailVerified',
-  image: 'image'
+  role: 'role',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VerificationTokenScalarFieldEnum = {
+exports.Prisma.VendorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  phoneNumber: 'phoneNumber',
+  allowedStaffCount: 'allowedStaffCount',
+  accessToken: 'accessToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  gateId: 'gateId',
+  zoneId: 'zoneId'
+};
+
+exports.Prisma.ZoneScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.GateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
   identifier: 'identifier',
-  token: 'token',
-  expires: 'expires'
+  name: 'name',
+  job: 'job',
+  description: 'description',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  status: 'status',
+  vendorId: 'vendorId',
+  gateId: 'gateId',
+  zoneId: 'zoneId'
+};
+
+exports.Prisma.WorkingHoursScalarFieldEnum = {
+  id: 'id',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId'
+};
+
+exports.Prisma.AlertScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  severity: 'severity',
+  isResolved: 'isResolved',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId',
+  userId: 'userId',
+  activityId: 'activityId'
+};
+
+exports.Prisma.ActivityScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  denialReason: 'denialReason',
+  scannedAt: 'scannedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  employeeId: 'employeeId',
+  scannerId: 'scannerId',
+  gateId: 'gateId'
+};
+
+exports.Prisma.AttachmentScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  key: 'key',
+  name: 'name',
+  mimeType: 'mimeType',
+  size: 'size',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VendorAttachmentScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  attachmentId: 'attachmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeeAttachmentScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  employeeId: 'employeeId',
+  attachmentId: 'attachmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeePermissionScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  permissionId: 'permissionId',
+  grantedAt: 'grantedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,14 +251,58 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Role = exports.$Enums.Role = {
+  admin: 'admin',
+  usher: 'usher'
+};
 
+exports.EmployeeStatus = exports.$Enums.EmployeeStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
+exports.DayOfWeek = exports.$Enums.DayOfWeek = {
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY',
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY'
+};
+
+exports.ActivityType = exports.$Enums.ActivityType = {
+  ENTRY: 'ENTRY',
+  EXIT: 'EXIT',
+  DENIED: 'DENIED'
+};
+
+exports.AccessStatus = exports.$Enums.AccessStatus = {
+  GRANTED: 'GRANTED',
+  DENIED: 'DENIED'
+};
+
+exports.EmployeeAttachmentType = exports.$Enums.EmployeeAttachmentType = {
+  ID_CARD: 'ID_CARD',
+  PROFILE_PHOTO: 'PROFILE_PHOTO',
+  OTHER: 'OTHER'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
-  Account: 'Account',
-  Session: 'Session',
   User: 'User',
-  VerificationToken: 'VerificationToken'
+  Vendor: 'Vendor',
+  Zone: 'Zone',
+  Gate: 'Gate',
+  Permission: 'Permission',
+  Employee: 'Employee',
+  WorkingHours: 'WorkingHours',
+  Alert: 'Alert',
+  Activity: 'Activity',
+  Attachment: 'Attachment',
+  VendorAttachment: 'VendorAttachment',
+  EmployeeAttachment: 'EmployeeAttachment',
+  EmployeePermission: 'EmployeePermission'
 };
 /**
  * Create the Client
@@ -208,13 +351,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  createdBy   User   @relation(fields: [createdById], references: [id])\n  createdById String\n\n  @@index([name])\n}\n\n// Necessary for Next auth\nmodel Account {\n  id                       String  @id @default(cuid())\n  userId                   String\n  type                     String\n  provider                 String\n  providerAccountId        String\n  refresh_token            String? // @db.Text\n  access_token             String? // @db.Text\n  expires_at               Int?\n  token_type               String?\n  scope                    String?\n  id_token                 String? // @db.Text\n  session_state            String?\n  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  refresh_token_expires_in Int?\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  sessions      Session[]\n  posts         Post[]\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n",
-  "inlineSchemaHash": "dd9a6edd7dcf3768e8fd246695361ce51823871115a517c30ff53e4d5bffa20b",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  admin\n  usher\n  // vendor\n  // user\n  // guest\n  // employee\n}\n\nenum EmployeeStatus {\n  PENDING\n  ACTIVE\n  SUSPENDED\n}\n\nmodel User {\n  id         String     @id @default(cuid())\n  name       String?\n  username   String?    @unique\n  email      String?    @unique\n  role       Role\n  password   String\n  createdAt  DateTime   @default(now())\n  updatedAt  DateTime   @updatedAt\n  activities Activity[]\n  alerts     Alert[]\n}\n\nmodel Vendor {\n  id                String             @id @default(cuid())\n  name              String\n  description       String?\n  phoneNumber       String?\n  allowedStaffCount Int // Maximum number of employees allowed\n  accessToken       String             @unique @default(cuid()) // Secure link token for employee registration\n  createdAt         DateTime           @default(now())\n  updatedAt         DateTime           @updatedAt\n  deletedAt         DateTime?\n  employees         Employee[]\n  vendorAttachments VendorAttachment[]\n  gateId            String?\n  gate              Gate?              @relation(fields: [gateId], references: [id])\n  zoneId            String?\n  zone              Zone?              @relation(fields: [zoneId], references: [id])\n\n  @@index([accessToken])\n}\n\nmodel Zone {\n  id          String     @id @default(cuid())\n  name        String\n  description String?\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  deletedAt   DateTime?\n  vendors     Vendor[]\n  employees   Employee[]\n}\n\nmodel Gate {\n  id          String     @id @default(cuid())\n  name        String\n  description String?\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  deletedAt   DateTime?\n  vendors     Vendor[]\n  employees   Employee[]\n  activities  Activity[]\n}\n\nmodel Permission {\n  id                  String               @id @default(cuid())\n  name                String\n  description         String?\n  createdAt           DateTime             @default(now())\n  updatedAt           DateTime             @updatedAt\n  deletedAt           DateTime?\n  employeePermissions EmployeePermission[]\n}\n\nmodel Employee {\n  id                  String               @id @default(cuid())\n  identifier          String               @default(cuid()) // Unique identifier for QR code (persists across replacements)\n  name                String\n  job                 String // Business name or role\n  description         String?\n  version             Int                  @default(1) // Version control for employee replacements\n  createdAt           DateTime             @default(now())\n  updatedAt           DateTime             @updatedAt\n  deletedAt           DateTime?\n  status              EmployeeStatus       @default(PENDING)\n  vendorId            String\n  vendor              Vendor               @relation(fields: [vendorId], references: [id], onDelete: Cascade)\n  gateId              String? // Assigned gate for access\n  gate                Gate?                @relation(fields: [gateId], references: [id])\n  zoneId              String? // Assigned zone for access\n  zone                Zone?                @relation(fields: [zoneId], references: [id])\n  activities          Activity[]\n  workingHours        WorkingHours[]\n  employeeAttachments EmployeeAttachment[]\n  employeePermissions EmployeePermission[]\n  alerts              Alert[]\n\n  @@unique([identifier, deletedAt])\n  @@index([vendorId])\n}\n\nenum DayOfWeek {\n  MONDAY\n  TUESDAY\n  WEDNESDAY\n  THURSDAY\n  FRIDAY\n  SATURDAY\n  SUNDAY\n}\n\nmodel WorkingHours {\n  id        String    @id @default(cuid())\n  dayOfWeek DayOfWeek\n  startTime String // Format: \"HH:mm\" (e.g., \"09:00\")\n  endTime   String // Format: \"HH:mm\" (e.g., \"17:00\")\n  isActive  Boolean   @default(true) // Whether this day is a working day\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n\n  employeeId String\n  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)\n\n  @@unique([employeeId, dayOfWeek])\n  @@index([employeeId])\n}\n\n// this table in case i want to flag any unauthorized access\nmodel Alert {\n  id         String    @id @default(cuid())\n  text       String\n  severity   String    @default(\"warning\") // e.g., \"info\", \"warning\", \"error\"\n  isResolved Boolean   @default(false)\n  resolvedAt DateTime?\n  createdAt  DateTime  @default(now())\n  updatedAt  DateTime  @updatedAt\n  employeeId String?\n  employee   Employee? @relation(fields: [employeeId], references: [id])\n  userId     String? // Admin/Usher who created the alert\n  user       User?     @relation(fields: [userId], references: [id])\n  activityId String? // Related activity/scan that triggered the alert\n  activity   Activity? @relation(fields: [activityId], references: [id])\n\n  @@index([employeeId])\n  @@index([userId])\n  @@index([activityId])\n}\n\nenum ActivityType {\n  ENTRY // Employee entered\n  EXIT // Employee exited\n  DENIED // Access denied\n}\n\nenum AccessStatus {\n  GRANTED\n  DENIED\n}\n\nmodel Activity {\n  id           String       @id @default(cuid())\n  type         ActivityType @default(ENTRY)\n  status       AccessStatus\n  denialReason String? // Reason for denial (e.g., \"Wrong gate\", \"Outside working hours\")\n  scannedAt    DateTime     @default(now())\n  createdAt    DateTime     @default(now())\n  updatedAt    DateTime     @updatedAt\n  employeeId   String\n  employee     Employee     @relation(fields: [employeeId], references: [id])\n  scannerId    String? // Usher who scanned\n  scanner      User?        @relation(fields: [scannerId], references: [id])\n  gateId       String? // Gate where scan occurred\n  gate         Gate?        @relation(fields: [gateId], references: [id])\n  alerts       Alert[]\n\n  @@index([employeeId])\n  @@index([scannerId])\n  @@index([gateId])\n  @@index([scannedAt])\n}\n\nmodel Attachment {\n  id                  String               @id @default(cuid())\n  url                 String\n  key                 String? // Storage key (e.g., S3 key)\n  name                String?              @default(\"\")\n  mimeType            String? // e.g., \"image/jpeg\", \"application/pdf\"\n  size                Int? // File size in bytes\n  description         String?\n  createdAt           DateTime             @default(now())\n  updatedAt           DateTime             @updatedAt\n  vendorAttachments   VendorAttachment[]\n  employeeAttachments EmployeeAttachment[]\n}\n\nenum EmployeeAttachmentType {\n  ID_CARD // Employee ID card image\n  PROFILE_PHOTO // Employee profile photo\n  OTHER // Other documents\n}\n\n// Junction table for Vendor-Attachment many-to-many relationship\nmodel VendorAttachment {\n  id           String     @id @default(cuid())\n  vendorId     String\n  vendor       Vendor     @relation(fields: [vendorId], references: [id], onDelete: Cascade)\n  attachmentId String\n  attachment   Attachment @relation(fields: [attachmentId], references: [id], onDelete: Cascade)\n  createdAt    DateTime   @default(now())\n  updatedAt    DateTime   @updatedAt\n\n  @@unique([vendorId, attachmentId])\n  @@index([vendorId])\n  @@index([attachmentId])\n}\n\n// Junction table for Employee-Attachment many-to-many relationship with type\nmodel EmployeeAttachment {\n  id           String                 @id @default(cuid())\n  type         EmployeeAttachmentType // Type of attachment (ID card, profile photo, etc.)\n  employeeId   String\n  employee     Employee               @relation(fields: [employeeId], references: [id], onDelete: Cascade)\n  attachmentId String\n  attachment   Attachment             @relation(fields: [attachmentId], references: [id], onDelete: Cascade)\n  createdAt    DateTime               @default(now())\n  updatedAt    DateTime               @updatedAt\n\n  @@unique([employeeId, attachmentId])\n  @@index([employeeId])\n  @@index([attachmentId])\n  @@index([type])\n}\n\n// Junction table for Employee-Permission many-to-many relationship\nmodel EmployeePermission {\n  id           String     @id @default(cuid())\n  employeeId   String\n  employee     Employee   @relation(fields: [employeeId], references: [id], onDelete: Cascade)\n  permissionId String\n  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)\n  grantedAt    DateTime   @default(now())\n  expiresAt    DateTime? // Optional expiration date for the permission\n  createdAt    DateTime   @default(now())\n  updatedAt    DateTime   @updatedAt\n\n  @@unique([employeeId, permissionId])\n  @@index([employeeId])\n  @@index([permissionId])\n}\n",
+  "inlineSchemaHash": "47017af84d2f3c810d329423ce657f88a670fbfc2c07b4485465f918b13e16f0",
   "copyEngine": false
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"refresh_token_expires_in\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"activities\",\"kind\":\"object\",\"type\":\"Activity\",\"relationName\":\"ActivityToUser\"},{\"name\":\"alerts\",\"kind\":\"object\",\"type\":\"Alert\",\"relationName\":\"AlertToUser\"}],\"dbName\":null},\"Vendor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"allowedStaffCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employees\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToVendor\"},{\"name\":\"vendorAttachments\",\"kind\":\"object\",\"type\":\"VendorAttachment\",\"relationName\":\"VendorToVendorAttachment\"},{\"name\":\"gateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gate\",\"kind\":\"object\",\"type\":\"Gate\",\"relationName\":\"GateToVendor\"},{\"name\":\"zoneId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"zone\",\"kind\":\"object\",\"type\":\"Zone\",\"relationName\":\"VendorToZone\"}],\"dbName\":null},\"Zone\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"vendors\",\"kind\":\"object\",\"type\":\"Vendor\",\"relationName\":\"VendorToZone\"},{\"name\":\"employees\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToZone\"}],\"dbName\":null},\"Gate\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"vendors\",\"kind\":\"object\",\"type\":\"Vendor\",\"relationName\":\"GateToVendor\"},{\"name\":\"employees\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToGate\"},{\"name\":\"activities\",\"kind\":\"object\",\"type\":\"Activity\",\"relationName\":\"ActivityToGate\"}],\"dbName\":null},\"Permission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employeePermissions\",\"kind\":\"object\",\"type\":\"EmployeePermission\",\"relationName\":\"EmployeePermissionToPermission\"}],\"dbName\":null},\"Employee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"job\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"version\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"EmployeeStatus\"},{\"name\":\"vendorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vendor\",\"kind\":\"object\",\"type\":\"Vendor\",\"relationName\":\"EmployeeToVendor\"},{\"name\":\"gateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gate\",\"kind\":\"object\",\"type\":\"Gate\",\"relationName\":\"EmployeeToGate\"},{\"name\":\"zoneId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"zone\",\"kind\":\"object\",\"type\":\"Zone\",\"relationName\":\"EmployeeToZone\"},{\"name\":\"activities\",\"kind\":\"object\",\"type\":\"Activity\",\"relationName\":\"ActivityToEmployee\"},{\"name\":\"workingHours\",\"kind\":\"object\",\"type\":\"WorkingHours\",\"relationName\":\"EmployeeToWorkingHours\"},{\"name\":\"employeeAttachments\",\"kind\":\"object\",\"type\":\"EmployeeAttachment\",\"relationName\":\"EmployeeToEmployeeAttachment\"},{\"name\":\"employeePermissions\",\"kind\":\"object\",\"type\":\"EmployeePermission\",\"relationName\":\"EmployeeToEmployeePermission\"},{\"name\":\"alerts\",\"kind\":\"object\",\"type\":\"Alert\",\"relationName\":\"AlertToEmployee\"}],\"dbName\":null},\"WorkingHours\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dayOfWeek\",\"kind\":\"enum\",\"type\":\"DayOfWeek\"},{\"name\":\"startTime\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"endTime\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToWorkingHours\"}],\"dbName\":null},\"Alert\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"severity\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isResolved\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"resolvedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"AlertToEmployee\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AlertToUser\"},{\"name\":\"activityId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"activity\",\"kind\":\"object\",\"type\":\"Activity\",\"relationName\":\"ActivityToAlert\"}],\"dbName\":null},\"Activity\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"ActivityType\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"AccessStatus\"},{\"name\":\"denialReason\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scannedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"ActivityToEmployee\"},{\"name\":\"scannerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scanner\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ActivityToUser\"},{\"name\":\"gateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gate\",\"kind\":\"object\",\"type\":\"Gate\",\"relationName\":\"ActivityToGate\"},{\"name\":\"alerts\",\"kind\":\"object\",\"type\":\"Alert\",\"relationName\":\"ActivityToAlert\"}],\"dbName\":null},\"Attachment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"key\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mimeType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"vendorAttachments\",\"kind\":\"object\",\"type\":\"VendorAttachment\",\"relationName\":\"AttachmentToVendorAttachment\"},{\"name\":\"employeeAttachments\",\"kind\":\"object\",\"type\":\"EmployeeAttachment\",\"relationName\":\"AttachmentToEmployeeAttachment\"}],\"dbName\":null},\"VendorAttachment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vendorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vendor\",\"kind\":\"object\",\"type\":\"Vendor\",\"relationName\":\"VendorToVendorAttachment\"},{\"name\":\"attachmentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"attachment\",\"kind\":\"object\",\"type\":\"Attachment\",\"relationName\":\"AttachmentToVendorAttachment\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"EmployeeAttachment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"EmployeeAttachmentType\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToEmployeeAttachment\"},{\"name\":\"attachmentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"attachment\",\"kind\":\"object\",\"type\":\"Attachment\",\"relationName\":\"AttachmentToEmployeeAttachment\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"EmployeePermission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToEmployeePermission\"},{\"name\":\"permissionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"permission\",\"kind\":\"object\",\"type\":\"Permission\",\"relationName\":\"EmployeePermissionToPermission\"},{\"name\":\"grantedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = undefined
