@@ -8,6 +8,59 @@ import {
 import { utapi } from "@/server/uploadthing";
 
 export const employeeRouter = createTRPCRouter({
+  // Get all unique job titles (admin only)
+  getUniqueJobTitles: protectedProcedure.query(async ({ ctx }) => {
+    const employees = await ctx.db.employee.findMany({
+      where: {
+        deletedAt: null,
+      },
+      select: {
+        job: true,
+      },
+      distinct: ["job"],
+      orderBy: {
+        job: "asc",
+      },
+    });
+
+    return employees.map((e) => e.job);
+  }),
+
+  // Get unique job titles for a vendor (public - for vendor portal)
+  getUniqueJobTitlesByToken: publicProcedure
+    .input(z.object({ token: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const vendor = await ctx.db.vendor.findUnique({
+        where: {
+          accessToken: input.token,
+          deletedAt: null,
+        },
+      });
+
+      if (!vendor) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Invalid access token",
+        });
+      }
+
+      const employees = await ctx.db.employee.findMany({
+        where: {
+          vendorId: vendor.id,
+          deletedAt: null,
+        },
+        select: {
+          job: true,
+        },
+        distinct: ["job"],
+        orderBy: {
+          job: "asc",
+        },
+      });
+
+      return employees.map((e) => e.job);
+    }),
+
   // Get vendor by access token (public - for vendor portal)
   getVendorByToken: publicProcedure
     .input(z.object({ token: z.string() }))
@@ -516,6 +569,81 @@ export const employeeRouter = createTRPCRouter({
     }),
 
   // ==================== ADMIN PROCEDURES ====================
+
+  // Get all employees (admin only)
+  getAllAdmin: protectedProcedure
+    .input(
+      z
+        .object({
+          search: z.string().optional(),
+          vendorId: z.string().optional(),
+          gateId: z.string().optional(),
+          zoneId: z.string().optional(),
+          status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]).optional(),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      const where: {
+        deletedAt: null;
+        vendorId?: string;
+        gateId?: string | null;
+        zoneId?: string | null;
+        status?: "PENDING" | "ACTIVE" | "SUSPENDED";
+        OR?: Array<{
+          name?: { contains: string; mode: "insensitive" };
+          job?: { contains: string; mode: "insensitive" };
+          vendor?: { name: { contains: string; mode: "insensitive" } };
+        }>;
+      } = {
+        deletedAt: null,
+      };
+
+      if (input?.vendorId) {
+        where.vendorId = input.vendorId;
+      }
+
+      if (input?.gateId) {
+        where.gateId = input.gateId;
+      }
+
+      if (input?.zoneId) {
+        where.zoneId = input.zoneId;
+      }
+
+      if (input?.status) {
+        where.status = input.status;
+      }
+
+      if (input?.search) {
+        where.OR = [
+          { name: { contains: input.search, mode: "insensitive" } },
+          { job: { contains: input.search, mode: "insensitive" } },
+          {
+            vendor: { name: { contains: input.search, mode: "insensitive" } },
+          },
+        ];
+      }
+
+      const employees = await ctx.db.employee.findMany({
+        where,
+        include: {
+          gate: true,
+          zone: true,
+          vendor: true,
+          employeeAttachments: {
+            include: {
+              attachment: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return employees;
+    }),
 
   // Get employee by ID (admin only)
   getByIdAdmin: protectedProcedure

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { api } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -93,18 +93,24 @@ export function AdminEmployeeForm({
   gates,
   isCreate,
 }: AdminEmployeeFormProps) {
-  const router = useRouter();
+  // Fetch unique job titles
+  const { data: jobTitles = [] } = api.employee.getUniqueJobTitles.useQuery();
 
   const [formData, setFormData] = useState({
     name: "",
     job: "",
     description: "",
-    gateId: "",
-    zoneId: "",
+    gateId: null as string | null,
+    zoneId: null as string | null,
     profilePhotoUrl: "",
-    status: "PENDING" as "PENDING" | "ACTIVE" | "SUSPENDED",
+    status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
   });
-
+  useEffect(() => {
+    console.log("Vendor object:", vendor);
+    console.log("Vendor gateId:", vendor.gateId);
+    console.log("Vendor zoneId:", vendor.zoneId);
+    console.log("Form data:", formData);
+  }, [vendor, formData]);
   const [idCardUrls, setIdCardUrls] = useState<string[]>([]);
 
   // Image crop dialog state
@@ -119,7 +125,7 @@ export function AdminEmployeeForm({
   const createMutation = api.employee.createByAdmin.useMutation({
     onSuccess: () => {
       toast.success("Employee created successfully");
-      router.push(`/dashboard/vendor/${vendor.id}/employees`);
+      window.location.href = `/dashboard/vendor/${vendor.id}/employees`;
     },
     onError: (error) => {
       toast.error(error.message);
@@ -130,7 +136,7 @@ export function AdminEmployeeForm({
   const updateMutation = api.employee.updateByAdmin.useMutation({
     onSuccess: () => {
       toast.success("Employee updated successfully");
-      router.push(`/dashboard/vendor/${vendor.id}/employees`);
+      window.location.href = `/dashboard/vendor/${vendor.id}/employees`;
     },
     onError: (error) => {
       toast.error(error.message);
@@ -141,7 +147,7 @@ export function AdminEmployeeForm({
   const createVersionMutation = api.employee.createNewVersion.useMutation({
     onSuccess: () => {
       toast.success("New employee version created successfully");
-      router.push(`/dashboard/vendor/${vendor.id}/employees`);
+      window.location.href = `/dashboard/vendor/${vendor.id}/employees`;
     },
     onError: (error) => {
       toast.error(error.message);
@@ -159,9 +165,10 @@ export function AdminEmployeeForm({
     },
   });
 
-  // Populate form data when employee is loaded
+  // Populate form data when employee is loaded or when creating
   useEffect(() => {
     if (employee && !isCreate) {
+      // Editing existing employee
       const profilePhoto = employee.employeeAttachments?.find(
         (att) => att.type === "PROFILE_PHOTO",
       );
@@ -174,22 +181,26 @@ export function AdminEmployeeForm({
         name: employee.name,
         job: employee.job,
         description: employee.description ?? "",
-        gateId: employee.gateId ?? vendor.gateId ?? "",
-        zoneId: employee.zoneId ?? vendor.zoneId ?? "",
+        gateId: employee.gateId ?? vendor.gateId,
+        zoneId: employee.zoneId ?? vendor.zoneId,
         profilePhotoUrl: profilePhoto?.attachment.url ?? "",
         status: employee.status,
       });
 
       setIdCardUrls(idCards);
     } else {
-      // For create, default to vendor's gate and zone
-      setFormData((prev) => ({
-        ...prev,
-        gateId: vendor.gateId ?? "",
-        zoneId: vendor.zoneId ?? "",
-      }));
+      // Creating new employee - set vendor's gate and zone as default
+      setFormData({
+        gateId: vendor.gateId,
+        name: "",
+        job: "",
+        description: "",
+        zoneId: vendor.zoneId,
+        profilePhotoUrl: "",
+        status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
+      });
     }
-  }, [employee, isCreate, vendor.gateId, vendor.zoneId]);
+  }, [employee, isCreate, vendor, vendor.gateId, vendor.zoneId]);
 
   // Handle profile photo file selection (before upload)
   const handleProfilePhotoSelect = (file: File) => {
@@ -300,10 +311,6 @@ export function AdminEmployeeForm({
     createVersionMutation.mutate(data);
   };
 
-  const handleBack = () => {
-    router.push(`/dashboard/vendor/${vendor.id}/employees`);
-  };
-
   const isLoading =
     createMutation.isPending ||
     updateMutation.isPending ||
@@ -311,10 +318,12 @@ export function AdminEmployeeForm({
 
   return (
     <div className="space-y-6">
-      <Button variant="ghost" onClick={handleBack} className="mb-4">
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Employees
-      </Button>
+      <Link href={`/dashboard/vendor/${vendor.id}/employees`}>
+        <Button variant="ghost" className="mb-4">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Employees
+        </Button>
+      </Link>
 
       <form onSubmit={handleSubmit}>
         <Card>
@@ -346,13 +355,24 @@ export function AdminEmployeeForm({
               <Label htmlFor="job">Job Title / Role *</Label>
               <Input
                 id="job"
+                list="job-titles"
                 value={formData.job}
                 onChange={(e) =>
                   setFormData({ ...formData, job: e.target.value })
                 }
                 placeholder="e.g., Security Guard, Technician, Manager"
                 required
+                autoComplete="off"
               />
+              <datalist id="job-titles">
+                {jobTitles.map((title) => (
+                  <option key={title} value={title} />
+                ))}
+              </datalist>
+              <p className="text-muted-foreground text-xs">
+                Start typing to see suggestions from previous entries, or enter
+                a new job title
+              </p>
             </div>
 
             {/* Description */}
@@ -374,7 +394,7 @@ export function AdminEmployeeForm({
               <div className="grid gap-2">
                 <Label htmlFor="zone">Zone</Label>
                 <Select
-                  value={formData.zoneId || undefined}
+                  value={formData.zoneId ?? undefined}
                   onValueChange={(value) =>
                     setFormData({ ...formData, zoneId: value })
                   }
@@ -398,7 +418,7 @@ export function AdminEmployeeForm({
               <div className="grid gap-2">
                 <Label htmlFor="gate">Gate</Label>
                 <Select
-                  value={formData.gateId || undefined}
+                  value={formData.gateId ?? undefined}
                   onValueChange={(value) =>
                     setFormData({ ...formData, gateId: value })
                   }
@@ -472,27 +492,47 @@ export function AdminEmployeeForm({
                       <X className="h-4 w-4" />
                     </Button>
                   </div>
-                ) : null}
-
-                <div className="flex-1">
+                ) : (
                   <div className="border-muted-foreground/25 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center">
                     <User className="text-muted-foreground mb-2 h-8 w-8" />
                     <p className="text-muted-foreground mb-3 text-sm">
-                      Upload a profile photo (3.5 × 4.5 cm ratio)
+                      Select a photo to crop and upload
                     </p>
                     <Input
                       type="file"
                       accept="image/*"
+                      className="hidden"
+                      id="profile-photo-input"
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
                           handleProfilePhotoSelect(file);
                         }
                       }}
-                      className="max-w-xs"
                     />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        document.getElementById("profile-photo-input")?.click()
+                      }
+                      disabled={isUploadingCroppedImage}
+                    >
+                      {isUploadingCroppedImage ? (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <User className="mr-2 h-4 w-4" />
+                          Choose Photo
+                        </>
+                      )}
+                    </Button>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -583,14 +623,11 @@ export function AdminEmployeeForm({
                 </Button>
               )}
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleBack}
-                disabled={isLoading}
-              >
-                Cancel
-              </Button>
+              <Link href={`/dashboard/vendor/${vendor.id}/employees`}>
+                <Button type="button" variant="outline" disabled={isLoading}>
+                  Cancel
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>

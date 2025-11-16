@@ -55,6 +55,12 @@ export default function EmployeeFormPage() {
   // UploadThing hook
   const { startUpload } = useUploadThing("imageUploader");
 
+  // Fetch unique job titles for this vendor
+  const { data: jobTitles = [] } =
+    api.employee.getUniqueJobTitlesByToken.useQuery({
+      token,
+    });
+
   // Fetch vendor data
   const { data: vendor, isLoading: vendorLoading } =
     api.employee.getVendorByToken.useQuery({
@@ -322,13 +328,24 @@ export default function EmployeeFormPage() {
                 <Label htmlFor="job">Job Title / Role *</Label>
                 <Input
                   id="job"
+                  list="job-titles"
                   value={formData.job}
                   onChange={(e) =>
                     setFormData({ ...formData, job: e.target.value })
                   }
                   placeholder="e.g., Security Guard, Technician, Manager"
                   required
+                  autoComplete="off"
                 />
+                <datalist id="job-titles">
+                  {jobTitles.map((title) => (
+                    <option key={title} value={title} />
+                  ))}
+                </datalist>
+                <p className="text-muted-foreground text-xs">
+                  Start typing to see suggestions from previous entries, or
+                  enter a new job title
+                </p>
               </div>
 
               <div className="grid gap-2">

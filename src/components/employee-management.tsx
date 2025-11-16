@@ -23,8 +23,6 @@ import {
   Item,
   ItemActions,
   ItemContent,
-  ItemDescription,
-  ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
 import { Badge } from "@/components/ui/badge";
@@ -34,26 +32,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  ArrowLeft,
-  Plus,
-  Pencil,
-  Trash2,
-  Users,
-  DoorOpen,
-  MapPin,
-  MoreVertical,
-} from "lucide-react";
+import { Plus, Pencil, Trash2, Users, MoreVertical } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 type Zone = {
   id: string;
   name: string;
@@ -186,27 +168,6 @@ export function EmployeeManagement({
 
   return (
     <div className="space-y-6">
-      {/* Back Button */}
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/vendor">
-              All Vendors
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href={`/dashboard/vendor/${vendorData.id}`}>
-              Edit {vendorData.name}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Manage Employees</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-
       {/* Vendor Info Cards */}
       <div className="">
         <Item variant="outline">

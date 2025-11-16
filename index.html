@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Access Card - Azzam</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Kufi+Arabic:wght@100..900&family=Tajawal:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Montserrat", "Noto Kufi Arabic", sans-serif;
+      }
+
+      /* Montserrat for English */
+      .montserrat {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Tajawal Bold for Arabic */
+      .tajawal-bold {
+        font-family: "Tajawal", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      /* Noto Kufi Arabic */
+      .noto-kufi-arabic {
+        font-family: "Noto Kufi Arabic", sans-serif;
+      }
+
+      /* Arabic text styling - Default to Tajawal Bold */
+      [dir="rtl"],
+      .arabic {
+        font-family: "Tajawal", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      /* English text styling */
+      .english {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Print styles - Force colors and backgrounds to print */
+      @media print {
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        @page {
+          size: A4;
+          margin: 0;
+        }
+      }
+
+      /* Force background colors to show */
+      .bg-white,
+      .bg-\[#445940\],
+      .bg-\[#c2a067\] {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex">
+      <div class="relative h-[12.7cm] w-[9cm]">
+        <img
+          src="./public/background.png"
+          alt=""
+          class="absolute top-0 z-0 h-full w-full"
+        />
+
+        <div class="absolute top-2 z-10 flex w-full justify-between">
+          <img src="./public/amman-christmas-market.png" class="h-24" />
+          <img src="./public/16thofmay.png" class="h-24" />
+        </div>
+        <div class="absolute top-24 left-4 z-10 h-[9.5cm] w-[8cm] bg-white">
+          <div dir="rtl" class="flex items-center gap-6 p-2">
+            <img
+              src="https://tbzb691zg3.ufs.sh/f/65tHVjy9dnL1yph43iNwAvekisY7IHXU4OdjgWTftcV9hLGq"
+              class="h-32"
+            />
+            <div>
+              <h2 class="text-xl font-bold ">رائد سمير علي</h2>
+              <p class="text-lg font-medium text-gray-600">مطعم حماده</p>
+              <p class="text-lg font-medium text-gray-600">شيف</p>
+            </div>
+          </div>
+          <div class="p-2">
+            <div class="w-full bg-[#445940] py-2">
+              <p class="text-center text-2xl text-white">Main Gate Access</p>
+              <p class="text-center text-lg text-[#c2a067]">
+                Parking Only (ZONE)
+              </p>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <img src="./public/q.png" class="h-28" />
+          </div>
+        </div>
+      </div>
+
+      <!-- <img src="./public/rules.png" alt="" class="h-[12.7cm] w-[9cm]" /> -->
+    </div>
+  </body>
+</html>

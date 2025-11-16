@@ -38,7 +38,7 @@ export default async function VendorPage({
         </div>
         {!isCreate && vendor && (
           <Link href={`/dashboard/vendor/${id}/employees`}>
-            <Button variant="outline">
+            <Button>
               <Users className="mr-2 h-4 w-4" />
               Manage Employees
             </Button>

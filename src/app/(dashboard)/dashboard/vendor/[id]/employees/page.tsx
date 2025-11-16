@@ -1,5 +1,13 @@
 import { api } from "@/trpc/server";
 import { EmployeeManagement } from "@/components/employee-management";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default async function VendorEmployeesPage({
   params,
@@ -31,7 +39,26 @@ export default async function VendorEmployeesPage({
   ]);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto space-y-6 p-6">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard/vendor">
+              All Vendors
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/dashboard/vendor/${vendor.id}`}>
+              Edit {vendor.name}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Manage Employees</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="mb-6">
         <h1 className="text-3xl font-bold">Manage Employees</h1>
         <p className="text-muted-foreground">
@@ -43,4 +70,3 @@ export default async function VendorEmployeesPage({
     </div>
   );
 }
-

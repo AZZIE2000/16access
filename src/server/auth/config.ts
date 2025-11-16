@@ -58,6 +58,16 @@ export const authConfig = {
           return null;
         }
 
+        // Check if user is active
+        if (!user.isActive) {
+          throw new Error("Account is disabled");
+        }
+
+        // Check if user has a password set
+        if (!user.password) {
+          throw new Error("Password not set");
+        }
+
         // Verify password
         const isPasswordValid = await bcrypt.compare(
           credentials.password as string,
