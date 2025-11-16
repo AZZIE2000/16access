@@ -1,9 +1,11 @@
-import React from "react";
+import { ScanInterface } from "@/components/scan-interface";
 
-const Page = () => {
+export default function ScanPage() {
   return (
-    <div className="flex h-screen w-full items-center justify-center">scan</div>
+    <ScanInterface
+      denialReason="Denied by admin"
+      gateSelectionTitle="Select Gate for Scanning"
+      gateSelectionDescription="Please select the gate where you want to scan employee QR codes."
+    />
   );
-};
-
-export default Page;
+}

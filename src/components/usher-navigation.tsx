@@ -36,7 +36,7 @@ export function UsherNavigation() {
   );
 
   return (
-    <div className="sticky bottom-0 grid grid-cols-3 border border-t bg-white">
+    <nav className="fixed right-0 bottom-0 left-0 z-50 grid grid-cols-3 border-t bg-white shadow-lg">
       {navItems.map((item) => {
         const Icon = item.icon;
 
@@ -66,6 +66,6 @@ export function UsherNavigation() {
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

@@ -1,11 +1,5 @@
-import React from "react";
+import { ActivityHistory } from "@/components/activity-history";
 
-const Page = () => {
-  return (
-    <div className="flex h-screen w-full items-center justify-center">
-      history
-    </div>
-  );
-};
-
-export default Page;
+export default function HistoryPage() {
+  return <ActivityHistory />;
+}
