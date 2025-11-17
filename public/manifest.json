@@ -4,7 +4,7 @@
   "description": "Access control system for 16th of May",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#1a1a1a",
   "theme_color": "#000000",
   "orientation": "portrait",
   "icons": [
@@ -22,4 +22,3 @@
     }
   ]
 }
-

@@ -31,9 +31,17 @@ Your app is now a Progressive Web App (PWA) that can be installed on mobile devi
 ## 🚫 Where Install Prompt is Hidden
 
 The install prompt will **NOT** show on:
-- `/vendor/*` pages (vendor portal)
+
+- `/vendor/*` pages (vendor portal) - **Manifest completely removed from these pages**
 - Pages where the user has already dismissed the prompt
 - Devices where the app is already installed
+
+### How It Works:
+
+**Two-Layer Protection:**
+
+1. **Manifest Removal** - The vendor portal layout removes the manifest link from the HTML `<head>`, preventing Chrome's native install prompt
+2. **Component Detection** - The `PWAInstallPrompt` component checks the route and hides itself on vendor portal pages
 
 ## 🎨 Customizing Icons
 
@@ -43,6 +51,7 @@ Replace these files in the `public/` folder with your own icons:
 - `icon-512x512.png` - 512x512px icon
 
 **Recommended:**
+
 - Use PNG format
 - Make icons square
 - Use transparent background or solid color
@@ -53,6 +62,7 @@ Replace these files in the `public/` folder with your own icons:
 ### Manifest (`public/manifest.json`)
 
 Edit this file to customize:
+
 - App name and short name
 - Theme colors
 - Display mode
@@ -61,6 +71,7 @@ Edit this file to customize:
 ### PWA Config (`next.config.js`)
 
 The PWA is configured with:
+
 - Service worker auto-registration
 - Skip waiting enabled (updates apply immediately)
 - Disabled in development mode
@@ -121,4 +132,3 @@ The PWA is configured with:
 - [Next PWA Documentation](https://github.com/shadowwalker/next-pwa)
 - [PWA Best Practices](https://web.dev/pwa/)
 - [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-

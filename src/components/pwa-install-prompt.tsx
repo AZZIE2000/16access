@@ -16,13 +16,42 @@ export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Check if we're on vendor portal
   const isVendorPortal = pathname?.startsWith("/vendor/");
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice =
+        /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+          userAgent,
+        );
+      const isSmallScreen = window.innerWidth <= 768;
+      return isMobileDevice || isSmallScreen;
+    };
+
+    setIsMobile(checkMobile());
+
+    // Re-check on resize
+    const handleResize = () => {
+      setIsMobile(checkMobile());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     // Don't show on vendor portal
     if (isVendorPortal) {
+      return;
+    }
+
+    // Don't show on desktop/laptop
+    if (!isMobile) {
       return;
     }
 
@@ -48,7 +77,7 @@ export function PWAInstallPrompt() {
     return () => {
       window.removeEventListener("beforeinstallprompt", handler);
     };
-  }, [isVendorPortal]);
+  }, [isVendorPortal, isMobile]);
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
@@ -67,13 +96,13 @@ export function PWAInstallPrompt() {
     localStorage.setItem("pwa-install-dismissed", "true");
   };
 
-  // Don't render on vendor portal or if not showing
-  if (isVendorPortal || !showPrompt || !deferredPrompt) {
+  // Don't render on vendor portal, desktop, or if not showing
+  if (isVendorPortal || !isMobile || !showPrompt || !deferredPrompt) {
     return null;
   }
 
   return (
-    <div className="fixed bottom-20 left-0 right-0 z-50 p-3 md:bottom-4 md:left-auto md:right-4 md:max-w-sm">
+    <div className="fixed right-0 bottom-20 left-0 z-50 p-3 md:right-4 md:bottom-4 md:left-auto md:max-w-sm">
       <Card className="border-primary shadow-lg">
         <CardContent className="p-3">
           <div className="flex items-start gap-3">
@@ -119,4 +148,3 @@ export function PWAInstallPrompt() {
     </div>
   );
 }
-

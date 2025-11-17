@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
+import { PWASplashScreen } from "@/components/pwa-splash-screen";
 
 export const metadata: Metadata = {
   title: "Access Management",
@@ -40,6 +41,7 @@ export default async function RootLayout({
       </head>
       <body className="">
         <TRPCReactProvider>
+          <PWASplashScreen />
           {children}
           <PWAInstallPrompt />
         </TRPCReactProvider>
