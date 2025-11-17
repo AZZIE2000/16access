@@ -56,34 +56,32 @@ model Vendor {
   deletedAt         DateTime?
   employees         Employee[]
   vendorAttachments VendorAttachment[]
-  gateId            String?
-  gate              Gate?              @relation(fields: [gateId], references: [id])
-  zoneId            String?
-  zone              Zone?              @relation(fields: [zoneId], references: [id])
+  gates             VendorGate[] // Many-to-many relation with gates
+  zones             VendorZone[] // Many-to-many relation with zones
 
   @@index([accessToken])
 }
 
 model Zone {
-  id          String     @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
   description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   deletedAt   DateTime?
-  vendors     Vendor[]
-  employees   Employee[]
+  vendors     VendorZone[] // Many-to-many relation with vendors
+  employees   EmployeeZone[] // Many-to-many relation with employees
 }
 
 model Gate {
-  id          String     @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
   description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   deletedAt   DateTime?
-  vendors     Vendor[]
-  employees   Employee[]
+  vendors     VendorGate[] // Many-to-many relation with vendors
+  employees   EmployeeGate[] // Many-to-many relation with employees
   activities  Activity[]
 }
 
@@ -102,7 +100,7 @@ model Employee {
   identifier          String               @default(cuid()) // Unique identifier for QR code (persists across replacements)
   name                String
   job                 String // Business name or role
-  description         String?
+  nationalId          String // National ID (10 digits, required)
   version             Int                  @default(1) // Version control for employee replacements
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
@@ -110,10 +108,8 @@ model Employee {
   status              EmployeeStatus       @default(PENDING)
   vendorId            String
   vendor              Vendor               @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  gateId              String? // Assigned gate for access
-  gate                Gate?                @relation(fields: [gateId], references: [id])
-  zoneId              String? // Assigned zone for access
-  zone                Zone?                @relation(fields: [zoneId], references: [id])
+  gates               EmployeeGate[] // Many-to-many relation with gates
+  zones               EmployeeZone[] // Many-to-many relation with zones
   activities          Activity[]
   workingHours        WorkingHours[]
   employeeAttachments EmployeeAttachment[]
@@ -122,6 +118,7 @@ model Employee {
 
   @@unique([identifier, deletedAt])
   @@index([vendorId])
+  @@index([nationalId])
 }
 
 enum DayOfWeek {
@@ -271,4 +268,60 @@ model EmployeePermission {
   @@unique([employeeId, permissionId])
   @@index([employeeId])
   @@index([permissionId])
+}
+
+// Junction table for Vendor-Gate many-to-many relationship
+model VendorGate {
+  id        String   @id @default(cuid())
+  vendorId  String
+  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  gateId    String
+  gate      Gate     @relation(fields: [gateId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([vendorId, gateId])
+  @@index([vendorId])
+  @@index([gateId])
+}
+
+// Junction table for Vendor-Zone many-to-many relationship
+model VendorZone {
+  id        String   @id @default(cuid())
+  vendorId  String
+  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  zoneId    String
+  zone      Zone     @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([vendorId, zoneId])
+  @@index([vendorId])
+  @@index([zoneId])
+}
+
+// Junction table for Employee-Gate many-to-many relationship
+model EmployeeGate {
+  id         String   @id @default(cuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  gateId     String
+  gate       Gate     @relation(fields: [gateId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([employeeId, gateId])
+  @@index([employeeId])
+  @@index([gateId])
+}
+
+// Junction table for Employee-Zone many-to-many relationship
+model EmployeeZone {
+  id         String   @id @default(cuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  zoneId     String
+  zone       Zone     @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([employeeId, zoneId])
+  @@index([employeeId])
+  @@index([zoneId])
 }

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { api } from "@/trpc/react";
 import { QRScanner } from "@/components/qr-scanner";
 import { EmployeeScanResult } from "@/components/employee-scan-result";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -12,27 +11,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { DoorOpen, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
-  ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+
 interface ScanInterfaceProps {
   denialReason: string; // e.g., "Denied by usher" or "Denied by admin"
   gateSelectionTitle?: string;
   gateSelectionDescription?: string;
+  isAdmin?: boolean;
 }
 
 export function ScanInterface({
   denialReason,
   gateSelectionTitle = "Select Your Gate",
   gateSelectionDescription = "Please select the gate you are currently stationed at before starting to scan employee QR codes.",
+  isAdmin = false,
 }: ScanInterfaceProps) {
   const [selectedGateId, setSelectedGateId] = useState<string>("");
   const [scannedEmployee, setScannedEmployee] = useState<any>(null);
@@ -54,6 +54,7 @@ export function ScanInterface({
   const recordActivityMutation = api.activity.recordActivity.useMutation({
     onSuccess: () => {
       toast.success("Activity recorded successfully!");
+      // Auto-reset to allow scanning another employee
       setScannedEmployee(null);
     },
     onError: (error) => {
@@ -86,17 +87,6 @@ export function ScanInterface({
     });
   };
 
-  const handleGrantExit = () => {
-    if (!scannedEmployee || !selectedGateId) return;
-
-    recordActivityMutation.mutate({
-      employeeId: scannedEmployee.id,
-      gateId: selectedGateId,
-      type: "EXIT",
-      status: "GRANTED",
-    });
-  };
-
   const handleDenyAccess = () => {
     if (!scannedEmployee || !selectedGateId) return;
 
@@ -117,44 +107,6 @@ export function ScanInterface({
     );
   }
 
-  // Step 1: Select gate
-  // if (!selectedGateId) {
-  //   return (
-  //     <div className="container mx-auto max-w-2xl space-y-4 p-3">
-  //       <Item variant="outline">
-  //         <ItemContent>
-  //           <ItemTitle>{gateSelectionTitle}</ItemTitle>
-  //           <ItemDescription>{gateSelectionDescription}</ItemDescription>
-  //         </ItemContent>
-  //         <ItemActions>
-  //           <Select value={selectedGateId} onValueChange={setSelectedGateId}>
-  //             <SelectTrigger className="h-9">
-  //               <SelectValue placeholder="Select a gate" />
-  //             </SelectTrigger>
-  //             <SelectContent>
-  //               {gates?.map((gate) => (
-  //                 <SelectItem key={gate.id} value={gate.id}>
-  //                   <div className="flex items-center gap-2">
-  //                     <span className="text-sm">{gate.name}</span>
-  //                     {gate.description && (
-  //                       <span className="text-muted-foreground text-xs">
-  //                         - {gate.description}
-  //                       </span>
-  //                     )}
-  //                   </div>
-  //                 </SelectItem>
-  //               ))}
-  //             </SelectContent>
-  //           </Select>
-  //         </ItemActions>
-  //       </Item>
-  //     </div>
-  //   );
-  // }
-
-  // Step 2: Scan QR codes
-  const selectedGate = gates?.find((g) => g.id === selectedGateId);
-
   return (
     <div className="container mx-auto max-w-4xl space-y-3 p-3">
       {/* Header */}
@@ -174,11 +126,6 @@ export function ScanInterface({
                   <SelectItem key={gate.id} value={gate.id}>
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{gate.name}</span>
-                      {gate.description && (
-                        <span className="text-muted-foreground text-xs">
-                          - {gate.description}
-                        </span>
-                      )}
                     </div>
                   </SelectItem>
                 ))}
@@ -188,34 +135,23 @@ export function ScanInterface({
         </Item>
       </div>
 
-      {/* QR Scanner */}
+      {/* QR Scanner - Auto-start when gate is selected and no employee is scanned */}
       {!scannedEmployee && selectedGateId && (
         <div>
-          <QRScanner onScan={handleScan} />
+          <QRScanner onScan={handleScan} autoStart={true} />
         </div>
       )}
 
       {/* Employee Info & Actions */}
       {scannedEmployee && selectedGateId && (
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold">Scanned Employee</h3>
-            <Button
-              variant="success"
-              size="sm"
-              className="h-7 text-xs"
-              onClick={() => setScannedEmployee(null)}
-            >
-              Scan Another
-            </Button>
-          </div>
           <EmployeeScanResult
             employee={scannedEmployee}
             currentGateId={selectedGateId}
             onGrantAccess={handleGrantAccess}
-            onGrantExit={handleGrantExit}
             onDenyAccess={handleDenyAccess}
             isProcessing={recordActivityMutation.isPending}
+            isAdmin={isAdmin}
           />
         </div>
       )}

@@ -11,10 +11,12 @@ import {
   Briefcase,
   Clock,
   CheckCircle2,
-  LogOut,
   XCircle,
   Calendar,
+  Edit,
+  IdCard,
 } from "lucide-react";
+import Link from "next/link";
 
 interface WorkingHours {
   dayOfWeek: string;
@@ -37,23 +39,46 @@ interface Activity {
   } | null;
 }
 
+interface EmployeeGate {
+  id: string;
+  gate: {
+    id: string;
+    name: string;
+  };
+}
+
+interface EmployeeZone {
+  id: string;
+  zone: {
+    id: string;
+    name: string;
+  };
+}
+
+interface EmployeeAttachment {
+  id: string;
+  type: string;
+  attachment: {
+    id: string;
+    url: string;
+  };
+}
+
 interface EmployeeData {
   id: string;
   identifier: string;
   name: string;
   job: string;
+  nationalId: string;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
   vendor: {
     name: string;
   };
-  gate: {
-    name: string;
-  } | null;
-  zone: {
-    name: string;
-  } | null;
+  gates: EmployeeGate[];
+  zones: EmployeeZone[];
   workingHours: WorkingHours[];
   activities: Activity[];
+  employeeAttachments?: EmployeeAttachment[];
   profilePhoto?: string;
 }
 
@@ -61,26 +86,45 @@ interface EmployeeScanResultProps {
   employee: EmployeeData;
   currentGateId: string;
   onGrantAccess: () => void;
-  onGrantExit: () => void;
   onDenyAccess: () => void;
   isProcessing?: boolean;
+  isAdmin?: boolean;
 }
 
 export function EmployeeScanResult({
   employee,
   currentGateId,
   onGrantAccess,
-  onGrantExit,
   onDenyAccess,
   isProcessing = false,
+  isAdmin = false,
 }: EmployeeScanResultProps) {
+  // Check if employee has access to the current gate
+  const hasGateAccess = employee.gates.some(
+    (eg) => eg.gate.id === currentGateId,
+  );
+
+  // Check if employee is active
+  const isActive = employee.status === "ACTIVE";
+
+  // Determine if access should be granted
+  const shouldGrantAccess = isActive && hasGateAccess;
+
+  // Get all ID card attachments
+  const idCards =
+    employee.employeeAttachments?.filter((att) => att.type === "ID_CARD") ?? [];
+
+  // Debug: Log employee attachments
+  console.log("Employee Attachments:", employee.employeeAttachments);
+  console.log("ID Cards:", idCards);
+
   return (
-    <Card className="border-2">
-      <CardHeader className="p-3 pb-2">
+    <Card>
+      <CardHeader className="">
         <CardTitle className="text-base">Employee Information</CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-3 p-3">
+      <CardContent className="space-y-3">
         {/* Employee Info */}
         <div className="flex items-start gap-3">
           <Avatar className="h-16 w-16 shrink-0">
@@ -103,7 +147,7 @@ export function EmployeeScanResult({
             <Badge
               variant={
                 employee.status === "ACTIVE"
-                  ? "default"
+                  ? "success"
                   : employee.status === "PENDING"
                     ? "secondary"
                     : "destructive"
@@ -115,9 +159,9 @@ export function EmployeeScanResult({
           </div>
         </div>
 
-        {/* Permissions */}
+        {/* Employee Details */}
         <div className="bg-muted/50 space-y-2 rounded-lg border p-2.5">
-          <h4 className="text-sm font-semibold">Permissions</h4>
+          <h4 className="text-sm font-semibold">Details</h4>
 
           <div className="space-y-1.5">
             <div className="flex items-center gap-1.5 text-xs">
@@ -126,19 +170,51 @@ export function EmployeeScanResult({
               <span className="truncate">{employee.vendor.name}</span>
             </div>
 
-            {employee.gate && (
-              <div className="flex items-center gap-1.5 text-xs">
-                <DoorOpen className="text-muted-foreground h-3 w-3 shrink-0" />
-                <span className="font-medium">Gate:</span>
-                <span className="truncate">{employee.gate.name}</span>
+            <div className="flex items-center gap-1.5 text-xs">
+              <IdCard className="text-muted-foreground h-3 w-3 shrink-0" />
+              <span className="font-medium">National ID:</span>
+              <span className="font-mono">{employee.nationalId}</span>
+            </div>
+
+            {employee.gates.length > 0 && (
+              <div className="flex items-start gap-1.5 text-xs">
+                <DoorOpen className="text-muted-foreground mt-0.5 h-3 w-3 shrink-0" />
+                <div className="flex-1">
+                  <span className="font-medium">Gates:</span>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {employee.gates.map((eg) => (
+                      <Badge
+                        key={eg.id}
+                        variant={
+                          eg.gate.id === currentGateId ? "success" : "secondary"
+                        }
+                        className="text-[10px]"
+                      >
+                        {eg.gate.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
-            {employee.zone && (
-              <div className="flex items-center gap-1.5 text-xs">
-                <MapPin className="text-muted-foreground h-3 w-3 shrink-0" />
-                <span className="font-medium">Zone:</span>
-                <span className="truncate">{employee.zone.name}</span>
+            {employee.zones.length > 0 && (
+              <div className="flex items-start gap-1.5 text-xs">
+                <MapPin className="text-muted-foreground mt-0.5 h-3 w-3 shrink-0" />
+                <div className="flex-1">
+                  <span className="font-medium">Zones:</span>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {employee.zones.map((ez) => (
+                      <Badge
+                        key={ez.id}
+                        variant="secondary"
+                        className="text-[10px]"
+                      >
+                        {ez.zone.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -168,6 +244,35 @@ export function EmployeeScanResult({
           )}
         </div>
 
+        {/* ID Cards */}
+        <div className="bg-muted/50 space-y-2 rounded-lg border p-2.5">
+          <h4 className="text-sm font-semibold">ID Cards ({idCards.length})</h4>
+          {idCards.length > 0 ? (
+            <div className="grid grid-cols-2 gap-2">
+              {idCards.map((idCard) => (
+                <a
+                  key={idCard.id}
+                  href={idCard.attachment.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-3/2 overflow-hidden rounded-md border bg-white"
+                >
+                  <img
+                    src={idCard.attachment.url}
+                    alt="ID Card"
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-xs">
+              No ID cards uploaded
+            </p>
+          )}
+        </div>
+
         {/* Last 3 Activities */}
         {employee.activities.length > 0 && (
           <div className="bg-muted/50 space-y-2 rounded-lg border p-2.5">
@@ -188,7 +293,7 @@ export function EmployeeScanResult({
                       <Badge
                         variant={
                           activity.type === "ENTRY"
-                            ? "default"
+                            ? "success"
                             : activity.type === "EXIT"
                               ? "secondary"
                               : "destructive"
@@ -220,38 +325,39 @@ export function EmployeeScanResult({
         )}
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-3 gap-2">
-          <Button
-            onClick={onGrantAccess}
-            disabled={isProcessing}
-            className="h-auto flex-col gap-1 py-1"
-            size="sm"
-          >
-            <CheckCircle2 className="h-5 w-5" />
-            <span className="text-[10px] font-medium">Entry</span>
-          </Button>
+        <div className="space-y-2">
+          {shouldGrantAccess ? (
+            <Button
+              onClick={onGrantAccess}
+              disabled={isProcessing}
+              className="h-auto w-full flex-col gap-1 py-3"
+              size="lg"
+              variant={"success"}
+            >
+              <CheckCircle2 className="h-6 w-6" />
+              <span className="text-sm font-medium">Grant Entry</span>
+            </Button>
+          ) : (
+            <Button
+              onClick={onDenyAccess}
+              disabled={isProcessing}
+              variant="destructive"
+              className="h-auto w-full flex-col gap-1 py-3"
+              size="lg"
+            >
+              <XCircle className="h-6 w-6" />
+              <span className="text-sm font-medium">Deny Access</span>
+            </Button>
+          )}
 
-          <Button
-            onClick={onGrantExit}
-            disabled={isProcessing}
-            variant="secondary"
-            className="h-auto flex-col gap-1 py-1"
-            size="sm"
-          >
-            <LogOut className="h-5 w-5" />
-            <span className="text-[10px] font-medium">Exit</span>
-          </Button>
-
-          <Button
-            onClick={onDenyAccess}
-            disabled={isProcessing}
-            variant="destructive"
-            className="h-auto flex-col gap-1 py-1"
-            size="sm"
-          >
-            <XCircle className="h-5 w-5" />
-            <span className="text-[10px] font-medium">Deny</span>
-          </Button>
+          {isAdmin && (
+            <Link href={`/dashboard/employee`}>
+              <Button variant="outline" className="w-full gap-2" size="sm">
+                <Edit className="h-4 w-4" />
+                Edit Employee
+              </Button>
+            </Link>
+          )}
         </div>
       </CardContent>
     </Card>

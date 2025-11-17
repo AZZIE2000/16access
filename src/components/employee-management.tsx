@@ -54,18 +54,28 @@ type Gate = {
   deletedAt: Date | null;
 };
 
+type EmployeeGate = {
+  id: string;
+  gateId: string;
+  gate: Gate;
+};
+
+type EmployeeZone = {
+  id: string;
+  zoneId: string;
+  zone: Zone;
+};
+
 type Employee = {
   id: string;
   identifier: string;
   name: string;
   job: string;
-  description: string | null;
+  nationalId: string;
   version: number;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
-  gateId: string | null;
-  zoneId: string | null;
-  gate: Gate | null;
-  zone: Zone | null;
+  gates: EmployeeGate[];
+  zones: EmployeeZone[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -82,6 +92,18 @@ type VendorAttachment = {
   attachment: Attachment;
 };
 
+type VendorGate = {
+  id: string;
+  gateId: string;
+  gate: Gate;
+};
+
+type VendorZone = {
+  id: string;
+  zoneId: string;
+  zone: Zone;
+};
+
 type Vendor = {
   id: string;
   name: string;
@@ -89,10 +111,8 @@ type Vendor = {
   phoneNumber: string | null;
   allowedStaffCount: number;
   accessToken: string;
-  gateId: string | null;
-  zoneId: string | null;
-  gate: Gate | null;
-  zone: Zone | null;
+  gates: VendorGate[];
+  zones: VendorZone[];
   employees: Employee[];
   vendorAttachments: VendorAttachment[];
 };
@@ -296,19 +316,31 @@ export function EmployeeManagement({
 
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div>
-                          <span className="text-muted-foreground">Zone:</span>
+                          <span className="text-muted-foreground">Zones:</span>
                           <div className="font-medium">
-                            {employee.zone?.name ??
-                              vendorData.zone?.name ??
-                              "-"}
+                            {employee.zones.length > 0
+                              ? employee.zones
+                                  .map((ez) => ez.zone.name)
+                                  .join(", ")
+                              : vendorData.zones.length > 0
+                                ? vendorData.zones
+                                    .map((vz) => vz.zone.name)
+                                    .join(", ")
+                                : "-"}
                           </div>
                         </div>
                         <div>
-                          <span className="text-muted-foreground">Gate:</span>
+                          <span className="text-muted-foreground">Gates:</span>
                           <div className="font-medium">
-                            {employee.gate?.name ??
-                              vendorData.gate?.name ??
-                              "-"}
+                            {employee.gates.length > 0
+                              ? employee.gates
+                                  .map((eg) => eg.gate.name)
+                                  .join(", ")
+                              : vendorData.gates.length > 0
+                                ? vendorData.gates
+                                    .map((vg) => vg.gate.name)
+                                    .join(", ")
+                                : "-"}
                           </div>
                         </div>
                       </div>
@@ -339,10 +371,26 @@ export function EmployeeManagement({
                         </TableCell>
                         <TableCell>{employee.job}</TableCell>
                         <TableCell>
-                          {employee.zone?.name ?? vendorData.zone?.name ?? "-"}
+                          {employee.zones.length > 0
+                            ? employee.zones
+                                .map((ez) => ez.zone.name)
+                                .join(", ")
+                            : vendorData.zones.length > 0
+                              ? vendorData.zones
+                                  .map((vz) => vz.zone.name)
+                                  .join(", ")
+                              : "-"}
                         </TableCell>
                         <TableCell>
-                          {employee.gate?.name ?? vendorData.gate?.name ?? "-"}
+                          {employee.gates.length > 0
+                            ? employee.gates
+                                .map((eg) => eg.gate.name)
+                                .join(", ")
+                            : vendorData.gates.length > 0
+                              ? vendorData.gates
+                                  .map((vg) => vg.gate.name)
+                                  .join(", ")
+                              : "-"}
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline">v{employee.version}</Badge>

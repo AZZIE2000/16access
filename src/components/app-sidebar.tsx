@@ -34,6 +34,8 @@ import {
 } from "@/components/ui/sidebar";
 import { LandPlot, Store } from "lucide-react";
 import Link from "next/link";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { Button } from "./ui/button";
 
 const data = {
   user: {
@@ -92,11 +94,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/* <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <SidebarMenuButton asChild>
+          <Button variant={"outline"} asChild>
+            <Link href={"/dashboard/profile"}>Profile</Link>
+          </Button>
+        </SidebarMenuButton>
       </SidebarFooter>
     </Sidebar>
   );

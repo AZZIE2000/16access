@@ -31,8 +31,16 @@ export const gateRouter = createTRPCRouter({
       const gate = await ctx.db.gate.findUnique({
         where: { id: input.id },
         include: {
-          vendors: true,
-          employees: true,
+          vendors: {
+            include: {
+              vendor: true,
+            },
+          },
+          employees: {
+            include: {
+              employee: true,
+            },
+          },
           activities: true,
         },
       });
@@ -182,4 +190,3 @@ export const gateRouter = createTRPCRouter({
       };
     }),
 });
-

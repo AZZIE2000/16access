@@ -260,15 +260,35 @@ export default function VendorPortalPage() {
 
                         <div className="grid grid-cols-2 gap-2 text-sm">
                           <div>
-                            <span className="text-muted-foreground">Zone:</span>
+                            <span className="text-muted-foreground">
+                              Zones:
+                            </span>
                             <div className="font-medium">
-                              {employee.zone?.name ?? vendor.zone?.name ?? "-"}
+                              {employee.zones && employee.zones.length > 0
+                                ? employee.zones
+                                    .map((ez) => ez.zone.name)
+                                    .join(", ")
+                                : vendor.zones && vendor.zones.length > 0
+                                  ? vendor.zones
+                                      .map((vz) => vz.zone.name)
+                                      .join(", ")
+                                  : "-"}
                             </div>
                           </div>
                           <div>
-                            <span className="text-muted-foreground">Gate:</span>
+                            <span className="text-muted-foreground">
+                              Gates:
+                            </span>
                             <div className="font-medium">
-                              {employee.gate?.name ?? vendor.gate?.name ?? "-"}
+                              {employee.gates && employee.gates.length > 0
+                                ? employee.gates
+                                    .map((eg) => eg.gate.name)
+                                    .join(", ")
+                                : vendor.gates && vendor.gates.length > 0
+                                  ? vendor.gates
+                                      .map((vg) => vg.gate.name)
+                                      .join(", ")
+                                  : "-"}
                             </div>
                           </div>
                         </div>
@@ -298,10 +318,26 @@ export default function VendorPortalPage() {
                           </TableCell>
                           <TableCell>{employee.job}</TableCell>
                           <TableCell>
-                            {employee.zone?.name ?? vendor.zone?.name ?? "-"}
+                            {employee.zones && employee.zones.length > 0
+                              ? employee.zones
+                                  .map((ez) => ez.zone.name)
+                                  .join(", ")
+                              : vendor.zones && vendor.zones.length > 0
+                                ? vendor.zones
+                                    .map((vz) => vz.zone.name)
+                                    .join(", ")
+                                : "-"}
                           </TableCell>
                           <TableCell>
-                            {employee.gate?.name ?? vendor.gate?.name ?? "-"}
+                            {employee.gates && employee.gates.length > 0
+                              ? employee.gates
+                                  .map((eg) => eg.gate.name)
+                                  .join(", ")
+                              : vendor.gates && vendor.gates.length > 0
+                                ? vendor.gates
+                                    .map((vg) => vg.gate.name)
+                                    .join(", ")
+                                : "-"}
                           </TableCell>
                           <TableCell>
                             {employee.status === "ACTIVE" ? (

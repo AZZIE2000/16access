@@ -78,6 +78,26 @@ export type EmployeeAttachment = $Result.DefaultSelection<Prisma.$EmployeeAttach
  * 
  */
 export type EmployeePermission = $Result.DefaultSelection<Prisma.$EmployeePermissionPayload>
+/**
+ * Model VendorGate
+ * 
+ */
+export type VendorGate = $Result.DefaultSelection<Prisma.$VendorGatePayload>
+/**
+ * Model VendorZone
+ * 
+ */
+export type VendorZone = $Result.DefaultSelection<Prisma.$VendorZonePayload>
+/**
+ * Model EmployeeGate
+ * 
+ */
+export type EmployeeGate = $Result.DefaultSelection<Prisma.$EmployeeGatePayload>
+/**
+ * Model EmployeeZone
+ * 
+ */
+export type EmployeeZone = $Result.DefaultSelection<Prisma.$EmployeeZonePayload>
 
 /**
  * Enums
@@ -411,6 +431,46 @@ export class PrismaClient<
     * ```
     */
   get employeePermission(): Prisma.EmployeePermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendorGate`: Exposes CRUD operations for the **VendorGate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VendorGates
+    * const vendorGates = await prisma.vendorGate.findMany()
+    * ```
+    */
+  get vendorGate(): Prisma.VendorGateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendorZone`: Exposes CRUD operations for the **VendorZone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VendorZones
+    * const vendorZones = await prisma.vendorZone.findMany()
+    * ```
+    */
+  get vendorZone(): Prisma.VendorZoneDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.employeeGate`: Exposes CRUD operations for the **EmployeeGate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmployeeGates
+    * const employeeGates = await prisma.employeeGate.findMany()
+    * ```
+    */
+  get employeeGate(): Prisma.EmployeeGateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.employeeZone`: Exposes CRUD operations for the **EmployeeZone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmployeeZones
+    * const employeeZones = await prisma.employeeZone.findMany()
+    * ```
+    */
+  get employeeZone(): Prisma.EmployeeZoneDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -864,7 +924,11 @@ export namespace Prisma {
     Attachment: 'Attachment',
     VendorAttachment: 'VendorAttachment',
     EmployeeAttachment: 'EmployeeAttachment',
-    EmployeePermission: 'EmployeePermission'
+    EmployeePermission: 'EmployeePermission',
+    VendorGate: 'VendorGate',
+    VendorZone: 'VendorZone',
+    EmployeeGate: 'EmployeeGate',
+    EmployeeZone: 'EmployeeZone'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -883,7 +947,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "vendor" | "zone" | "gate" | "permission" | "employee" | "workingHours" | "alert" | "activity" | "attachment" | "vendorAttachment" | "employeeAttachment" | "employeePermission"
+      modelProps: "user" | "vendor" | "zone" | "gate" | "permission" | "employee" | "workingHours" | "alert" | "activity" | "attachment" | "vendorAttachment" | "employeeAttachment" | "employeePermission" | "vendorGate" | "vendorZone" | "employeeGate" | "employeeZone"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1849,6 +1913,302 @@ export namespace Prisma {
           }
         }
       }
+      VendorGate: {
+        payload: Prisma.$VendorGatePayload<ExtArgs>
+        fields: Prisma.VendorGateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VendorGateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VendorGateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          findFirst: {
+            args: Prisma.VendorGateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VendorGateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          findMany: {
+            args: Prisma.VendorGateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>[]
+          }
+          create: {
+            args: Prisma.VendorGateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          createMany: {
+            args: Prisma.VendorGateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VendorGateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>[]
+          }
+          delete: {
+            args: Prisma.VendorGateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          update: {
+            args: Prisma.VendorGateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          deleteMany: {
+            args: Prisma.VendorGateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VendorGateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VendorGateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>[]
+          }
+          upsert: {
+            args: Prisma.VendorGateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorGatePayload>
+          }
+          aggregate: {
+            args: Prisma.VendorGateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendorGate>
+          }
+          groupBy: {
+            args: Prisma.VendorGateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendorGateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VendorGateCountArgs<ExtArgs>
+            result: $Utils.Optional<VendorGateCountAggregateOutputType> | number
+          }
+        }
+      }
+      VendorZone: {
+        payload: Prisma.$VendorZonePayload<ExtArgs>
+        fields: Prisma.VendorZoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VendorZoneFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VendorZoneFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          findFirst: {
+            args: Prisma.VendorZoneFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VendorZoneFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          findMany: {
+            args: Prisma.VendorZoneFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>[]
+          }
+          create: {
+            args: Prisma.VendorZoneCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          createMany: {
+            args: Prisma.VendorZoneCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VendorZoneCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>[]
+          }
+          delete: {
+            args: Prisma.VendorZoneDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          update: {
+            args: Prisma.VendorZoneUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          deleteMany: {
+            args: Prisma.VendorZoneDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VendorZoneUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VendorZoneUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>[]
+          }
+          upsert: {
+            args: Prisma.VendorZoneUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorZonePayload>
+          }
+          aggregate: {
+            args: Prisma.VendorZoneAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendorZone>
+          }
+          groupBy: {
+            args: Prisma.VendorZoneGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendorZoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VendorZoneCountArgs<ExtArgs>
+            result: $Utils.Optional<VendorZoneCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmployeeGate: {
+        payload: Prisma.$EmployeeGatePayload<ExtArgs>
+        fields: Prisma.EmployeeGateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeGateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeGateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeGateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeGateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeGateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeGateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeGateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeGateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeGateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          update: {
+            args: Prisma.EmployeeGateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeGateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeGateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmployeeGateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>[]
+          }
+          upsert: {
+            args: Prisma.EmployeeGateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeGatePayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeGateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployeeGate>
+          }
+          groupBy: {
+            args: Prisma.EmployeeGateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeGateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeGateCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeGateCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmployeeZone: {
+        payload: Prisma.$EmployeeZonePayload<ExtArgs>
+        fields: Prisma.EmployeeZoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeZoneFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeZoneFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeZoneFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeZoneFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeZoneFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeZoneCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeZoneCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeZoneCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeZoneDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          update: {
+            args: Prisma.EmployeeZoneUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeZoneDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeZoneUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmployeeZoneUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>[]
+          }
+          upsert: {
+            args: Prisma.EmployeeZoneUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeZonePayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeZoneAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployeeZone>
+          }
+          groupBy: {
+            args: Prisma.EmployeeZoneGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeZoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeZoneCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeZoneCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1958,6 +2318,10 @@ export namespace Prisma {
     vendorAttachment?: VendorAttachmentOmit
     employeeAttachment?: EmployeeAttachmentOmit
     employeePermission?: EmployeePermissionOmit
+    vendorGate?: VendorGateOmit
+    vendorZone?: VendorZoneOmit
+    employeeGate?: EmployeeGateOmit
+    employeeZone?: EmployeeZoneOmit
   }
 
   /* Types for Logging */
@@ -2080,11 +2444,15 @@ export namespace Prisma {
   export type VendorCountOutputType = {
     employees: number
     vendorAttachments: number
+    gates: number
+    zones: number
   }
 
   export type VendorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | VendorCountOutputTypeCountEmployeesArgs
     vendorAttachments?: boolean | VendorCountOutputTypeCountVendorAttachmentsArgs
+    gates?: boolean | VendorCountOutputTypeCountGatesArgs
+    zones?: boolean | VendorCountOutputTypeCountZonesArgs
   }
 
   // Custom InputTypes
@@ -2110,6 +2478,20 @@ export namespace Prisma {
    */
   export type VendorCountOutputTypeCountVendorAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VendorAttachmentWhereInput
+  }
+
+  /**
+   * VendorCountOutputType without action
+   */
+  export type VendorCountOutputTypeCountGatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorGateWhereInput
+  }
+
+  /**
+   * VendorCountOutputType without action
+   */
+  export type VendorCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorZoneWhereInput
   }
 
 
@@ -2142,14 +2524,14 @@ export namespace Prisma {
    * ZoneCountOutputType without action
    */
   export type ZoneCountOutputTypeCountVendorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VendorWhereInput
+    where?: VendorZoneWhereInput
   }
 
   /**
    * ZoneCountOutputType without action
    */
   export type ZoneCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+    where?: EmployeeZoneWhereInput
   }
 
 
@@ -2184,14 +2566,14 @@ export namespace Prisma {
    * GateCountOutputType without action
    */
   export type GateCountOutputTypeCountVendorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VendorWhereInput
+    where?: VendorGateWhereInput
   }
 
   /**
    * GateCountOutputType without action
    */
   export type GateCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+    where?: EmployeeGateWhereInput
   }
 
   /**
@@ -2238,6 +2620,8 @@ export namespace Prisma {
    */
 
   export type EmployeeCountOutputType = {
+    gates: number
+    zones: number
     activities: number
     workingHours: number
     employeeAttachments: number
@@ -2246,6 +2630,8 @@ export namespace Prisma {
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gates?: boolean | EmployeeCountOutputTypeCountGatesArgs
+    zones?: boolean | EmployeeCountOutputTypeCountZonesArgs
     activities?: boolean | EmployeeCountOutputTypeCountActivitiesArgs
     workingHours?: boolean | EmployeeCountOutputTypeCountWorkingHoursArgs
     employeeAttachments?: boolean | EmployeeCountOutputTypeCountEmployeeAttachmentsArgs
@@ -2262,6 +2648,20 @@ export namespace Prisma {
      * Select specific fields to fetch from the EmployeeCountOutputType
      */
     select?: EmployeeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountGatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeGateWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeZoneWhereInput
   }
 
   /**
@@ -3555,8 +3955,6 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
-    gateId: string | null
-    zoneId: string | null
   }
 
   export type VendorMaxAggregateOutputType = {
@@ -3569,8 +3967,6 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
-    gateId: string | null
-    zoneId: string | null
   }
 
   export type VendorCountAggregateOutputType = {
@@ -3583,8 +3979,6 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     deletedAt: number
-    gateId: number
-    zoneId: number
     _all: number
   }
 
@@ -3607,8 +4001,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    gateId?: true
-    zoneId?: true
   }
 
   export type VendorMaxAggregateInputType = {
@@ -3621,8 +4013,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    gateId?: true
-    zoneId?: true
   }
 
   export type VendorCountAggregateInputType = {
@@ -3635,8 +4025,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    gateId?: true
-    zoneId?: true
     _all?: true
   }
 
@@ -3736,8 +4124,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
-    gateId: string | null
-    zoneId: string | null
     _count: VendorCountAggregateOutputType | null
     _avg: VendorAvgAggregateOutputType | null
     _sum: VendorSumAggregateOutputType | null
@@ -3769,12 +4155,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    gateId?: boolean
-    zoneId?: boolean
     employees?: boolean | Vendor$employeesArgs<ExtArgs>
     vendorAttachments?: boolean | Vendor$vendorAttachmentsArgs<ExtArgs>
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
+    gates?: boolean | Vendor$gatesArgs<ExtArgs>
+    zones?: boolean | Vendor$zonesArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vendor"]>
 
@@ -3788,10 +4172,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    gateId?: boolean
-    zoneId?: boolean
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["vendor"]>
 
   export type VendorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3804,10 +4184,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    gateId?: boolean
-    zoneId?: boolean
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["vendor"]>
 
   export type VendorSelectScalar = {
@@ -3820,34 +4196,26 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    gateId?: boolean
-    zoneId?: boolean
   }
 
-  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "phoneNumber" | "allowedStaffCount" | "accessToken" | "createdAt" | "updatedAt" | "deletedAt" | "gateId" | "zoneId", ExtArgs["result"]["vendor"]>
+  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "phoneNumber" | "allowedStaffCount" | "accessToken" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["vendor"]>
   export type VendorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | Vendor$employeesArgs<ExtArgs>
     vendorAttachments?: boolean | Vendor$vendorAttachmentsArgs<ExtArgs>
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
+    gates?: boolean | Vendor$gatesArgs<ExtArgs>
+    zones?: boolean | Vendor$zonesArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type VendorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
-  }
-  export type VendorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gate?: boolean | Vendor$gateArgs<ExtArgs>
-    zone?: boolean | Vendor$zoneArgs<ExtArgs>
-  }
+  export type VendorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type VendorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $VendorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Vendor"
     objects: {
       employees: Prisma.$EmployeePayload<ExtArgs>[]
       vendorAttachments: Prisma.$VendorAttachmentPayload<ExtArgs>[]
-      gate: Prisma.$GatePayload<ExtArgs> | null
-      zone: Prisma.$ZonePayload<ExtArgs> | null
+      gates: Prisma.$VendorGatePayload<ExtArgs>[]
+      zones: Prisma.$VendorZonePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3859,8 +4227,6 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
-      gateId: string | null
-      zoneId: string | null
     }, ExtArgs["result"]["vendor"]>
     composites: {}
   }
@@ -4257,8 +4623,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     employees<T extends Vendor$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     vendorAttachments<T extends Vendor$vendorAttachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$vendorAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    gate<T extends Vendor$gateArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$gateArgs<ExtArgs>>): Prisma__GateClient<$Result.GetResult<Prisma.$GatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    zone<T extends Vendor$zoneArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    gates<T extends Vendor$gatesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$gatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends Vendor$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4297,8 +4663,6 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Vendor", 'DateTime'>
     readonly updatedAt: FieldRef<"Vendor", 'DateTime'>
     readonly deletedAt: FieldRef<"Vendor", 'DateTime'>
-    readonly gateId: FieldRef<"Vendor", 'String'>
-    readonly zoneId: FieldRef<"Vendor", 'String'>
   }
     
 
@@ -4548,10 +4912,6 @@ export namespace Prisma {
      */
     data: VendorCreateManyInput | VendorCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VendorIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4622,10 +4982,6 @@ export namespace Prisma {
      * Limit how many Vendors to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VendorIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4743,41 +5099,51 @@ export namespace Prisma {
   }
 
   /**
-   * Vendor.gate
+   * Vendor.gates
    */
-  export type Vendor$gateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Vendor$gatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Gate
+     * Select specific fields to fetch from the VendorGate
      */
-    select?: GateSelect<ExtArgs> | null
+    select?: VendorGateSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Gate
+     * Omit specific fields from the VendorGate
      */
-    omit?: GateOmit<ExtArgs> | null
+    omit?: VendorGateOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: GateInclude<ExtArgs> | null
-    where?: GateWhereInput
+    include?: VendorGateInclude<ExtArgs> | null
+    where?: VendorGateWhereInput
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    cursor?: VendorGateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorGateScalarFieldEnum | VendorGateScalarFieldEnum[]
   }
 
   /**
-   * Vendor.zone
+   * Vendor.zones
    */
-  export type Vendor$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Vendor$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Zone
+     * Select specific fields to fetch from the VendorZone
      */
-    select?: ZoneSelect<ExtArgs> | null
+    select?: VendorZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Zone
+     * Omit specific fields from the VendorZone
      */
-    omit?: ZoneOmit<ExtArgs> | null
+    omit?: VendorZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ZoneInclude<ExtArgs> | null
-    where?: ZoneWhereInput
+    include?: VendorZoneInclude<ExtArgs> | null
+    where?: VendorZoneWhereInput
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    cursor?: VendorZoneWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorZoneScalarFieldEnum | VendorZoneScalarFieldEnum[]
   }
 
   /**
@@ -5015,8 +5381,8 @@ export namespace Prisma {
   export type $ZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Zone"
     objects: {
-      vendors: Prisma.$VendorPayload<ExtArgs>[]
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
+      vendors: Prisma.$VendorZonePayload<ExtArgs>[]
+      employees: Prisma.$EmployeeZonePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5419,8 +5785,8 @@ export namespace Prisma {
    */
   export interface Prisma__ZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    vendors<T extends Zone$vendorsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    employees<T extends Zone$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Zone$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendors<T extends Zone$vendorsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    employees<T extends Zone$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Zone$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5848,23 +6214,23 @@ export namespace Prisma {
    */
   export type Zone$vendorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Vendor
+     * Select specific fields to fetch from the VendorZone
      */
-    select?: VendorSelect<ExtArgs> | null
+    select?: VendorZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Vendor
+     * Omit specific fields from the VendorZone
      */
-    omit?: VendorOmit<ExtArgs> | null
+    omit?: VendorZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VendorInclude<ExtArgs> | null
-    where?: VendorWhereInput
-    orderBy?: VendorOrderByWithRelationInput | VendorOrderByWithRelationInput[]
-    cursor?: VendorWhereUniqueInput
+    include?: VendorZoneInclude<ExtArgs> | null
+    where?: VendorZoneWhereInput
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    cursor?: VendorZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: VendorScalarFieldEnum | VendorScalarFieldEnum[]
+    distinct?: VendorZoneScalarFieldEnum | VendorZoneScalarFieldEnum[]
   }
 
   /**
@@ -5872,23 +6238,23 @@ export namespace Prisma {
    */
   export type Zone$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the EmployeeZone
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: EmployeeZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the EmployeeZone
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: EmployeeZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    where?: EmployeeZoneWhereInput
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    cursor?: EmployeeZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: EmployeeZoneScalarFieldEnum | EmployeeZoneScalarFieldEnum[]
   }
 
   /**
@@ -6128,8 +6494,8 @@ export namespace Prisma {
   export type $GatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Gate"
     objects: {
-      vendors: Prisma.$VendorPayload<ExtArgs>[]
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
+      vendors: Prisma.$VendorGatePayload<ExtArgs>[]
+      employees: Prisma.$EmployeeGatePayload<ExtArgs>[]
       activities: Prisma.$ActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6533,8 +6899,8 @@ export namespace Prisma {
    */
   export interface Prisma__GateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    vendors<T extends Gate$vendorsArgs<ExtArgs> = {}>(args?: Subset<T, Gate$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    employees<T extends Gate$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Gate$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendors<T extends Gate$vendorsArgs<ExtArgs> = {}>(args?: Subset<T, Gate$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    employees<T extends Gate$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Gate$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     activities<T extends Gate$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Gate$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6963,23 +7329,23 @@ export namespace Prisma {
    */
   export type Gate$vendorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Vendor
+     * Select specific fields to fetch from the VendorGate
      */
-    select?: VendorSelect<ExtArgs> | null
+    select?: VendorGateSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Vendor
+     * Omit specific fields from the VendorGate
      */
-    omit?: VendorOmit<ExtArgs> | null
+    omit?: VendorGateOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VendorInclude<ExtArgs> | null
-    where?: VendorWhereInput
-    orderBy?: VendorOrderByWithRelationInput | VendorOrderByWithRelationInput[]
-    cursor?: VendorWhereUniqueInput
+    include?: VendorGateInclude<ExtArgs> | null
+    where?: VendorGateWhereInput
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    cursor?: VendorGateWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: VendorScalarFieldEnum | VendorScalarFieldEnum[]
+    distinct?: VendorGateScalarFieldEnum | VendorGateScalarFieldEnum[]
   }
 
   /**
@@ -6987,23 +7353,23 @@ export namespace Prisma {
    */
   export type Gate$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the EmployeeGate
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: EmployeeGateSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the EmployeeGate
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: EmployeeGateOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: EmployeeGateInclude<ExtArgs> | null
+    where?: EmployeeGateWhereInput
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    cursor?: EmployeeGateWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: EmployeeGateScalarFieldEnum | EmployeeGateScalarFieldEnum[]
   }
 
   /**
@@ -8157,15 +8523,13 @@ export namespace Prisma {
     identifier: string | null
     name: string | null
     job: string | null
-    description: string | null
+    nationalId: string | null
     version: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
     status: $Enums.EmployeeStatus | null
     vendorId: string | null
-    gateId: string | null
-    zoneId: string | null
   }
 
   export type EmployeeMaxAggregateOutputType = {
@@ -8173,15 +8537,13 @@ export namespace Prisma {
     identifier: string | null
     name: string | null
     job: string | null
-    description: string | null
+    nationalId: string | null
     version: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
     status: $Enums.EmployeeStatus | null
     vendorId: string | null
-    gateId: string | null
-    zoneId: string | null
   }
 
   export type EmployeeCountAggregateOutputType = {
@@ -8189,15 +8551,13 @@ export namespace Prisma {
     identifier: number
     name: number
     job: number
-    description: number
+    nationalId: number
     version: number
     createdAt: number
     updatedAt: number
     deletedAt: number
     status: number
     vendorId: number
-    gateId: number
-    zoneId: number
     _all: number
   }
 
@@ -8215,15 +8575,13 @@ export namespace Prisma {
     identifier?: true
     name?: true
     job?: true
-    description?: true
+    nationalId?: true
     version?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     status?: true
     vendorId?: true
-    gateId?: true
-    zoneId?: true
   }
 
   export type EmployeeMaxAggregateInputType = {
@@ -8231,15 +8589,13 @@ export namespace Prisma {
     identifier?: true
     name?: true
     job?: true
-    description?: true
+    nationalId?: true
     version?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     status?: true
     vendorId?: true
-    gateId?: true
-    zoneId?: true
   }
 
   export type EmployeeCountAggregateInputType = {
@@ -8247,15 +8603,13 @@ export namespace Prisma {
     identifier?: true
     name?: true
     job?: true
-    description?: true
+    nationalId?: true
     version?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     status?: true
     vendorId?: true
-    gateId?: true
-    zoneId?: true
     _all?: true
   }
 
@@ -8350,15 +8704,13 @@ export namespace Prisma {
     identifier: string
     name: string
     job: string
-    description: string | null
+    nationalId: string
     version: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
     status: $Enums.EmployeeStatus
     vendorId: string
-    gateId: string | null
-    zoneId: string | null
     _count: EmployeeCountAggregateOutputType | null
     _avg: EmployeeAvgAggregateOutputType | null
     _sum: EmployeeSumAggregateOutputType | null
@@ -8385,18 +8737,16 @@ export namespace Prisma {
     identifier?: boolean
     name?: boolean
     job?: boolean
-    description?: boolean
+    nationalId?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
     vendorId?: boolean
-    gateId?: boolean
-    zoneId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
+    gates?: boolean | Employee$gatesArgs<ExtArgs>
+    zones?: boolean | Employee$zonesArgs<ExtArgs>
     activities?: boolean | Employee$activitiesArgs<ExtArgs>
     workingHours?: boolean | Employee$workingHoursArgs<ExtArgs>
     employeeAttachments?: boolean | Employee$employeeAttachmentsArgs<ExtArgs>
@@ -8410,18 +8760,14 @@ export namespace Prisma {
     identifier?: boolean
     name?: boolean
     job?: boolean
-    description?: boolean
+    nationalId?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
     vendorId?: boolean
-    gateId?: boolean
-    zoneId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8429,18 +8775,14 @@ export namespace Prisma {
     identifier?: boolean
     name?: boolean
     job?: boolean
-    description?: boolean
+    nationalId?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
     vendorId?: boolean
-    gateId?: boolean
-    zoneId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectScalar = {
@@ -8448,22 +8790,20 @@ export namespace Prisma {
     identifier?: boolean
     name?: boolean
     job?: boolean
-    description?: boolean
+    nationalId?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
     vendorId?: boolean
-    gateId?: boolean
-    zoneId?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "identifier" | "name" | "job" | "description" | "version" | "createdAt" | "updatedAt" | "deletedAt" | "status" | "vendorId" | "gateId" | "zoneId", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "identifier" | "name" | "job" | "nationalId" | "version" | "createdAt" | "updatedAt" | "deletedAt" | "status" | "vendorId", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
+    gates?: boolean | Employee$gatesArgs<ExtArgs>
+    zones?: boolean | Employee$zonesArgs<ExtArgs>
     activities?: boolean | Employee$activitiesArgs<ExtArgs>
     workingHours?: boolean | Employee$workingHoursArgs<ExtArgs>
     employeeAttachments?: boolean | Employee$employeeAttachmentsArgs<ExtArgs>
@@ -8473,21 +8813,17 @@ export namespace Prisma {
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
   }
   export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    gate?: boolean | Employee$gateArgs<ExtArgs>
-    zone?: boolean | Employee$zoneArgs<ExtArgs>
   }
 
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Employee"
     objects: {
       vendor: Prisma.$VendorPayload<ExtArgs>
-      gate: Prisma.$GatePayload<ExtArgs> | null
-      zone: Prisma.$ZonePayload<ExtArgs> | null
+      gates: Prisma.$EmployeeGatePayload<ExtArgs>[]
+      zones: Prisma.$EmployeeZonePayload<ExtArgs>[]
       activities: Prisma.$ActivityPayload<ExtArgs>[]
       workingHours: Prisma.$WorkingHoursPayload<ExtArgs>[]
       employeeAttachments: Prisma.$EmployeeAttachmentPayload<ExtArgs>[]
@@ -8499,15 +8835,13 @@ export namespace Prisma {
       identifier: string
       name: string
       job: string
-      description: string | null
+      nationalId: string
       version: number
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
       status: $Enums.EmployeeStatus
       vendorId: string
-      gateId: string | null
-      zoneId: string | null
     }, ExtArgs["result"]["employee"]>
     composites: {}
   }
@@ -8903,8 +9237,8 @@ export namespace Prisma {
   export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    gate<T extends Employee$gateArgs<ExtArgs> = {}>(args?: Subset<T, Employee$gateArgs<ExtArgs>>): Prisma__GateClient<$Result.GetResult<Prisma.$GatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    zone<T extends Employee$zoneArgs<ExtArgs> = {}>(args?: Subset<T, Employee$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    gates<T extends Employee$gatesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$gatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends Employee$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     activities<T extends Employee$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workingHours<T extends Employee$workingHoursArgs<ExtArgs> = {}>(args?: Subset<T, Employee$workingHoursArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkingHoursPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     employeeAttachments<T extends Employee$employeeAttachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$employeeAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8943,15 +9277,13 @@ export namespace Prisma {
     readonly identifier: FieldRef<"Employee", 'String'>
     readonly name: FieldRef<"Employee", 'String'>
     readonly job: FieldRef<"Employee", 'String'>
-    readonly description: FieldRef<"Employee", 'String'>
+    readonly nationalId: FieldRef<"Employee", 'String'>
     readonly version: FieldRef<"Employee", 'Int'>
     readonly createdAt: FieldRef<"Employee", 'DateTime'>
     readonly updatedAt: FieldRef<"Employee", 'DateTime'>
     readonly deletedAt: FieldRef<"Employee", 'DateTime'>
     readonly status: FieldRef<"Employee", 'EmployeeStatus'>
     readonly vendorId: FieldRef<"Employee", 'String'>
-    readonly gateId: FieldRef<"Employee", 'String'>
-    readonly zoneId: FieldRef<"Employee", 'String'>
   }
     
 
@@ -9348,41 +9680,51 @@ export namespace Prisma {
   }
 
   /**
-   * Employee.gate
+   * Employee.gates
    */
-  export type Employee$gateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Employee$gatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Gate
+     * Select specific fields to fetch from the EmployeeGate
      */
-    select?: GateSelect<ExtArgs> | null
+    select?: EmployeeGateSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Gate
+     * Omit specific fields from the EmployeeGate
      */
-    omit?: GateOmit<ExtArgs> | null
+    omit?: EmployeeGateOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: GateInclude<ExtArgs> | null
-    where?: GateWhereInput
+    include?: EmployeeGateInclude<ExtArgs> | null
+    where?: EmployeeGateWhereInput
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    cursor?: EmployeeGateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeGateScalarFieldEnum | EmployeeGateScalarFieldEnum[]
   }
 
   /**
-   * Employee.zone
+   * Employee.zones
    */
-  export type Employee$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Employee$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Zone
+     * Select specific fields to fetch from the EmployeeZone
      */
-    select?: ZoneSelect<ExtArgs> | null
+    select?: EmployeeZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Zone
+     * Omit specific fields from the EmployeeZone
      */
-    omit?: ZoneOmit<ExtArgs> | null
+    omit?: EmployeeZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ZoneInclude<ExtArgs> | null
-    where?: ZoneWhereInput
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    where?: EmployeeZoneWhereInput
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    cursor?: EmployeeZoneWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeZoneScalarFieldEnum | EmployeeZoneScalarFieldEnum[]
   }
 
   /**
@@ -17446,6 +17788,4218 @@ export namespace Prisma {
 
 
   /**
+   * Model VendorGate
+   */
+
+  export type AggregateVendorGate = {
+    _count: VendorGateCountAggregateOutputType | null
+    _min: VendorGateMinAggregateOutputType | null
+    _max: VendorGateMaxAggregateOutputType | null
+  }
+
+  export type VendorGateMinAggregateOutputType = {
+    id: string | null
+    vendorId: string | null
+    gateId: string | null
+    createdAt: Date | null
+  }
+
+  export type VendorGateMaxAggregateOutputType = {
+    id: string | null
+    vendorId: string | null
+    gateId: string | null
+    createdAt: Date | null
+  }
+
+  export type VendorGateCountAggregateOutputType = {
+    id: number
+    vendorId: number
+    gateId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VendorGateMinAggregateInputType = {
+    id?: true
+    vendorId?: true
+    gateId?: true
+    createdAt?: true
+  }
+
+  export type VendorGateMaxAggregateInputType = {
+    id?: true
+    vendorId?: true
+    gateId?: true
+    createdAt?: true
+  }
+
+  export type VendorGateCountAggregateInputType = {
+    id?: true
+    vendorId?: true
+    gateId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VendorGateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorGate to aggregate.
+     */
+    where?: VendorGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorGates to fetch.
+     */
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VendorGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VendorGates
+    **/
+    _count?: true | VendorGateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendorGateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendorGateMaxAggregateInputType
+  }
+
+  export type GetVendorGateAggregateType<T extends VendorGateAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendorGate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendorGate[P]>
+      : GetScalarType<T[P], AggregateVendorGate[P]>
+  }
+
+
+
+
+  export type VendorGateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorGateWhereInput
+    orderBy?: VendorGateOrderByWithAggregationInput | VendorGateOrderByWithAggregationInput[]
+    by: VendorGateScalarFieldEnum[] | VendorGateScalarFieldEnum
+    having?: VendorGateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendorGateCountAggregateInputType | true
+    _min?: VendorGateMinAggregateInputType
+    _max?: VendorGateMaxAggregateInputType
+  }
+
+  export type VendorGateGroupByOutputType = {
+    id: string
+    vendorId: string
+    gateId: string
+    createdAt: Date
+    _count: VendorGateCountAggregateOutputType | null
+    _min: VendorGateMinAggregateOutputType | null
+    _max: VendorGateMaxAggregateOutputType | null
+  }
+
+  type GetVendorGateGroupByPayload<T extends VendorGateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendorGateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendorGateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendorGateGroupByOutputType[P]>
+            : GetScalarType<T[P], VendorGateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VendorGateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorGate"]>
+
+  export type VendorGateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorGate"]>
+
+  export type VendorGateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorGate"]>
+
+  export type VendorGateSelectScalar = {
+    id?: boolean
+    vendorId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+  }
+
+  export type VendorGateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "gateId" | "createdAt", ExtArgs["result"]["vendorGate"]>
+  export type VendorGateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+  export type VendorGateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+  export type VendorGateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+
+  export type $VendorGatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VendorGate"
+    objects: {
+      vendor: Prisma.$VendorPayload<ExtArgs>
+      gate: Prisma.$GatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      vendorId: string
+      gateId: string
+      createdAt: Date
+    }, ExtArgs["result"]["vendorGate"]>
+    composites: {}
+  }
+
+  type VendorGateGetPayload<S extends boolean | null | undefined | VendorGateDefaultArgs> = $Result.GetResult<Prisma.$VendorGatePayload, S>
+
+  type VendorGateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VendorGateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendorGateCountAggregateInputType | true
+    }
+
+  export interface VendorGateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VendorGate'], meta: { name: 'VendorGate' } }
+    /**
+     * Find zero or one VendorGate that matches the filter.
+     * @param {VendorGateFindUniqueArgs} args - Arguments to find a VendorGate
+     * @example
+     * // Get one VendorGate
+     * const vendorGate = await prisma.vendorGate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VendorGateFindUniqueArgs>(args: SelectSubset<T, VendorGateFindUniqueArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VendorGate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VendorGateFindUniqueOrThrowArgs} args - Arguments to find a VendorGate
+     * @example
+     * // Get one VendorGate
+     * const vendorGate = await prisma.vendorGate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VendorGateFindUniqueOrThrowArgs>(args: SelectSubset<T, VendorGateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorGate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateFindFirstArgs} args - Arguments to find a VendorGate
+     * @example
+     * // Get one VendorGate
+     * const vendorGate = await prisma.vendorGate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VendorGateFindFirstArgs>(args?: SelectSubset<T, VendorGateFindFirstArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorGate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateFindFirstOrThrowArgs} args - Arguments to find a VendorGate
+     * @example
+     * // Get one VendorGate
+     * const vendorGate = await prisma.vendorGate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VendorGateFindFirstOrThrowArgs>(args?: SelectSubset<T, VendorGateFindFirstOrThrowArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VendorGates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VendorGates
+     * const vendorGates = await prisma.vendorGate.findMany()
+     * 
+     * // Get first 10 VendorGates
+     * const vendorGates = await prisma.vendorGate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendorGateWithIdOnly = await prisma.vendorGate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VendorGateFindManyArgs>(args?: SelectSubset<T, VendorGateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VendorGate.
+     * @param {VendorGateCreateArgs} args - Arguments to create a VendorGate.
+     * @example
+     * // Create one VendorGate
+     * const VendorGate = await prisma.vendorGate.create({
+     *   data: {
+     *     // ... data to create a VendorGate
+     *   }
+     * })
+     * 
+     */
+    create<T extends VendorGateCreateArgs>(args: SelectSubset<T, VendorGateCreateArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VendorGates.
+     * @param {VendorGateCreateManyArgs} args - Arguments to create many VendorGates.
+     * @example
+     * // Create many VendorGates
+     * const vendorGate = await prisma.vendorGate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VendorGateCreateManyArgs>(args?: SelectSubset<T, VendorGateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VendorGates and returns the data saved in the database.
+     * @param {VendorGateCreateManyAndReturnArgs} args - Arguments to create many VendorGates.
+     * @example
+     * // Create many VendorGates
+     * const vendorGate = await prisma.vendorGate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VendorGates and only return the `id`
+     * const vendorGateWithIdOnly = await prisma.vendorGate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VendorGateCreateManyAndReturnArgs>(args?: SelectSubset<T, VendorGateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VendorGate.
+     * @param {VendorGateDeleteArgs} args - Arguments to delete one VendorGate.
+     * @example
+     * // Delete one VendorGate
+     * const VendorGate = await prisma.vendorGate.delete({
+     *   where: {
+     *     // ... filter to delete one VendorGate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VendorGateDeleteArgs>(args: SelectSubset<T, VendorGateDeleteArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VendorGate.
+     * @param {VendorGateUpdateArgs} args - Arguments to update one VendorGate.
+     * @example
+     * // Update one VendorGate
+     * const vendorGate = await prisma.vendorGate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VendorGateUpdateArgs>(args: SelectSubset<T, VendorGateUpdateArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VendorGates.
+     * @param {VendorGateDeleteManyArgs} args - Arguments to filter VendorGates to delete.
+     * @example
+     * // Delete a few VendorGates
+     * const { count } = await prisma.vendorGate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VendorGateDeleteManyArgs>(args?: SelectSubset<T, VendorGateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorGates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VendorGates
+     * const vendorGate = await prisma.vendorGate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VendorGateUpdateManyArgs>(args: SelectSubset<T, VendorGateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorGates and returns the data updated in the database.
+     * @param {VendorGateUpdateManyAndReturnArgs} args - Arguments to update many VendorGates.
+     * @example
+     * // Update many VendorGates
+     * const vendorGate = await prisma.vendorGate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VendorGates and only return the `id`
+     * const vendorGateWithIdOnly = await prisma.vendorGate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VendorGateUpdateManyAndReturnArgs>(args: SelectSubset<T, VendorGateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VendorGate.
+     * @param {VendorGateUpsertArgs} args - Arguments to update or create a VendorGate.
+     * @example
+     * // Update or create a VendorGate
+     * const vendorGate = await prisma.vendorGate.upsert({
+     *   create: {
+     *     // ... data to create a VendorGate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VendorGate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VendorGateUpsertArgs>(args: SelectSubset<T, VendorGateUpsertArgs<ExtArgs>>): Prisma__VendorGateClient<$Result.GetResult<Prisma.$VendorGatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VendorGates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateCountArgs} args - Arguments to filter VendorGates to count.
+     * @example
+     * // Count the number of VendorGates
+     * const count = await prisma.vendorGate.count({
+     *   where: {
+     *     // ... the filter for the VendorGates we want to count
+     *   }
+     * })
+    **/
+    count<T extends VendorGateCountArgs>(
+      args?: Subset<T, VendorGateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendorGateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VendorGate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendorGateAggregateArgs>(args: Subset<T, VendorGateAggregateArgs>): Prisma.PrismaPromise<GetVendorGateAggregateType<T>>
+
+    /**
+     * Group by VendorGate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorGateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VendorGateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VendorGateGroupByArgs['orderBy'] }
+        : { orderBy?: VendorGateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VendorGateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendorGateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VendorGate model
+   */
+  readonly fields: VendorGateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VendorGate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VendorGateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gate<T extends GateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GateDefaultArgs<ExtArgs>>): Prisma__GateClient<$Result.GetResult<Prisma.$GatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VendorGate model
+   */
+  interface VendorGateFieldRefs {
+    readonly id: FieldRef<"VendorGate", 'String'>
+    readonly vendorId: FieldRef<"VendorGate", 'String'>
+    readonly gateId: FieldRef<"VendorGate", 'String'>
+    readonly createdAt: FieldRef<"VendorGate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VendorGate findUnique
+   */
+  export type VendorGateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorGate to fetch.
+     */
+    where: VendorGateWhereUniqueInput
+  }
+
+  /**
+   * VendorGate findUniqueOrThrow
+   */
+  export type VendorGateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorGate to fetch.
+     */
+    where: VendorGateWhereUniqueInput
+  }
+
+  /**
+   * VendorGate findFirst
+   */
+  export type VendorGateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorGate to fetch.
+     */
+    where?: VendorGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorGates to fetch.
+     */
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorGates.
+     */
+    cursor?: VendorGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorGates.
+     */
+    distinct?: VendorGateScalarFieldEnum | VendorGateScalarFieldEnum[]
+  }
+
+  /**
+   * VendorGate findFirstOrThrow
+   */
+  export type VendorGateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorGate to fetch.
+     */
+    where?: VendorGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorGates to fetch.
+     */
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorGates.
+     */
+    cursor?: VendorGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorGates.
+     */
+    distinct?: VendorGateScalarFieldEnum | VendorGateScalarFieldEnum[]
+  }
+
+  /**
+   * VendorGate findMany
+   */
+  export type VendorGateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorGates to fetch.
+     */
+    where?: VendorGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorGates to fetch.
+     */
+    orderBy?: VendorGateOrderByWithRelationInput | VendorGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VendorGates.
+     */
+    cursor?: VendorGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorGates.
+     */
+    skip?: number
+    distinct?: VendorGateScalarFieldEnum | VendorGateScalarFieldEnum[]
+  }
+
+  /**
+   * VendorGate create
+   */
+  export type VendorGateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VendorGate.
+     */
+    data: XOR<VendorGateCreateInput, VendorGateUncheckedCreateInput>
+  }
+
+  /**
+   * VendorGate createMany
+   */
+  export type VendorGateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VendorGates.
+     */
+    data: VendorGateCreateManyInput | VendorGateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VendorGate createManyAndReturn
+   */
+  export type VendorGateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * The data used to create many VendorGates.
+     */
+    data: VendorGateCreateManyInput | VendorGateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorGate update
+   */
+  export type VendorGateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VendorGate.
+     */
+    data: XOR<VendorGateUpdateInput, VendorGateUncheckedUpdateInput>
+    /**
+     * Choose, which VendorGate to update.
+     */
+    where: VendorGateWhereUniqueInput
+  }
+
+  /**
+   * VendorGate updateMany
+   */
+  export type VendorGateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VendorGates.
+     */
+    data: XOR<VendorGateUpdateManyMutationInput, VendorGateUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorGates to update
+     */
+    where?: VendorGateWhereInput
+    /**
+     * Limit how many VendorGates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorGate updateManyAndReturn
+   */
+  export type VendorGateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * The data used to update VendorGates.
+     */
+    data: XOR<VendorGateUpdateManyMutationInput, VendorGateUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorGates to update
+     */
+    where?: VendorGateWhereInput
+    /**
+     * Limit how many VendorGates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorGate upsert
+   */
+  export type VendorGateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VendorGate to update in case it exists.
+     */
+    where: VendorGateWhereUniqueInput
+    /**
+     * In case the VendorGate found by the `where` argument doesn't exist, create a new VendorGate with this data.
+     */
+    create: XOR<VendorGateCreateInput, VendorGateUncheckedCreateInput>
+    /**
+     * In case the VendorGate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VendorGateUpdateInput, VendorGateUncheckedUpdateInput>
+  }
+
+  /**
+   * VendorGate delete
+   */
+  export type VendorGateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+    /**
+     * Filter which VendorGate to delete.
+     */
+    where: VendorGateWhereUniqueInput
+  }
+
+  /**
+   * VendorGate deleteMany
+   */
+  export type VendorGateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorGates to delete
+     */
+    where?: VendorGateWhereInput
+    /**
+     * Limit how many VendorGates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorGate without action
+   */
+  export type VendorGateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorGate
+     */
+    select?: VendorGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorGate
+     */
+    omit?: VendorGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorGateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VendorZone
+   */
+
+  export type AggregateVendorZone = {
+    _count: VendorZoneCountAggregateOutputType | null
+    _min: VendorZoneMinAggregateOutputType | null
+    _max: VendorZoneMaxAggregateOutputType | null
+  }
+
+  export type VendorZoneMinAggregateOutputType = {
+    id: string | null
+    vendorId: string | null
+    zoneId: string | null
+    createdAt: Date | null
+  }
+
+  export type VendorZoneMaxAggregateOutputType = {
+    id: string | null
+    vendorId: string | null
+    zoneId: string | null
+    createdAt: Date | null
+  }
+
+  export type VendorZoneCountAggregateOutputType = {
+    id: number
+    vendorId: number
+    zoneId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VendorZoneMinAggregateInputType = {
+    id?: true
+    vendorId?: true
+    zoneId?: true
+    createdAt?: true
+  }
+
+  export type VendorZoneMaxAggregateInputType = {
+    id?: true
+    vendorId?: true
+    zoneId?: true
+    createdAt?: true
+  }
+
+  export type VendorZoneCountAggregateInputType = {
+    id?: true
+    vendorId?: true
+    zoneId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VendorZoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorZone to aggregate.
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorZones to fetch.
+     */
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VendorZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VendorZones
+    **/
+    _count?: true | VendorZoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendorZoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendorZoneMaxAggregateInputType
+  }
+
+  export type GetVendorZoneAggregateType<T extends VendorZoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendorZone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendorZone[P]>
+      : GetScalarType<T[P], AggregateVendorZone[P]>
+  }
+
+
+
+
+  export type VendorZoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorZoneWhereInput
+    orderBy?: VendorZoneOrderByWithAggregationInput | VendorZoneOrderByWithAggregationInput[]
+    by: VendorZoneScalarFieldEnum[] | VendorZoneScalarFieldEnum
+    having?: VendorZoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendorZoneCountAggregateInputType | true
+    _min?: VendorZoneMinAggregateInputType
+    _max?: VendorZoneMaxAggregateInputType
+  }
+
+  export type VendorZoneGroupByOutputType = {
+    id: string
+    vendorId: string
+    zoneId: string
+    createdAt: Date
+    _count: VendorZoneCountAggregateOutputType | null
+    _min: VendorZoneMinAggregateOutputType | null
+    _max: VendorZoneMaxAggregateOutputType | null
+  }
+
+  type GetVendorZoneGroupByPayload<T extends VendorZoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendorZoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendorZoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendorZoneGroupByOutputType[P]>
+            : GetScalarType<T[P], VendorZoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VendorZoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorZone"]>
+
+  export type VendorZoneSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorZone"]>
+
+  export type VendorZoneSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorZone"]>
+
+  export type VendorZoneSelectScalar = {
+    id?: boolean
+    vendorId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+  }
+
+  export type VendorZoneOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "zoneId" | "createdAt", ExtArgs["result"]["vendorZone"]>
+  export type VendorZoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+  export type VendorZoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+  export type VendorZoneIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+
+  export type $VendorZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VendorZone"
+    objects: {
+      vendor: Prisma.$VendorPayload<ExtArgs>
+      zone: Prisma.$ZonePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      vendorId: string
+      zoneId: string
+      createdAt: Date
+    }, ExtArgs["result"]["vendorZone"]>
+    composites: {}
+  }
+
+  type VendorZoneGetPayload<S extends boolean | null | undefined | VendorZoneDefaultArgs> = $Result.GetResult<Prisma.$VendorZonePayload, S>
+
+  type VendorZoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VendorZoneFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendorZoneCountAggregateInputType | true
+    }
+
+  export interface VendorZoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VendorZone'], meta: { name: 'VendorZone' } }
+    /**
+     * Find zero or one VendorZone that matches the filter.
+     * @param {VendorZoneFindUniqueArgs} args - Arguments to find a VendorZone
+     * @example
+     * // Get one VendorZone
+     * const vendorZone = await prisma.vendorZone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VendorZoneFindUniqueArgs>(args: SelectSubset<T, VendorZoneFindUniqueArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VendorZone that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VendorZoneFindUniqueOrThrowArgs} args - Arguments to find a VendorZone
+     * @example
+     * // Get one VendorZone
+     * const vendorZone = await prisma.vendorZone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VendorZoneFindUniqueOrThrowArgs>(args: SelectSubset<T, VendorZoneFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorZone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneFindFirstArgs} args - Arguments to find a VendorZone
+     * @example
+     * // Get one VendorZone
+     * const vendorZone = await prisma.vendorZone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VendorZoneFindFirstArgs>(args?: SelectSubset<T, VendorZoneFindFirstArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorZone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneFindFirstOrThrowArgs} args - Arguments to find a VendorZone
+     * @example
+     * // Get one VendorZone
+     * const vendorZone = await prisma.vendorZone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VendorZoneFindFirstOrThrowArgs>(args?: SelectSubset<T, VendorZoneFindFirstOrThrowArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VendorZones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VendorZones
+     * const vendorZones = await prisma.vendorZone.findMany()
+     * 
+     * // Get first 10 VendorZones
+     * const vendorZones = await prisma.vendorZone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendorZoneWithIdOnly = await prisma.vendorZone.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VendorZoneFindManyArgs>(args?: SelectSubset<T, VendorZoneFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VendorZone.
+     * @param {VendorZoneCreateArgs} args - Arguments to create a VendorZone.
+     * @example
+     * // Create one VendorZone
+     * const VendorZone = await prisma.vendorZone.create({
+     *   data: {
+     *     // ... data to create a VendorZone
+     *   }
+     * })
+     * 
+     */
+    create<T extends VendorZoneCreateArgs>(args: SelectSubset<T, VendorZoneCreateArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VendorZones.
+     * @param {VendorZoneCreateManyArgs} args - Arguments to create many VendorZones.
+     * @example
+     * // Create many VendorZones
+     * const vendorZone = await prisma.vendorZone.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VendorZoneCreateManyArgs>(args?: SelectSubset<T, VendorZoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VendorZones and returns the data saved in the database.
+     * @param {VendorZoneCreateManyAndReturnArgs} args - Arguments to create many VendorZones.
+     * @example
+     * // Create many VendorZones
+     * const vendorZone = await prisma.vendorZone.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VendorZones and only return the `id`
+     * const vendorZoneWithIdOnly = await prisma.vendorZone.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VendorZoneCreateManyAndReturnArgs>(args?: SelectSubset<T, VendorZoneCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VendorZone.
+     * @param {VendorZoneDeleteArgs} args - Arguments to delete one VendorZone.
+     * @example
+     * // Delete one VendorZone
+     * const VendorZone = await prisma.vendorZone.delete({
+     *   where: {
+     *     // ... filter to delete one VendorZone
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VendorZoneDeleteArgs>(args: SelectSubset<T, VendorZoneDeleteArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VendorZone.
+     * @param {VendorZoneUpdateArgs} args - Arguments to update one VendorZone.
+     * @example
+     * // Update one VendorZone
+     * const vendorZone = await prisma.vendorZone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VendorZoneUpdateArgs>(args: SelectSubset<T, VendorZoneUpdateArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VendorZones.
+     * @param {VendorZoneDeleteManyArgs} args - Arguments to filter VendorZones to delete.
+     * @example
+     * // Delete a few VendorZones
+     * const { count } = await prisma.vendorZone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VendorZoneDeleteManyArgs>(args?: SelectSubset<T, VendorZoneDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VendorZones
+     * const vendorZone = await prisma.vendorZone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VendorZoneUpdateManyArgs>(args: SelectSubset<T, VendorZoneUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorZones and returns the data updated in the database.
+     * @param {VendorZoneUpdateManyAndReturnArgs} args - Arguments to update many VendorZones.
+     * @example
+     * // Update many VendorZones
+     * const vendorZone = await prisma.vendorZone.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VendorZones and only return the `id`
+     * const vendorZoneWithIdOnly = await prisma.vendorZone.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VendorZoneUpdateManyAndReturnArgs>(args: SelectSubset<T, VendorZoneUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VendorZone.
+     * @param {VendorZoneUpsertArgs} args - Arguments to update or create a VendorZone.
+     * @example
+     * // Update or create a VendorZone
+     * const vendorZone = await prisma.vendorZone.upsert({
+     *   create: {
+     *     // ... data to create a VendorZone
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VendorZone we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VendorZoneUpsertArgs>(args: SelectSubset<T, VendorZoneUpsertArgs<ExtArgs>>): Prisma__VendorZoneClient<$Result.GetResult<Prisma.$VendorZonePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VendorZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneCountArgs} args - Arguments to filter VendorZones to count.
+     * @example
+     * // Count the number of VendorZones
+     * const count = await prisma.vendorZone.count({
+     *   where: {
+     *     // ... the filter for the VendorZones we want to count
+     *   }
+     * })
+    **/
+    count<T extends VendorZoneCountArgs>(
+      args?: Subset<T, VendorZoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendorZoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VendorZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendorZoneAggregateArgs>(args: Subset<T, VendorZoneAggregateArgs>): Prisma.PrismaPromise<GetVendorZoneAggregateType<T>>
+
+    /**
+     * Group by VendorZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorZoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VendorZoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VendorZoneGroupByArgs['orderBy'] }
+        : { orderBy?: VendorZoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VendorZoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendorZoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VendorZone model
+   */
+  readonly fields: VendorZoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VendorZone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VendorZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    zone<T extends ZoneDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ZoneDefaultArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VendorZone model
+   */
+  interface VendorZoneFieldRefs {
+    readonly id: FieldRef<"VendorZone", 'String'>
+    readonly vendorId: FieldRef<"VendorZone", 'String'>
+    readonly zoneId: FieldRef<"VendorZone", 'String'>
+    readonly createdAt: FieldRef<"VendorZone", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VendorZone findUnique
+   */
+  export type VendorZoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorZone to fetch.
+     */
+    where: VendorZoneWhereUniqueInput
+  }
+
+  /**
+   * VendorZone findUniqueOrThrow
+   */
+  export type VendorZoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorZone to fetch.
+     */
+    where: VendorZoneWhereUniqueInput
+  }
+
+  /**
+   * VendorZone findFirst
+   */
+  export type VendorZoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorZone to fetch.
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorZones to fetch.
+     */
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorZones.
+     */
+    cursor?: VendorZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorZones.
+     */
+    distinct?: VendorZoneScalarFieldEnum | VendorZoneScalarFieldEnum[]
+  }
+
+  /**
+   * VendorZone findFirstOrThrow
+   */
+  export type VendorZoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorZone to fetch.
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorZones to fetch.
+     */
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorZones.
+     */
+    cursor?: VendorZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorZones.
+     */
+    distinct?: VendorZoneScalarFieldEnum | VendorZoneScalarFieldEnum[]
+  }
+
+  /**
+   * VendorZone findMany
+   */
+  export type VendorZoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorZones to fetch.
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorZones to fetch.
+     */
+    orderBy?: VendorZoneOrderByWithRelationInput | VendorZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VendorZones.
+     */
+    cursor?: VendorZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorZones.
+     */
+    skip?: number
+    distinct?: VendorZoneScalarFieldEnum | VendorZoneScalarFieldEnum[]
+  }
+
+  /**
+   * VendorZone create
+   */
+  export type VendorZoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VendorZone.
+     */
+    data: XOR<VendorZoneCreateInput, VendorZoneUncheckedCreateInput>
+  }
+
+  /**
+   * VendorZone createMany
+   */
+  export type VendorZoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VendorZones.
+     */
+    data: VendorZoneCreateManyInput | VendorZoneCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VendorZone createManyAndReturn
+   */
+  export type VendorZoneCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * The data used to create many VendorZones.
+     */
+    data: VendorZoneCreateManyInput | VendorZoneCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorZone update
+   */
+  export type VendorZoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VendorZone.
+     */
+    data: XOR<VendorZoneUpdateInput, VendorZoneUncheckedUpdateInput>
+    /**
+     * Choose, which VendorZone to update.
+     */
+    where: VendorZoneWhereUniqueInput
+  }
+
+  /**
+   * VendorZone updateMany
+   */
+  export type VendorZoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VendorZones.
+     */
+    data: XOR<VendorZoneUpdateManyMutationInput, VendorZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorZones to update
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * Limit how many VendorZones to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorZone updateManyAndReturn
+   */
+  export type VendorZoneUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * The data used to update VendorZones.
+     */
+    data: XOR<VendorZoneUpdateManyMutationInput, VendorZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorZones to update
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * Limit how many VendorZones to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorZone upsert
+   */
+  export type VendorZoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VendorZone to update in case it exists.
+     */
+    where: VendorZoneWhereUniqueInput
+    /**
+     * In case the VendorZone found by the `where` argument doesn't exist, create a new VendorZone with this data.
+     */
+    create: XOR<VendorZoneCreateInput, VendorZoneUncheckedCreateInput>
+    /**
+     * In case the VendorZone was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VendorZoneUpdateInput, VendorZoneUncheckedUpdateInput>
+  }
+
+  /**
+   * VendorZone delete
+   */
+  export type VendorZoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+    /**
+     * Filter which VendorZone to delete.
+     */
+    where: VendorZoneWhereUniqueInput
+  }
+
+  /**
+   * VendorZone deleteMany
+   */
+  export type VendorZoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorZones to delete
+     */
+    where?: VendorZoneWhereInput
+    /**
+     * Limit how many VendorZones to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorZone without action
+   */
+  export type VendorZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorZone
+     */
+    select?: VendorZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorZone
+     */
+    omit?: VendorZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorZoneInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmployeeGate
+   */
+
+  export type AggregateEmployeeGate = {
+    _count: EmployeeGateCountAggregateOutputType | null
+    _min: EmployeeGateMinAggregateOutputType | null
+    _max: EmployeeGateMaxAggregateOutputType | null
+  }
+
+  export type EmployeeGateMinAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    gateId: string | null
+    createdAt: Date | null
+  }
+
+  export type EmployeeGateMaxAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    gateId: string | null
+    createdAt: Date | null
+  }
+
+  export type EmployeeGateCountAggregateOutputType = {
+    id: number
+    employeeId: number
+    gateId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type EmployeeGateMinAggregateInputType = {
+    id?: true
+    employeeId?: true
+    gateId?: true
+    createdAt?: true
+  }
+
+  export type EmployeeGateMaxAggregateInputType = {
+    id?: true
+    employeeId?: true
+    gateId?: true
+    createdAt?: true
+  }
+
+  export type EmployeeGateCountAggregateInputType = {
+    id?: true
+    employeeId?: true
+    gateId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type EmployeeGateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeGate to aggregate.
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeGates to fetch.
+     */
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmployeeGates
+    **/
+    _count?: true | EmployeeGateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeGateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeGateMaxAggregateInputType
+  }
+
+  export type GetEmployeeGateAggregateType<T extends EmployeeGateAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployeeGate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployeeGate[P]>
+      : GetScalarType<T[P], AggregateEmployeeGate[P]>
+  }
+
+
+
+
+  export type EmployeeGateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeGateWhereInput
+    orderBy?: EmployeeGateOrderByWithAggregationInput | EmployeeGateOrderByWithAggregationInput[]
+    by: EmployeeGateScalarFieldEnum[] | EmployeeGateScalarFieldEnum
+    having?: EmployeeGateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeGateCountAggregateInputType | true
+    _min?: EmployeeGateMinAggregateInputType
+    _max?: EmployeeGateMaxAggregateInputType
+  }
+
+  export type EmployeeGateGroupByOutputType = {
+    id: string
+    employeeId: string
+    gateId: string
+    createdAt: Date
+    _count: EmployeeGateCountAggregateOutputType | null
+    _min: EmployeeGateMinAggregateOutputType | null
+    _max: EmployeeGateMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeGateGroupByPayload<T extends EmployeeGateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeGateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeGateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeGateGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeGateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeGateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeGate"]>
+
+  export type EmployeeGateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeGate"]>
+
+  export type EmployeeGateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeGate"]>
+
+  export type EmployeeGateSelectScalar = {
+    id?: boolean
+    employeeId?: boolean
+    gateId?: boolean
+    createdAt?: boolean
+  }
+
+  export type EmployeeGateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employeeId" | "gateId" | "createdAt", ExtArgs["result"]["employeeGate"]>
+  export type EmployeeGateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+  export type EmployeeGateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+  export type EmployeeGateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    gate?: boolean | GateDefaultArgs<ExtArgs>
+  }
+
+  export type $EmployeeGatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmployeeGate"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs>
+      gate: Prisma.$GatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employeeId: string
+      gateId: string
+      createdAt: Date
+    }, ExtArgs["result"]["employeeGate"]>
+    composites: {}
+  }
+
+  type EmployeeGateGetPayload<S extends boolean | null | undefined | EmployeeGateDefaultArgs> = $Result.GetResult<Prisma.$EmployeeGatePayload, S>
+
+  type EmployeeGateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmployeeGateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmployeeGateCountAggregateInputType | true
+    }
+
+  export interface EmployeeGateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmployeeGate'], meta: { name: 'EmployeeGate' } }
+    /**
+     * Find zero or one EmployeeGate that matches the filter.
+     * @param {EmployeeGateFindUniqueArgs} args - Arguments to find a EmployeeGate
+     * @example
+     * // Get one EmployeeGate
+     * const employeeGate = await prisma.employeeGate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeGateFindUniqueArgs>(args: SelectSubset<T, EmployeeGateFindUniqueArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmployeeGate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmployeeGateFindUniqueOrThrowArgs} args - Arguments to find a EmployeeGate
+     * @example
+     * // Get one EmployeeGate
+     * const employeeGate = await prisma.employeeGate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeGateFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeGateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeGate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateFindFirstArgs} args - Arguments to find a EmployeeGate
+     * @example
+     * // Get one EmployeeGate
+     * const employeeGate = await prisma.employeeGate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeGateFindFirstArgs>(args?: SelectSubset<T, EmployeeGateFindFirstArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeGate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateFindFirstOrThrowArgs} args - Arguments to find a EmployeeGate
+     * @example
+     * // Get one EmployeeGate
+     * const employeeGate = await prisma.employeeGate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeGateFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeGateFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmployeeGates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmployeeGates
+     * const employeeGates = await prisma.employeeGate.findMany()
+     * 
+     * // Get first 10 EmployeeGates
+     * const employeeGates = await prisma.employeeGate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const employeeGateWithIdOnly = await prisma.employeeGate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmployeeGateFindManyArgs>(args?: SelectSubset<T, EmployeeGateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmployeeGate.
+     * @param {EmployeeGateCreateArgs} args - Arguments to create a EmployeeGate.
+     * @example
+     * // Create one EmployeeGate
+     * const EmployeeGate = await prisma.employeeGate.create({
+     *   data: {
+     *     // ... data to create a EmployeeGate
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeGateCreateArgs>(args: SelectSubset<T, EmployeeGateCreateArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmployeeGates.
+     * @param {EmployeeGateCreateManyArgs} args - Arguments to create many EmployeeGates.
+     * @example
+     * // Create many EmployeeGates
+     * const employeeGate = await prisma.employeeGate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeGateCreateManyArgs>(args?: SelectSubset<T, EmployeeGateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmployeeGates and returns the data saved in the database.
+     * @param {EmployeeGateCreateManyAndReturnArgs} args - Arguments to create many EmployeeGates.
+     * @example
+     * // Create many EmployeeGates
+     * const employeeGate = await prisma.employeeGate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmployeeGates and only return the `id`
+     * const employeeGateWithIdOnly = await prisma.employeeGate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeGateCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeGateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmployeeGate.
+     * @param {EmployeeGateDeleteArgs} args - Arguments to delete one EmployeeGate.
+     * @example
+     * // Delete one EmployeeGate
+     * const EmployeeGate = await prisma.employeeGate.delete({
+     *   where: {
+     *     // ... filter to delete one EmployeeGate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeGateDeleteArgs>(args: SelectSubset<T, EmployeeGateDeleteArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmployeeGate.
+     * @param {EmployeeGateUpdateArgs} args - Arguments to update one EmployeeGate.
+     * @example
+     * // Update one EmployeeGate
+     * const employeeGate = await prisma.employeeGate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeGateUpdateArgs>(args: SelectSubset<T, EmployeeGateUpdateArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmployeeGates.
+     * @param {EmployeeGateDeleteManyArgs} args - Arguments to filter EmployeeGates to delete.
+     * @example
+     * // Delete a few EmployeeGates
+     * const { count } = await prisma.employeeGate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeGateDeleteManyArgs>(args?: SelectSubset<T, EmployeeGateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeGates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmployeeGates
+     * const employeeGate = await prisma.employeeGate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeGateUpdateManyArgs>(args: SelectSubset<T, EmployeeGateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeGates and returns the data updated in the database.
+     * @param {EmployeeGateUpdateManyAndReturnArgs} args - Arguments to update many EmployeeGates.
+     * @example
+     * // Update many EmployeeGates
+     * const employeeGate = await prisma.employeeGate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmployeeGates and only return the `id`
+     * const employeeGateWithIdOnly = await prisma.employeeGate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmployeeGateUpdateManyAndReturnArgs>(args: SelectSubset<T, EmployeeGateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmployeeGate.
+     * @param {EmployeeGateUpsertArgs} args - Arguments to update or create a EmployeeGate.
+     * @example
+     * // Update or create a EmployeeGate
+     * const employeeGate = await prisma.employeeGate.upsert({
+     *   create: {
+     *     // ... data to create a EmployeeGate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmployeeGate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeGateUpsertArgs>(args: SelectSubset<T, EmployeeGateUpsertArgs<ExtArgs>>): Prisma__EmployeeGateClient<$Result.GetResult<Prisma.$EmployeeGatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmployeeGates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateCountArgs} args - Arguments to filter EmployeeGates to count.
+     * @example
+     * // Count the number of EmployeeGates
+     * const count = await prisma.employeeGate.count({
+     *   where: {
+     *     // ... the filter for the EmployeeGates we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeGateCountArgs>(
+      args?: Subset<T, EmployeeGateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeGateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmployeeGate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeGateAggregateArgs>(args: Subset<T, EmployeeGateAggregateArgs>): Prisma.PrismaPromise<GetEmployeeGateAggregateType<T>>
+
+    /**
+     * Group by EmployeeGate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeGateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeGateGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeGateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeGateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeGateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmployeeGate model
+   */
+  readonly fields: EmployeeGateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmployeeGate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeGateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gate<T extends GateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GateDefaultArgs<ExtArgs>>): Prisma__GateClient<$Result.GetResult<Prisma.$GatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmployeeGate model
+   */
+  interface EmployeeGateFieldRefs {
+    readonly id: FieldRef<"EmployeeGate", 'String'>
+    readonly employeeId: FieldRef<"EmployeeGate", 'String'>
+    readonly gateId: FieldRef<"EmployeeGate", 'String'>
+    readonly createdAt: FieldRef<"EmployeeGate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmployeeGate findUnique
+   */
+  export type EmployeeGateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeGate to fetch.
+     */
+    where: EmployeeGateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeGate findUniqueOrThrow
+   */
+  export type EmployeeGateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeGate to fetch.
+     */
+    where: EmployeeGateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeGate findFirst
+   */
+  export type EmployeeGateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeGate to fetch.
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeGates to fetch.
+     */
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeGates.
+     */
+    cursor?: EmployeeGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeGates.
+     */
+    distinct?: EmployeeGateScalarFieldEnum | EmployeeGateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeGate findFirstOrThrow
+   */
+  export type EmployeeGateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeGate to fetch.
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeGates to fetch.
+     */
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeGates.
+     */
+    cursor?: EmployeeGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeGates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeGates.
+     */
+    distinct?: EmployeeGateScalarFieldEnum | EmployeeGateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeGate findMany
+   */
+  export type EmployeeGateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeGates to fetch.
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeGates to fetch.
+     */
+    orderBy?: EmployeeGateOrderByWithRelationInput | EmployeeGateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmployeeGates.
+     */
+    cursor?: EmployeeGateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeGates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeGates.
+     */
+    skip?: number
+    distinct?: EmployeeGateScalarFieldEnum | EmployeeGateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeGate create
+   */
+  export type EmployeeGateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmployeeGate.
+     */
+    data: XOR<EmployeeGateCreateInput, EmployeeGateUncheckedCreateInput>
+  }
+
+  /**
+   * EmployeeGate createMany
+   */
+  export type EmployeeGateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmployeeGates.
+     */
+    data: EmployeeGateCreateManyInput | EmployeeGateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmployeeGate createManyAndReturn
+   */
+  export type EmployeeGateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmployeeGates.
+     */
+    data: EmployeeGateCreateManyInput | EmployeeGateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeGate update
+   */
+  export type EmployeeGateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmployeeGate.
+     */
+    data: XOR<EmployeeGateUpdateInput, EmployeeGateUncheckedUpdateInput>
+    /**
+     * Choose, which EmployeeGate to update.
+     */
+    where: EmployeeGateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeGate updateMany
+   */
+  export type EmployeeGateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmployeeGates.
+     */
+    data: XOR<EmployeeGateUpdateManyMutationInput, EmployeeGateUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeGates to update
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * Limit how many EmployeeGates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeGate updateManyAndReturn
+   */
+  export type EmployeeGateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * The data used to update EmployeeGates.
+     */
+    data: XOR<EmployeeGateUpdateManyMutationInput, EmployeeGateUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeGates to update
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * Limit how many EmployeeGates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeGate upsert
+   */
+  export type EmployeeGateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmployeeGate to update in case it exists.
+     */
+    where: EmployeeGateWhereUniqueInput
+    /**
+     * In case the EmployeeGate found by the `where` argument doesn't exist, create a new EmployeeGate with this data.
+     */
+    create: XOR<EmployeeGateCreateInput, EmployeeGateUncheckedCreateInput>
+    /**
+     * In case the EmployeeGate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeGateUpdateInput, EmployeeGateUncheckedUpdateInput>
+  }
+
+  /**
+   * EmployeeGate delete
+   */
+  export type EmployeeGateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+    /**
+     * Filter which EmployeeGate to delete.
+     */
+    where: EmployeeGateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeGate deleteMany
+   */
+  export type EmployeeGateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeGates to delete
+     */
+    where?: EmployeeGateWhereInput
+    /**
+     * Limit how many EmployeeGates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeGate without action
+   */
+  export type EmployeeGateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeGate
+     */
+    select?: EmployeeGateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeGate
+     */
+    omit?: EmployeeGateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeGateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmployeeZone
+   */
+
+  export type AggregateEmployeeZone = {
+    _count: EmployeeZoneCountAggregateOutputType | null
+    _min: EmployeeZoneMinAggregateOutputType | null
+    _max: EmployeeZoneMaxAggregateOutputType | null
+  }
+
+  export type EmployeeZoneMinAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    zoneId: string | null
+    createdAt: Date | null
+  }
+
+  export type EmployeeZoneMaxAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    zoneId: string | null
+    createdAt: Date | null
+  }
+
+  export type EmployeeZoneCountAggregateOutputType = {
+    id: number
+    employeeId: number
+    zoneId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type EmployeeZoneMinAggregateInputType = {
+    id?: true
+    employeeId?: true
+    zoneId?: true
+    createdAt?: true
+  }
+
+  export type EmployeeZoneMaxAggregateInputType = {
+    id?: true
+    employeeId?: true
+    zoneId?: true
+    createdAt?: true
+  }
+
+  export type EmployeeZoneCountAggregateInputType = {
+    id?: true
+    employeeId?: true
+    zoneId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type EmployeeZoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeZone to aggregate.
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeZones to fetch.
+     */
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmployeeZones
+    **/
+    _count?: true | EmployeeZoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeZoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeZoneMaxAggregateInputType
+  }
+
+  export type GetEmployeeZoneAggregateType<T extends EmployeeZoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployeeZone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployeeZone[P]>
+      : GetScalarType<T[P], AggregateEmployeeZone[P]>
+  }
+
+
+
+
+  export type EmployeeZoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeZoneWhereInput
+    orderBy?: EmployeeZoneOrderByWithAggregationInput | EmployeeZoneOrderByWithAggregationInput[]
+    by: EmployeeZoneScalarFieldEnum[] | EmployeeZoneScalarFieldEnum
+    having?: EmployeeZoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeZoneCountAggregateInputType | true
+    _min?: EmployeeZoneMinAggregateInputType
+    _max?: EmployeeZoneMaxAggregateInputType
+  }
+
+  export type EmployeeZoneGroupByOutputType = {
+    id: string
+    employeeId: string
+    zoneId: string
+    createdAt: Date
+    _count: EmployeeZoneCountAggregateOutputType | null
+    _min: EmployeeZoneMinAggregateOutputType | null
+    _max: EmployeeZoneMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeZoneGroupByPayload<T extends EmployeeZoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeZoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeZoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeZoneGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeZoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeZoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeZone"]>
+
+  export type EmployeeZoneSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeZone"]>
+
+  export type EmployeeZoneSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeZone"]>
+
+  export type EmployeeZoneSelectScalar = {
+    id?: boolean
+    employeeId?: boolean
+    zoneId?: boolean
+    createdAt?: boolean
+  }
+
+  export type EmployeeZoneOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employeeId" | "zoneId" | "createdAt", ExtArgs["result"]["employeeZone"]>
+  export type EmployeeZoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+  export type EmployeeZoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+  export type EmployeeZoneIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+  }
+
+  export type $EmployeeZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmployeeZone"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs>
+      zone: Prisma.$ZonePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employeeId: string
+      zoneId: string
+      createdAt: Date
+    }, ExtArgs["result"]["employeeZone"]>
+    composites: {}
+  }
+
+  type EmployeeZoneGetPayload<S extends boolean | null | undefined | EmployeeZoneDefaultArgs> = $Result.GetResult<Prisma.$EmployeeZonePayload, S>
+
+  type EmployeeZoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmployeeZoneFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmployeeZoneCountAggregateInputType | true
+    }
+
+  export interface EmployeeZoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmployeeZone'], meta: { name: 'EmployeeZone' } }
+    /**
+     * Find zero or one EmployeeZone that matches the filter.
+     * @param {EmployeeZoneFindUniqueArgs} args - Arguments to find a EmployeeZone
+     * @example
+     * // Get one EmployeeZone
+     * const employeeZone = await prisma.employeeZone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeZoneFindUniqueArgs>(args: SelectSubset<T, EmployeeZoneFindUniqueArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmployeeZone that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmployeeZoneFindUniqueOrThrowArgs} args - Arguments to find a EmployeeZone
+     * @example
+     * // Get one EmployeeZone
+     * const employeeZone = await prisma.employeeZone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeZoneFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeZoneFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeZone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneFindFirstArgs} args - Arguments to find a EmployeeZone
+     * @example
+     * // Get one EmployeeZone
+     * const employeeZone = await prisma.employeeZone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeZoneFindFirstArgs>(args?: SelectSubset<T, EmployeeZoneFindFirstArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeZone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneFindFirstOrThrowArgs} args - Arguments to find a EmployeeZone
+     * @example
+     * // Get one EmployeeZone
+     * const employeeZone = await prisma.employeeZone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeZoneFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeZoneFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmployeeZones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmployeeZones
+     * const employeeZones = await prisma.employeeZone.findMany()
+     * 
+     * // Get first 10 EmployeeZones
+     * const employeeZones = await prisma.employeeZone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const employeeZoneWithIdOnly = await prisma.employeeZone.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmployeeZoneFindManyArgs>(args?: SelectSubset<T, EmployeeZoneFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmployeeZone.
+     * @param {EmployeeZoneCreateArgs} args - Arguments to create a EmployeeZone.
+     * @example
+     * // Create one EmployeeZone
+     * const EmployeeZone = await prisma.employeeZone.create({
+     *   data: {
+     *     // ... data to create a EmployeeZone
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeZoneCreateArgs>(args: SelectSubset<T, EmployeeZoneCreateArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmployeeZones.
+     * @param {EmployeeZoneCreateManyArgs} args - Arguments to create many EmployeeZones.
+     * @example
+     * // Create many EmployeeZones
+     * const employeeZone = await prisma.employeeZone.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeZoneCreateManyArgs>(args?: SelectSubset<T, EmployeeZoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmployeeZones and returns the data saved in the database.
+     * @param {EmployeeZoneCreateManyAndReturnArgs} args - Arguments to create many EmployeeZones.
+     * @example
+     * // Create many EmployeeZones
+     * const employeeZone = await prisma.employeeZone.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmployeeZones and only return the `id`
+     * const employeeZoneWithIdOnly = await prisma.employeeZone.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeZoneCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeZoneCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmployeeZone.
+     * @param {EmployeeZoneDeleteArgs} args - Arguments to delete one EmployeeZone.
+     * @example
+     * // Delete one EmployeeZone
+     * const EmployeeZone = await prisma.employeeZone.delete({
+     *   where: {
+     *     // ... filter to delete one EmployeeZone
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeZoneDeleteArgs>(args: SelectSubset<T, EmployeeZoneDeleteArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmployeeZone.
+     * @param {EmployeeZoneUpdateArgs} args - Arguments to update one EmployeeZone.
+     * @example
+     * // Update one EmployeeZone
+     * const employeeZone = await prisma.employeeZone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeZoneUpdateArgs>(args: SelectSubset<T, EmployeeZoneUpdateArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmployeeZones.
+     * @param {EmployeeZoneDeleteManyArgs} args - Arguments to filter EmployeeZones to delete.
+     * @example
+     * // Delete a few EmployeeZones
+     * const { count } = await prisma.employeeZone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeZoneDeleteManyArgs>(args?: SelectSubset<T, EmployeeZoneDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmployeeZones
+     * const employeeZone = await prisma.employeeZone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeZoneUpdateManyArgs>(args: SelectSubset<T, EmployeeZoneUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeZones and returns the data updated in the database.
+     * @param {EmployeeZoneUpdateManyAndReturnArgs} args - Arguments to update many EmployeeZones.
+     * @example
+     * // Update many EmployeeZones
+     * const employeeZone = await prisma.employeeZone.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmployeeZones and only return the `id`
+     * const employeeZoneWithIdOnly = await prisma.employeeZone.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmployeeZoneUpdateManyAndReturnArgs>(args: SelectSubset<T, EmployeeZoneUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmployeeZone.
+     * @param {EmployeeZoneUpsertArgs} args - Arguments to update or create a EmployeeZone.
+     * @example
+     * // Update or create a EmployeeZone
+     * const employeeZone = await prisma.employeeZone.upsert({
+     *   create: {
+     *     // ... data to create a EmployeeZone
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmployeeZone we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeZoneUpsertArgs>(args: SelectSubset<T, EmployeeZoneUpsertArgs<ExtArgs>>): Prisma__EmployeeZoneClient<$Result.GetResult<Prisma.$EmployeeZonePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmployeeZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneCountArgs} args - Arguments to filter EmployeeZones to count.
+     * @example
+     * // Count the number of EmployeeZones
+     * const count = await prisma.employeeZone.count({
+     *   where: {
+     *     // ... the filter for the EmployeeZones we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeZoneCountArgs>(
+      args?: Subset<T, EmployeeZoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeZoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmployeeZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeZoneAggregateArgs>(args: Subset<T, EmployeeZoneAggregateArgs>): Prisma.PrismaPromise<GetEmployeeZoneAggregateType<T>>
+
+    /**
+     * Group by EmployeeZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeZoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeZoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeZoneGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeZoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeZoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeZoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmployeeZone model
+   */
+  readonly fields: EmployeeZoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmployeeZone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    zone<T extends ZoneDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ZoneDefaultArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmployeeZone model
+   */
+  interface EmployeeZoneFieldRefs {
+    readonly id: FieldRef<"EmployeeZone", 'String'>
+    readonly employeeId: FieldRef<"EmployeeZone", 'String'>
+    readonly zoneId: FieldRef<"EmployeeZone", 'String'>
+    readonly createdAt: FieldRef<"EmployeeZone", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmployeeZone findUnique
+   */
+  export type EmployeeZoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeZone to fetch.
+     */
+    where: EmployeeZoneWhereUniqueInput
+  }
+
+  /**
+   * EmployeeZone findUniqueOrThrow
+   */
+  export type EmployeeZoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeZone to fetch.
+     */
+    where: EmployeeZoneWhereUniqueInput
+  }
+
+  /**
+   * EmployeeZone findFirst
+   */
+  export type EmployeeZoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeZone to fetch.
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeZones to fetch.
+     */
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeZones.
+     */
+    cursor?: EmployeeZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeZones.
+     */
+    distinct?: EmployeeZoneScalarFieldEnum | EmployeeZoneScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeZone findFirstOrThrow
+   */
+  export type EmployeeZoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeZone to fetch.
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeZones to fetch.
+     */
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeZones.
+     */
+    cursor?: EmployeeZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeZones.
+     */
+    distinct?: EmployeeZoneScalarFieldEnum | EmployeeZoneScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeZone findMany
+   */
+  export type EmployeeZoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeZones to fetch.
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeZones to fetch.
+     */
+    orderBy?: EmployeeZoneOrderByWithRelationInput | EmployeeZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmployeeZones.
+     */
+    cursor?: EmployeeZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeZones.
+     */
+    skip?: number
+    distinct?: EmployeeZoneScalarFieldEnum | EmployeeZoneScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeZone create
+   */
+  export type EmployeeZoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmployeeZone.
+     */
+    data: XOR<EmployeeZoneCreateInput, EmployeeZoneUncheckedCreateInput>
+  }
+
+  /**
+   * EmployeeZone createMany
+   */
+  export type EmployeeZoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmployeeZones.
+     */
+    data: EmployeeZoneCreateManyInput | EmployeeZoneCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmployeeZone createManyAndReturn
+   */
+  export type EmployeeZoneCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmployeeZones.
+     */
+    data: EmployeeZoneCreateManyInput | EmployeeZoneCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeZone update
+   */
+  export type EmployeeZoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmployeeZone.
+     */
+    data: XOR<EmployeeZoneUpdateInput, EmployeeZoneUncheckedUpdateInput>
+    /**
+     * Choose, which EmployeeZone to update.
+     */
+    where: EmployeeZoneWhereUniqueInput
+  }
+
+  /**
+   * EmployeeZone updateMany
+   */
+  export type EmployeeZoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmployeeZones.
+     */
+    data: XOR<EmployeeZoneUpdateManyMutationInput, EmployeeZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeZones to update
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * Limit how many EmployeeZones to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeZone updateManyAndReturn
+   */
+  export type EmployeeZoneUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * The data used to update EmployeeZones.
+     */
+    data: XOR<EmployeeZoneUpdateManyMutationInput, EmployeeZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeZones to update
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * Limit how many EmployeeZones to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeZone upsert
+   */
+  export type EmployeeZoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmployeeZone to update in case it exists.
+     */
+    where: EmployeeZoneWhereUniqueInput
+    /**
+     * In case the EmployeeZone found by the `where` argument doesn't exist, create a new EmployeeZone with this data.
+     */
+    create: XOR<EmployeeZoneCreateInput, EmployeeZoneUncheckedCreateInput>
+    /**
+     * In case the EmployeeZone was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeZoneUpdateInput, EmployeeZoneUncheckedUpdateInput>
+  }
+
+  /**
+   * EmployeeZone delete
+   */
+  export type EmployeeZoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+    /**
+     * Filter which EmployeeZone to delete.
+     */
+    where: EmployeeZoneWhereUniqueInput
+  }
+
+  /**
+   * EmployeeZone deleteMany
+   */
+  export type EmployeeZoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeZones to delete
+     */
+    where?: EmployeeZoneWhereInput
+    /**
+     * Limit how many EmployeeZones to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeZone without action
+   */
+  export type EmployeeZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeZone
+     */
+    select?: EmployeeZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeZone
+     */
+    omit?: EmployeeZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeZoneInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17483,9 +22037,7 @@ export namespace Prisma {
     accessToken: 'accessToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt',
-    gateId: 'gateId',
-    zoneId: 'zoneId'
+    deletedAt: 'deletedAt'
   };
 
   export type VendorScalarFieldEnum = (typeof VendorScalarFieldEnum)[keyof typeof VendorScalarFieldEnum]
@@ -17532,15 +22084,13 @@ export namespace Prisma {
     identifier: 'identifier',
     name: 'name',
     job: 'job',
-    description: 'description',
+    nationalId: 'nationalId',
     version: 'version',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
     status: 'status',
-    vendorId: 'vendorId',
-    gateId: 'gateId',
-    zoneId: 'zoneId'
+    vendorId: 'vendorId'
   };
 
   export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
@@ -17641,6 +22191,46 @@ export namespace Prisma {
   };
 
   export type EmployeePermissionScalarFieldEnum = (typeof EmployeePermissionScalarFieldEnum)[keyof typeof EmployeePermissionScalarFieldEnum]
+
+
+  export const VendorGateScalarFieldEnum: {
+    id: 'id',
+    vendorId: 'vendorId',
+    gateId: 'gateId',
+    createdAt: 'createdAt'
+  };
+
+  export type VendorGateScalarFieldEnum = (typeof VendorGateScalarFieldEnum)[keyof typeof VendorGateScalarFieldEnum]
+
+
+  export const VendorZoneScalarFieldEnum: {
+    id: 'id',
+    vendorId: 'vendorId',
+    zoneId: 'zoneId',
+    createdAt: 'createdAt'
+  };
+
+  export type VendorZoneScalarFieldEnum = (typeof VendorZoneScalarFieldEnum)[keyof typeof VendorZoneScalarFieldEnum]
+
+
+  export const EmployeeGateScalarFieldEnum: {
+    id: 'id',
+    employeeId: 'employeeId',
+    gateId: 'gateId',
+    createdAt: 'createdAt'
+  };
+
+  export type EmployeeGateScalarFieldEnum = (typeof EmployeeGateScalarFieldEnum)[keyof typeof EmployeeGateScalarFieldEnum]
+
+
+  export const EmployeeZoneScalarFieldEnum: {
+    id: 'id',
+    employeeId: 'employeeId',
+    zoneId: 'zoneId',
+    createdAt: 'createdAt'
+  };
+
+  export type EmployeeZoneScalarFieldEnum = (typeof EmployeeZoneScalarFieldEnum)[keyof typeof EmployeeZoneScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17913,12 +22503,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeFilter<"Vendor"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Vendor"> | Date | string | null
-    gateId?: StringNullableFilter<"Vendor"> | string | null
-    zoneId?: StringNullableFilter<"Vendor"> | string | null
     employees?: EmployeeListRelationFilter
     vendorAttachments?: VendorAttachmentListRelationFilter
-    gate?: XOR<GateNullableScalarRelationFilter, GateWhereInput> | null
-    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    gates?: VendorGateListRelationFilter
+    zones?: VendorZoneListRelationFilter
   }
 
   export type VendorOrderByWithRelationInput = {
@@ -17931,12 +22519,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    gateId?: SortOrderInput | SortOrder
-    zoneId?: SortOrderInput | SortOrder
     employees?: EmployeeOrderByRelationAggregateInput
     vendorAttachments?: VendorAttachmentOrderByRelationAggregateInput
-    gate?: GateOrderByWithRelationInput
-    zone?: ZoneOrderByWithRelationInput
+    gates?: VendorGateOrderByRelationAggregateInput
+    zones?: VendorZoneOrderByRelationAggregateInput
   }
 
   export type VendorWhereUniqueInput = Prisma.AtLeast<{
@@ -17952,12 +22538,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeFilter<"Vendor"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Vendor"> | Date | string | null
-    gateId?: StringNullableFilter<"Vendor"> | string | null
-    zoneId?: StringNullableFilter<"Vendor"> | string | null
     employees?: EmployeeListRelationFilter
     vendorAttachments?: VendorAttachmentListRelationFilter
-    gate?: XOR<GateNullableScalarRelationFilter, GateWhereInput> | null
-    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    gates?: VendorGateListRelationFilter
+    zones?: VendorZoneListRelationFilter
   }, "id" | "accessToken">
 
   export type VendorOrderByWithAggregationInput = {
@@ -17970,8 +22554,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    gateId?: SortOrderInput | SortOrder
-    zoneId?: SortOrderInput | SortOrder
     _count?: VendorCountOrderByAggregateInput
     _avg?: VendorAvgOrderByAggregateInput
     _max?: VendorMaxOrderByAggregateInput
@@ -17992,8 +22574,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Vendor"> | Date | string | null
-    gateId?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
-    zoneId?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
   }
 
   export type ZoneWhereInput = {
@@ -18006,8 +22586,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Zone"> | Date | string
     updatedAt?: DateTimeFilter<"Zone"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Zone"> | Date | string | null
-    vendors?: VendorListRelationFilter
-    employees?: EmployeeListRelationFilter
+    vendors?: VendorZoneListRelationFilter
+    employees?: EmployeeZoneListRelationFilter
   }
 
   export type ZoneOrderByWithRelationInput = {
@@ -18017,8 +22597,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    vendors?: VendorOrderByRelationAggregateInput
-    employees?: EmployeeOrderByRelationAggregateInput
+    vendors?: VendorZoneOrderByRelationAggregateInput
+    employees?: EmployeeZoneOrderByRelationAggregateInput
   }
 
   export type ZoneWhereUniqueInput = Prisma.AtLeast<{
@@ -18031,8 +22611,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Zone"> | Date | string
     updatedAt?: DateTimeFilter<"Zone"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Zone"> | Date | string | null
-    vendors?: VendorListRelationFilter
-    employees?: EmployeeListRelationFilter
+    vendors?: VendorZoneListRelationFilter
+    employees?: EmployeeZoneListRelationFilter
   }, "id">
 
   export type ZoneOrderByWithAggregationInput = {
@@ -18069,8 +22649,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Gate"> | Date | string
     updatedAt?: DateTimeFilter<"Gate"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Gate"> | Date | string | null
-    vendors?: VendorListRelationFilter
-    employees?: EmployeeListRelationFilter
+    vendors?: VendorGateListRelationFilter
+    employees?: EmployeeGateListRelationFilter
     activities?: ActivityListRelationFilter
   }
 
@@ -18081,8 +22661,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    vendors?: VendorOrderByRelationAggregateInput
-    employees?: EmployeeOrderByRelationAggregateInput
+    vendors?: VendorGateOrderByRelationAggregateInput
+    employees?: EmployeeGateOrderByRelationAggregateInput
     activities?: ActivityOrderByRelationAggregateInput
   }
 
@@ -18096,8 +22676,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Gate"> | Date | string
     updatedAt?: DateTimeFilter<"Gate"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Gate"> | Date | string | null
-    vendors?: VendorListRelationFilter
-    employees?: EmployeeListRelationFilter
+    vendors?: VendorGateListRelationFilter
+    employees?: EmployeeGateListRelationFilter
     activities?: ActivityListRelationFilter
   }, "id">
 
@@ -18193,18 +22773,16 @@ export namespace Prisma {
     identifier?: StringFilter<"Employee"> | string
     name?: StringFilter<"Employee"> | string
     job?: StringFilter<"Employee"> | string
-    description?: StringNullableFilter<"Employee"> | string | null
+    nationalId?: StringFilter<"Employee"> | string
     version?: IntFilter<"Employee"> | number
     createdAt?: DateTimeFilter<"Employee"> | Date | string
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     vendorId?: StringFilter<"Employee"> | string
-    gateId?: StringNullableFilter<"Employee"> | string | null
-    zoneId?: StringNullableFilter<"Employee"> | string | null
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-    gate?: XOR<GateNullableScalarRelationFilter, GateWhereInput> | null
-    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    gates?: EmployeeGateListRelationFilter
+    zones?: EmployeeZoneListRelationFilter
     activities?: ActivityListRelationFilter
     workingHours?: WorkingHoursListRelationFilter
     employeeAttachments?: EmployeeAttachmentListRelationFilter
@@ -18217,18 +22795,16 @@ export namespace Prisma {
     identifier?: SortOrder
     name?: SortOrder
     job?: SortOrder
-    description?: SortOrderInput | SortOrder
+    nationalId?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     status?: SortOrder
     vendorId?: SortOrder
-    gateId?: SortOrderInput | SortOrder
-    zoneId?: SortOrderInput | SortOrder
     vendor?: VendorOrderByWithRelationInput
-    gate?: GateOrderByWithRelationInput
-    zone?: ZoneOrderByWithRelationInput
+    gates?: EmployeeGateOrderByRelationAggregateInput
+    zones?: EmployeeZoneOrderByRelationAggregateInput
     activities?: ActivityOrderByRelationAggregateInput
     workingHours?: WorkingHoursOrderByRelationAggregateInput
     employeeAttachments?: EmployeeAttachmentOrderByRelationAggregateInput
@@ -18245,18 +22821,16 @@ export namespace Prisma {
     identifier?: StringFilter<"Employee"> | string
     name?: StringFilter<"Employee"> | string
     job?: StringFilter<"Employee"> | string
-    description?: StringNullableFilter<"Employee"> | string | null
+    nationalId?: StringFilter<"Employee"> | string
     version?: IntFilter<"Employee"> | number
     createdAt?: DateTimeFilter<"Employee"> | Date | string
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     vendorId?: StringFilter<"Employee"> | string
-    gateId?: StringNullableFilter<"Employee"> | string | null
-    zoneId?: StringNullableFilter<"Employee"> | string | null
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-    gate?: XOR<GateNullableScalarRelationFilter, GateWhereInput> | null
-    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    gates?: EmployeeGateListRelationFilter
+    zones?: EmployeeZoneListRelationFilter
     activities?: ActivityListRelationFilter
     workingHours?: WorkingHoursListRelationFilter
     employeeAttachments?: EmployeeAttachmentListRelationFilter
@@ -18269,15 +22843,13 @@ export namespace Prisma {
     identifier?: SortOrder
     name?: SortOrder
     job?: SortOrder
-    description?: SortOrderInput | SortOrder
+    nationalId?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     status?: SortOrder
     vendorId?: SortOrder
-    gateId?: SortOrderInput | SortOrder
-    zoneId?: SortOrderInput | SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _avg?: EmployeeAvgOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
@@ -18293,15 +22865,13 @@ export namespace Prisma {
     identifier?: StringWithAggregatesFilter<"Employee"> | string
     name?: StringWithAggregatesFilter<"Employee"> | string
     job?: StringWithAggregatesFilter<"Employee"> | string
-    description?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    nationalId?: StringWithAggregatesFilter<"Employee"> | string
     version?: IntWithAggregatesFilter<"Employee"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusWithAggregatesFilter<"Employee"> | $Enums.EmployeeStatus
     vendorId?: StringWithAggregatesFilter<"Employee"> | string
-    gateId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
-    zoneId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
   }
 
   export type WorkingHoursWhereInput = {
@@ -18822,6 +23392,222 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"EmployeePermission"> | Date | string
   }
 
+  export type VendorGateWhereInput = {
+    AND?: VendorGateWhereInput | VendorGateWhereInput[]
+    OR?: VendorGateWhereInput[]
+    NOT?: VendorGateWhereInput | VendorGateWhereInput[]
+    id?: StringFilter<"VendorGate"> | string
+    vendorId?: StringFilter<"VendorGate"> | string
+    gateId?: StringFilter<"VendorGate"> | string
+    createdAt?: DateTimeFilter<"VendorGate"> | Date | string
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    gate?: XOR<GateScalarRelationFilter, GateWhereInput>
+  }
+
+  export type VendorGateOrderByWithRelationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+    vendor?: VendorOrderByWithRelationInput
+    gate?: GateOrderByWithRelationInput
+  }
+
+  export type VendorGateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    vendorId_gateId?: VendorGateVendorIdGateIdCompoundUniqueInput
+    AND?: VendorGateWhereInput | VendorGateWhereInput[]
+    OR?: VendorGateWhereInput[]
+    NOT?: VendorGateWhereInput | VendorGateWhereInput[]
+    vendorId?: StringFilter<"VendorGate"> | string
+    gateId?: StringFilter<"VendorGate"> | string
+    createdAt?: DateTimeFilter<"VendorGate"> | Date | string
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    gate?: XOR<GateScalarRelationFilter, GateWhereInput>
+  }, "id" | "vendorId_gateId">
+
+  export type VendorGateOrderByWithAggregationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+    _count?: VendorGateCountOrderByAggregateInput
+    _max?: VendorGateMaxOrderByAggregateInput
+    _min?: VendorGateMinOrderByAggregateInput
+  }
+
+  export type VendorGateScalarWhereWithAggregatesInput = {
+    AND?: VendorGateScalarWhereWithAggregatesInput | VendorGateScalarWhereWithAggregatesInput[]
+    OR?: VendorGateScalarWhereWithAggregatesInput[]
+    NOT?: VendorGateScalarWhereWithAggregatesInput | VendorGateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VendorGate"> | string
+    vendorId?: StringWithAggregatesFilter<"VendorGate"> | string
+    gateId?: StringWithAggregatesFilter<"VendorGate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"VendorGate"> | Date | string
+  }
+
+  export type VendorZoneWhereInput = {
+    AND?: VendorZoneWhereInput | VendorZoneWhereInput[]
+    OR?: VendorZoneWhereInput[]
+    NOT?: VendorZoneWhereInput | VendorZoneWhereInput[]
+    id?: StringFilter<"VendorZone"> | string
+    vendorId?: StringFilter<"VendorZone"> | string
+    zoneId?: StringFilter<"VendorZone"> | string
+    createdAt?: DateTimeFilter<"VendorZone"> | Date | string
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    zone?: XOR<ZoneScalarRelationFilter, ZoneWhereInput>
+  }
+
+  export type VendorZoneOrderByWithRelationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+    vendor?: VendorOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
+  }
+
+  export type VendorZoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    vendorId_zoneId?: VendorZoneVendorIdZoneIdCompoundUniqueInput
+    AND?: VendorZoneWhereInput | VendorZoneWhereInput[]
+    OR?: VendorZoneWhereInput[]
+    NOT?: VendorZoneWhereInput | VendorZoneWhereInput[]
+    vendorId?: StringFilter<"VendorZone"> | string
+    zoneId?: StringFilter<"VendorZone"> | string
+    createdAt?: DateTimeFilter<"VendorZone"> | Date | string
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    zone?: XOR<ZoneScalarRelationFilter, ZoneWhereInput>
+  }, "id" | "vendorId_zoneId">
+
+  export type VendorZoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+    _count?: VendorZoneCountOrderByAggregateInput
+    _max?: VendorZoneMaxOrderByAggregateInput
+    _min?: VendorZoneMinOrderByAggregateInput
+  }
+
+  export type VendorZoneScalarWhereWithAggregatesInput = {
+    AND?: VendorZoneScalarWhereWithAggregatesInput | VendorZoneScalarWhereWithAggregatesInput[]
+    OR?: VendorZoneScalarWhereWithAggregatesInput[]
+    NOT?: VendorZoneScalarWhereWithAggregatesInput | VendorZoneScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VendorZone"> | string
+    vendorId?: StringWithAggregatesFilter<"VendorZone"> | string
+    zoneId?: StringWithAggregatesFilter<"VendorZone"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"VendorZone"> | Date | string
+  }
+
+  export type EmployeeGateWhereInput = {
+    AND?: EmployeeGateWhereInput | EmployeeGateWhereInput[]
+    OR?: EmployeeGateWhereInput[]
+    NOT?: EmployeeGateWhereInput | EmployeeGateWhereInput[]
+    id?: StringFilter<"EmployeeGate"> | string
+    employeeId?: StringFilter<"EmployeeGate"> | string
+    gateId?: StringFilter<"EmployeeGate"> | string
+    createdAt?: DateTimeFilter<"EmployeeGate"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    gate?: XOR<GateScalarRelationFilter, GateWhereInput>
+  }
+
+  export type EmployeeGateOrderByWithRelationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+    gate?: GateOrderByWithRelationInput
+  }
+
+  export type EmployeeGateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    employeeId_gateId?: EmployeeGateEmployeeIdGateIdCompoundUniqueInput
+    AND?: EmployeeGateWhereInput | EmployeeGateWhereInput[]
+    OR?: EmployeeGateWhereInput[]
+    NOT?: EmployeeGateWhereInput | EmployeeGateWhereInput[]
+    employeeId?: StringFilter<"EmployeeGate"> | string
+    gateId?: StringFilter<"EmployeeGate"> | string
+    createdAt?: DateTimeFilter<"EmployeeGate"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    gate?: XOR<GateScalarRelationFilter, GateWhereInput>
+  }, "id" | "employeeId_gateId">
+
+  export type EmployeeGateOrderByWithAggregationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+    _count?: EmployeeGateCountOrderByAggregateInput
+    _max?: EmployeeGateMaxOrderByAggregateInput
+    _min?: EmployeeGateMinOrderByAggregateInput
+  }
+
+  export type EmployeeGateScalarWhereWithAggregatesInput = {
+    AND?: EmployeeGateScalarWhereWithAggregatesInput | EmployeeGateScalarWhereWithAggregatesInput[]
+    OR?: EmployeeGateScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeGateScalarWhereWithAggregatesInput | EmployeeGateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmployeeGate"> | string
+    employeeId?: StringWithAggregatesFilter<"EmployeeGate"> | string
+    gateId?: StringWithAggregatesFilter<"EmployeeGate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EmployeeGate"> | Date | string
+  }
+
+  export type EmployeeZoneWhereInput = {
+    AND?: EmployeeZoneWhereInput | EmployeeZoneWhereInput[]
+    OR?: EmployeeZoneWhereInput[]
+    NOT?: EmployeeZoneWhereInput | EmployeeZoneWhereInput[]
+    id?: StringFilter<"EmployeeZone"> | string
+    employeeId?: StringFilter<"EmployeeZone"> | string
+    zoneId?: StringFilter<"EmployeeZone"> | string
+    createdAt?: DateTimeFilter<"EmployeeZone"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    zone?: XOR<ZoneScalarRelationFilter, ZoneWhereInput>
+  }
+
+  export type EmployeeZoneOrderByWithRelationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
+  }
+
+  export type EmployeeZoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    employeeId_zoneId?: EmployeeZoneEmployeeIdZoneIdCompoundUniqueInput
+    AND?: EmployeeZoneWhereInput | EmployeeZoneWhereInput[]
+    OR?: EmployeeZoneWhereInput[]
+    NOT?: EmployeeZoneWhereInput | EmployeeZoneWhereInput[]
+    employeeId?: StringFilter<"EmployeeZone"> | string
+    zoneId?: StringFilter<"EmployeeZone"> | string
+    createdAt?: DateTimeFilter<"EmployeeZone"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    zone?: XOR<ZoneScalarRelationFilter, ZoneWhereInput>
+  }, "id" | "employeeId_zoneId">
+
+  export type EmployeeZoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+    _count?: EmployeeZoneCountOrderByAggregateInput
+    _max?: EmployeeZoneMaxOrderByAggregateInput
+    _min?: EmployeeZoneMinOrderByAggregateInput
+  }
+
+  export type EmployeeZoneScalarWhereWithAggregatesInput = {
+    AND?: EmployeeZoneScalarWhereWithAggregatesInput | EmployeeZoneScalarWhereWithAggregatesInput[]
+    OR?: EmployeeZoneScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeZoneScalarWhereWithAggregatesInput | EmployeeZoneScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmployeeZone"> | string
+    employeeId?: StringWithAggregatesFilter<"EmployeeZone"> | string
+    zoneId?: StringWithAggregatesFilter<"EmployeeZone"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EmployeeZone"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -18926,8 +23712,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     employees?: EmployeeCreateNestedManyWithoutVendorInput
     vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
-    gate?: GateCreateNestedOneWithoutVendorsInput
-    zone?: ZoneCreateNestedOneWithoutVendorsInput
+    gates?: VendorGateCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUncheckedCreateInput = {
@@ -18940,10 +23726,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    gateId?: string | null
-    zoneId?: string | null
     employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
     vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
+    gates?: VendorGateUncheckedCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUpdateInput = {
@@ -18958,8 +23744,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     employees?: EmployeeUpdateManyWithoutVendorNestedInput
     vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
-    gate?: GateUpdateOneWithoutVendorsNestedInput
-    zone?: ZoneUpdateOneWithoutVendorsNestedInput
+    gates?: VendorGateUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorUncheckedUpdateInput = {
@@ -18972,10 +23758,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
     vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
+    gates?: VendorGateUncheckedUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorCreateManyInput = {
@@ -18988,8 +23774,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    gateId?: string | null
-    zoneId?: string | null
   }
 
   export type VendorUpdateManyMutationInput = {
@@ -19014,8 +23798,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ZoneCreateInput = {
@@ -19025,8 +23807,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorCreateNestedManyWithoutZoneInput
-    employees?: EmployeeCreateNestedManyWithoutZoneInput
+    vendors?: VendorZoneCreateNestedManyWithoutZoneInput
+    employees?: EmployeeZoneCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateInput = {
@@ -19036,8 +23818,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorUncheckedCreateNestedManyWithoutZoneInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutZoneInput
+    vendors?: VendorZoneUncheckedCreateNestedManyWithoutZoneInput
+    employees?: EmployeeZoneUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUpdateInput = {
@@ -19047,8 +23829,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUpdateManyWithoutZoneNestedInput
-    employees?: EmployeeUpdateManyWithoutZoneNestedInput
+    vendors?: VendorZoneUpdateManyWithoutZoneNestedInput
+    employees?: EmployeeZoneUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateInput = {
@@ -19058,8 +23840,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUncheckedUpdateManyWithoutZoneNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutZoneNestedInput
+    vendors?: VendorZoneUncheckedUpdateManyWithoutZoneNestedInput
+    employees?: EmployeeZoneUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneCreateManyInput = {
@@ -19096,8 +23878,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorCreateNestedManyWithoutGateInput
-    employees?: EmployeeCreateNestedManyWithoutGateInput
+    vendors?: VendorGateCreateNestedManyWithoutGateInput
+    employees?: EmployeeGateCreateNestedManyWithoutGateInput
     activities?: ActivityCreateNestedManyWithoutGateInput
   }
 
@@ -19108,8 +23890,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorUncheckedCreateNestedManyWithoutGateInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutGateInput
+    vendors?: VendorGateUncheckedCreateNestedManyWithoutGateInput
+    employees?: EmployeeGateUncheckedCreateNestedManyWithoutGateInput
     activities?: ActivityUncheckedCreateNestedManyWithoutGateInput
   }
 
@@ -19120,8 +23902,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUpdateManyWithoutGateNestedInput
-    employees?: EmployeeUpdateManyWithoutGateNestedInput
+    vendors?: VendorGateUpdateManyWithoutGateNestedInput
+    employees?: EmployeeGateUpdateManyWithoutGateNestedInput
     activities?: ActivityUpdateManyWithoutGateNestedInput
   }
 
@@ -19132,8 +23914,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUncheckedUpdateManyWithoutGateNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutGateNestedInput
+    vendors?: VendorGateUncheckedUpdateManyWithoutGateNestedInput
+    employees?: EmployeeGateUncheckedUpdateManyWithoutGateNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutGateNestedInput
   }
 
@@ -19236,15 +24018,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
@@ -19257,15 +24039,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
@@ -19278,15 +24060,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
@@ -19299,15 +24081,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -19320,15 +24102,13 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
   }
 
   export type EmployeeUpdateManyMutationInput = {
@@ -19336,7 +24116,7 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19349,15 +24129,13 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkingHoursCreateInput = {
@@ -19891,6 +24669,194 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VendorGateCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    vendor: VendorCreateNestedOneWithoutGatesInput
+    gate: GateCreateNestedOneWithoutVendorsInput
+  }
+
+  export type VendorGateUncheckedCreateInput = {
+    id?: string
+    vendorId: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type VendorGateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutGatesNestedInput
+    gate?: GateUpdateOneRequiredWithoutVendorsNestedInput
+  }
+
+  export type VendorGateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorGateCreateManyInput = {
+    id?: string
+    vendorId: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type VendorGateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorGateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    vendor: VendorCreateNestedOneWithoutZonesInput
+    zone: ZoneCreateNestedOneWithoutVendorsInput
+  }
+
+  export type VendorZoneUncheckedCreateInput = {
+    id?: string
+    vendorId: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
+  export type VendorZoneUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutZonesNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutVendorsNestedInput
+  }
+
+  export type VendorZoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneCreateManyInput = {
+    id?: string
+    vendorId: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
+  export type VendorZoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutGatesInput
+    gate: GateCreateNestedOneWithoutEmployeesInput
+  }
+
+  export type EmployeeGateUncheckedCreateInput = {
+    id?: string
+    employeeId: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeGateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutGatesNestedInput
+    gate?: GateUpdateOneRequiredWithoutEmployeesNestedInput
+  }
+
+  export type EmployeeGateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateCreateManyInput = {
+    id?: string
+    employeeId: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeGateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutZonesInput
+    zone: ZoneCreateNestedOneWithoutEmployeesInput
+  }
+
+  export type EmployeeZoneUncheckedCreateInput = {
+    id?: string
+    employeeId: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeZoneUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutZonesNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutEmployeesNestedInput
+  }
+
+  export type EmployeeZoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneCreateManyInput = {
+    id?: string
+    employeeId: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeZoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20107,14 +25073,16 @@ export namespace Prisma {
     none?: VendorAttachmentWhereInput
   }
 
-  export type GateNullableScalarRelationFilter = {
-    is?: GateWhereInput | null
-    isNot?: GateWhereInput | null
+  export type VendorGateListRelationFilter = {
+    every?: VendorGateWhereInput
+    some?: VendorGateWhereInput
+    none?: VendorGateWhereInput
   }
 
-  export type ZoneNullableScalarRelationFilter = {
-    is?: ZoneWhereInput | null
-    isNot?: ZoneWhereInput | null
+  export type VendorZoneListRelationFilter = {
+    every?: VendorZoneWhereInput
+    some?: VendorZoneWhereInput
+    none?: VendorZoneWhereInput
   }
 
   export type EmployeeOrderByRelationAggregateInput = {
@@ -20122,6 +25090,14 @@ export namespace Prisma {
   }
 
   export type VendorAttachmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VendorGateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VendorZoneOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20135,8 +25111,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type VendorAvgOrderByAggregateInput = {
@@ -20153,8 +25127,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type VendorMinOrderByAggregateInput = {
@@ -20167,8 +25139,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type VendorSumOrderByAggregateInput = {
@@ -20205,13 +25175,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type VendorListRelationFilter = {
-    every?: VendorWhereInput
-    some?: VendorWhereInput
-    none?: VendorWhereInput
+  export type EmployeeZoneListRelationFilter = {
+    every?: EmployeeZoneWhereInput
+    some?: EmployeeZoneWhereInput
+    none?: EmployeeZoneWhereInput
   }
 
-  export type VendorOrderByRelationAggregateInput = {
+  export type EmployeeZoneOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20240,6 +25210,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+  }
+
+  export type EmployeeGateListRelationFilter = {
+    every?: EmployeeGateWhereInput
+    some?: EmployeeGateWhereInput
+    none?: EmployeeGateWhereInput
+  }
+
+  export type EmployeeGateOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GateCountOrderByAggregateInput = {
@@ -20348,15 +25328,13 @@ export namespace Prisma {
     identifier?: SortOrder
     name?: SortOrder
     job?: SortOrder
-    description?: SortOrder
+    nationalId?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
     vendorId?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type EmployeeAvgOrderByAggregateInput = {
@@ -20368,15 +25346,13 @@ export namespace Prisma {
     identifier?: SortOrder
     name?: SortOrder
     job?: SortOrder
-    description?: SortOrder
+    nationalId?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
     vendorId?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type EmployeeMinOrderByAggregateInput = {
@@ -20384,15 +25360,13 @@ export namespace Prisma {
     identifier?: SortOrder
     name?: SortOrder
     job?: SortOrder
-    description?: SortOrder
+    nationalId?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
     vendorId?: SortOrder
-    gateId?: SortOrder
-    zoneId?: SortOrder
   }
 
   export type EmployeeSumOrderByAggregateInput = {
@@ -20535,6 +25509,11 @@ export namespace Prisma {
     in?: $Enums.AccessStatus[] | ListEnumAccessStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.AccessStatus[] | ListEnumAccessStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumAccessStatusFilter<$PrismaModel> | $Enums.AccessStatus
+  }
+
+  export type GateNullableScalarRelationFilter = {
+    is?: GateWhereInput | null
+    isNot?: GateWhereInput | null
   }
 
   export type ActivityCountOrderByAggregateInput = {
@@ -20790,6 +25769,120 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type GateScalarRelationFilter = {
+    is?: GateWhereInput
+    isNot?: GateWhereInput
+  }
+
+  export type VendorGateVendorIdGateIdCompoundUniqueInput = {
+    vendorId: string
+    gateId: string
+  }
+
+  export type VendorGateCountOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorGateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorGateMinOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ZoneScalarRelationFilter = {
+    is?: ZoneWhereInput
+    isNot?: ZoneWhereInput
+  }
+
+  export type VendorZoneVendorIdZoneIdCompoundUniqueInput = {
+    vendorId: string
+    zoneId: string
+  }
+
+  export type VendorZoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorZoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorZoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeGateEmployeeIdGateIdCompoundUniqueInput = {
+    employeeId: string
+    gateId: string
+  }
+
+  export type EmployeeGateCountOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeGateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeGateMinOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    gateId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeZoneEmployeeIdZoneIdCompoundUniqueInput = {
+    employeeId: string
+    zoneId: string
+  }
+
+  export type EmployeeZoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeZoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmployeeZoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    zoneId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type ActivityCreateNestedManyWithoutScannerInput = {
     create?: XOR<ActivityCreateWithoutScannerInput, ActivityUncheckedCreateWithoutScannerInput> | ActivityCreateWithoutScannerInput[] | ActivityUncheckedCreateWithoutScannerInput[]
     connectOrCreate?: ActivityCreateOrConnectWithoutScannerInput | ActivityCreateOrConnectWithoutScannerInput[]
@@ -20908,16 +26001,18 @@ export namespace Prisma {
     connect?: VendorAttachmentWhereUniqueInput | VendorAttachmentWhereUniqueInput[]
   }
 
-  export type GateCreateNestedOneWithoutVendorsInput = {
-    create?: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
-    connectOrCreate?: GateCreateOrConnectWithoutVendorsInput
-    connect?: GateWhereUniqueInput
+  export type VendorGateCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput> | VendorGateCreateWithoutVendorInput[] | VendorGateUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutVendorInput | VendorGateCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorGateCreateManyVendorInputEnvelope
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
   }
 
-  export type ZoneCreateNestedOneWithoutVendorsInput = {
-    create?: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
-    connectOrCreate?: ZoneCreateOrConnectWithoutVendorsInput
-    connect?: ZoneWhereUniqueInput
+  export type VendorZoneCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput> | VendorZoneCreateWithoutVendorInput[] | VendorZoneUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutVendorInput | VendorZoneCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorZoneCreateManyVendorInputEnvelope
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
   }
 
   export type EmployeeUncheckedCreateNestedManyWithoutVendorInput = {
@@ -20932,6 +26027,20 @@ export namespace Prisma {
     connectOrCreate?: VendorAttachmentCreateOrConnectWithoutVendorInput | VendorAttachmentCreateOrConnectWithoutVendorInput[]
     createMany?: VendorAttachmentCreateManyVendorInputEnvelope
     connect?: VendorAttachmentWhereUniqueInput | VendorAttachmentWhereUniqueInput[]
+  }
+
+  export type VendorGateUncheckedCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput> | VendorGateCreateWithoutVendorInput[] | VendorGateUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutVendorInput | VendorGateCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorGateCreateManyVendorInputEnvelope
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+  }
+
+  export type VendorZoneUncheckedCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput> | VendorZoneCreateWithoutVendorInput[] | VendorZoneUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutVendorInput | VendorZoneCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorZoneCreateManyVendorInputEnvelope
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -20974,24 +26083,32 @@ export namespace Prisma {
     deleteMany?: VendorAttachmentScalarWhereInput | VendorAttachmentScalarWhereInput[]
   }
 
-  export type GateUpdateOneWithoutVendorsNestedInput = {
-    create?: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
-    connectOrCreate?: GateCreateOrConnectWithoutVendorsInput
-    upsert?: GateUpsertWithoutVendorsInput
-    disconnect?: GateWhereInput | boolean
-    delete?: GateWhereInput | boolean
-    connect?: GateWhereUniqueInput
-    update?: XOR<XOR<GateUpdateToOneWithWhereWithoutVendorsInput, GateUpdateWithoutVendorsInput>, GateUncheckedUpdateWithoutVendorsInput>
+  export type VendorGateUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput> | VendorGateCreateWithoutVendorInput[] | VendorGateUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutVendorInput | VendorGateCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorGateUpsertWithWhereUniqueWithoutVendorInput | VendorGateUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorGateCreateManyVendorInputEnvelope
+    set?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    disconnect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    delete?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    update?: VendorGateUpdateWithWhereUniqueWithoutVendorInput | VendorGateUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorGateUpdateManyWithWhereWithoutVendorInput | VendorGateUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
   }
 
-  export type ZoneUpdateOneWithoutVendorsNestedInput = {
-    create?: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
-    connectOrCreate?: ZoneCreateOrConnectWithoutVendorsInput
-    upsert?: ZoneUpsertWithoutVendorsInput
-    disconnect?: ZoneWhereInput | boolean
-    delete?: ZoneWhereInput | boolean
-    connect?: ZoneWhereUniqueInput
-    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutVendorsInput, ZoneUpdateWithoutVendorsInput>, ZoneUncheckedUpdateWithoutVendorsInput>
+  export type VendorZoneUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput> | VendorZoneCreateWithoutVendorInput[] | VendorZoneUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutVendorInput | VendorZoneCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorZoneUpsertWithWhereUniqueWithoutVendorInput | VendorZoneUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorZoneCreateManyVendorInputEnvelope
+    set?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    disconnect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    delete?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    update?: VendorZoneUpdateWithWhereUniqueWithoutVendorInput | VendorZoneUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorZoneUpdateManyWithWhereWithoutVendorInput | VendorZoneUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
   }
 
   export type EmployeeUncheckedUpdateManyWithoutVendorNestedInput = {
@@ -21022,102 +26139,130 @@ export namespace Prisma {
     deleteMany?: VendorAttachmentScalarWhereInput | VendorAttachmentScalarWhereInput[]
   }
 
-  export type VendorCreateNestedManyWithoutZoneInput = {
-    create?: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput> | VendorCreateWithoutZoneInput[] | VendorUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutZoneInput | VendorCreateOrConnectWithoutZoneInput[]
-    createMany?: VendorCreateManyZoneInputEnvelope
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
+  export type VendorGateUncheckedUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput> | VendorGateCreateWithoutVendorInput[] | VendorGateUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutVendorInput | VendorGateCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorGateUpsertWithWhereUniqueWithoutVendorInput | VendorGateUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorGateCreateManyVendorInputEnvelope
+    set?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    disconnect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    delete?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    update?: VendorGateUpdateWithWhereUniqueWithoutVendorInput | VendorGateUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorGateUpdateManyWithWhereWithoutVendorInput | VendorGateUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
   }
 
-  export type EmployeeCreateNestedManyWithoutZoneInput = {
-    create?: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput> | EmployeeCreateWithoutZoneInput[] | EmployeeUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutZoneInput | EmployeeCreateOrConnectWithoutZoneInput[]
-    createMany?: EmployeeCreateManyZoneInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type VendorZoneUncheckedUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput> | VendorZoneCreateWithoutVendorInput[] | VendorZoneUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutVendorInput | VendorZoneCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorZoneUpsertWithWhereUniqueWithoutVendorInput | VendorZoneUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorZoneCreateManyVendorInputEnvelope
+    set?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    disconnect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    delete?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    update?: VendorZoneUpdateWithWhereUniqueWithoutVendorInput | VendorZoneUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorZoneUpdateManyWithWhereWithoutVendorInput | VendorZoneUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
   }
 
-  export type VendorUncheckedCreateNestedManyWithoutZoneInput = {
-    create?: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput> | VendorCreateWithoutZoneInput[] | VendorUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutZoneInput | VendorCreateOrConnectWithoutZoneInput[]
-    createMany?: VendorCreateManyZoneInputEnvelope
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
+  export type VendorZoneCreateNestedManyWithoutZoneInput = {
+    create?: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput> | VendorZoneCreateWithoutZoneInput[] | VendorZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutZoneInput | VendorZoneCreateOrConnectWithoutZoneInput[]
+    createMany?: VendorZoneCreateManyZoneInputEnvelope
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutZoneInput = {
-    create?: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput> | EmployeeCreateWithoutZoneInput[] | EmployeeUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutZoneInput | EmployeeCreateOrConnectWithoutZoneInput[]
-    createMany?: EmployeeCreateManyZoneInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type EmployeeZoneCreateNestedManyWithoutZoneInput = {
+    create?: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput> | EmployeeZoneCreateWithoutZoneInput[] | EmployeeZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutZoneInput | EmployeeZoneCreateOrConnectWithoutZoneInput[]
+    createMany?: EmployeeZoneCreateManyZoneInputEnvelope
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
   }
 
-  export type VendorUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput> | VendorCreateWithoutZoneInput[] | VendorUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutZoneInput | VendorCreateOrConnectWithoutZoneInput[]
-    upsert?: VendorUpsertWithWhereUniqueWithoutZoneInput | VendorUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: VendorCreateManyZoneInputEnvelope
-    set?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    disconnect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    delete?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    update?: VendorUpdateWithWhereUniqueWithoutZoneInput | VendorUpdateWithWhereUniqueWithoutZoneInput[]
-    updateMany?: VendorUpdateManyWithWhereWithoutZoneInput | VendorUpdateManyWithWhereWithoutZoneInput[]
-    deleteMany?: VendorScalarWhereInput | VendorScalarWhereInput[]
+  export type VendorZoneUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput> | VendorZoneCreateWithoutZoneInput[] | VendorZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutZoneInput | VendorZoneCreateOrConnectWithoutZoneInput[]
+    createMany?: VendorZoneCreateManyZoneInputEnvelope
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
   }
 
-  export type EmployeeUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput> | EmployeeCreateWithoutZoneInput[] | EmployeeUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutZoneInput | EmployeeCreateOrConnectWithoutZoneInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutZoneInput | EmployeeUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: EmployeeCreateManyZoneInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutZoneInput | EmployeeUpdateWithWhereUniqueWithoutZoneInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutZoneInput | EmployeeUpdateManyWithWhereWithoutZoneInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type EmployeeZoneUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput> | EmployeeZoneCreateWithoutZoneInput[] | EmployeeZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutZoneInput | EmployeeZoneCreateOrConnectWithoutZoneInput[]
+    createMany?: EmployeeZoneCreateManyZoneInputEnvelope
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
   }
 
-  export type VendorUncheckedUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput> | VendorCreateWithoutZoneInput[] | VendorUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutZoneInput | VendorCreateOrConnectWithoutZoneInput[]
-    upsert?: VendorUpsertWithWhereUniqueWithoutZoneInput | VendorUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: VendorCreateManyZoneInputEnvelope
-    set?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    disconnect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    delete?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    update?: VendorUpdateWithWhereUniqueWithoutZoneInput | VendorUpdateWithWhereUniqueWithoutZoneInput[]
-    updateMany?: VendorUpdateManyWithWhereWithoutZoneInput | VendorUpdateManyWithWhereWithoutZoneInput[]
-    deleteMany?: VendorScalarWhereInput | VendorScalarWhereInput[]
+  export type VendorZoneUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput> | VendorZoneCreateWithoutZoneInput[] | VendorZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutZoneInput | VendorZoneCreateOrConnectWithoutZoneInput[]
+    upsert?: VendorZoneUpsertWithWhereUniqueWithoutZoneInput | VendorZoneUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: VendorZoneCreateManyZoneInputEnvelope
+    set?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    disconnect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    delete?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    update?: VendorZoneUpdateWithWhereUniqueWithoutZoneInput | VendorZoneUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: VendorZoneUpdateManyWithWhereWithoutZoneInput | VendorZoneUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput> | EmployeeCreateWithoutZoneInput[] | EmployeeUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutZoneInput | EmployeeCreateOrConnectWithoutZoneInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutZoneInput | EmployeeUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: EmployeeCreateManyZoneInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutZoneInput | EmployeeUpdateWithWhereUniqueWithoutZoneInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutZoneInput | EmployeeUpdateManyWithWhereWithoutZoneInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type EmployeeZoneUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput> | EmployeeZoneCreateWithoutZoneInput[] | EmployeeZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutZoneInput | EmployeeZoneCreateOrConnectWithoutZoneInput[]
+    upsert?: EmployeeZoneUpsertWithWhereUniqueWithoutZoneInput | EmployeeZoneUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: EmployeeZoneCreateManyZoneInputEnvelope
+    set?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    disconnect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    delete?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    update?: EmployeeZoneUpdateWithWhereUniqueWithoutZoneInput | EmployeeZoneUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: EmployeeZoneUpdateManyWithWhereWithoutZoneInput | EmployeeZoneUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
   }
 
-  export type VendorCreateNestedManyWithoutGateInput = {
-    create?: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput> | VendorCreateWithoutGateInput[] | VendorUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutGateInput | VendorCreateOrConnectWithoutGateInput[]
-    createMany?: VendorCreateManyGateInputEnvelope
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
+  export type VendorZoneUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput> | VendorZoneCreateWithoutZoneInput[] | VendorZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: VendorZoneCreateOrConnectWithoutZoneInput | VendorZoneCreateOrConnectWithoutZoneInput[]
+    upsert?: VendorZoneUpsertWithWhereUniqueWithoutZoneInput | VendorZoneUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: VendorZoneCreateManyZoneInputEnvelope
+    set?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    disconnect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    delete?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    connect?: VendorZoneWhereUniqueInput | VendorZoneWhereUniqueInput[]
+    update?: VendorZoneUpdateWithWhereUniqueWithoutZoneInput | VendorZoneUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: VendorZoneUpdateManyWithWhereWithoutZoneInput | VendorZoneUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
   }
 
-  export type EmployeeCreateNestedManyWithoutGateInput = {
-    create?: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput> | EmployeeCreateWithoutGateInput[] | EmployeeUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutGateInput | EmployeeCreateOrConnectWithoutGateInput[]
-    createMany?: EmployeeCreateManyGateInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type EmployeeZoneUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput> | EmployeeZoneCreateWithoutZoneInput[] | EmployeeZoneUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutZoneInput | EmployeeZoneCreateOrConnectWithoutZoneInput[]
+    upsert?: EmployeeZoneUpsertWithWhereUniqueWithoutZoneInput | EmployeeZoneUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: EmployeeZoneCreateManyZoneInputEnvelope
+    set?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    disconnect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    delete?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    update?: EmployeeZoneUpdateWithWhereUniqueWithoutZoneInput | EmployeeZoneUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: EmployeeZoneUpdateManyWithWhereWithoutZoneInput | EmployeeZoneUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
+  }
+
+  export type VendorGateCreateNestedManyWithoutGateInput = {
+    create?: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput> | VendorGateCreateWithoutGateInput[] | VendorGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutGateInput | VendorGateCreateOrConnectWithoutGateInput[]
+    createMany?: VendorGateCreateManyGateInputEnvelope
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+  }
+
+  export type EmployeeGateCreateNestedManyWithoutGateInput = {
+    create?: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput> | EmployeeGateCreateWithoutGateInput[] | EmployeeGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutGateInput | EmployeeGateCreateOrConnectWithoutGateInput[]
+    createMany?: EmployeeGateCreateManyGateInputEnvelope
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
   }
 
   export type ActivityCreateNestedManyWithoutGateInput = {
@@ -21127,18 +26272,18 @@ export namespace Prisma {
     connect?: ActivityWhereUniqueInput | ActivityWhereUniqueInput[]
   }
 
-  export type VendorUncheckedCreateNestedManyWithoutGateInput = {
-    create?: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput> | VendorCreateWithoutGateInput[] | VendorUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutGateInput | VendorCreateOrConnectWithoutGateInput[]
-    createMany?: VendorCreateManyGateInputEnvelope
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
+  export type VendorGateUncheckedCreateNestedManyWithoutGateInput = {
+    create?: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput> | VendorGateCreateWithoutGateInput[] | VendorGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutGateInput | VendorGateCreateOrConnectWithoutGateInput[]
+    createMany?: VendorGateCreateManyGateInputEnvelope
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutGateInput = {
-    create?: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput> | EmployeeCreateWithoutGateInput[] | EmployeeUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutGateInput | EmployeeCreateOrConnectWithoutGateInput[]
-    createMany?: EmployeeCreateManyGateInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type EmployeeGateUncheckedCreateNestedManyWithoutGateInput = {
+    create?: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput> | EmployeeGateCreateWithoutGateInput[] | EmployeeGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutGateInput | EmployeeGateCreateOrConnectWithoutGateInput[]
+    createMany?: EmployeeGateCreateManyGateInputEnvelope
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
   }
 
   export type ActivityUncheckedCreateNestedManyWithoutGateInput = {
@@ -21148,32 +26293,32 @@ export namespace Prisma {
     connect?: ActivityWhereUniqueInput | ActivityWhereUniqueInput[]
   }
 
-  export type VendorUpdateManyWithoutGateNestedInput = {
-    create?: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput> | VendorCreateWithoutGateInput[] | VendorUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutGateInput | VendorCreateOrConnectWithoutGateInput[]
-    upsert?: VendorUpsertWithWhereUniqueWithoutGateInput | VendorUpsertWithWhereUniqueWithoutGateInput[]
-    createMany?: VendorCreateManyGateInputEnvelope
-    set?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    disconnect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    delete?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    update?: VendorUpdateWithWhereUniqueWithoutGateInput | VendorUpdateWithWhereUniqueWithoutGateInput[]
-    updateMany?: VendorUpdateManyWithWhereWithoutGateInput | VendorUpdateManyWithWhereWithoutGateInput[]
-    deleteMany?: VendorScalarWhereInput | VendorScalarWhereInput[]
+  export type VendorGateUpdateManyWithoutGateNestedInput = {
+    create?: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput> | VendorGateCreateWithoutGateInput[] | VendorGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutGateInput | VendorGateCreateOrConnectWithoutGateInput[]
+    upsert?: VendorGateUpsertWithWhereUniqueWithoutGateInput | VendorGateUpsertWithWhereUniqueWithoutGateInput[]
+    createMany?: VendorGateCreateManyGateInputEnvelope
+    set?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    disconnect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    delete?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    update?: VendorGateUpdateWithWhereUniqueWithoutGateInput | VendorGateUpdateWithWhereUniqueWithoutGateInput[]
+    updateMany?: VendorGateUpdateManyWithWhereWithoutGateInput | VendorGateUpdateManyWithWhereWithoutGateInput[]
+    deleteMany?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
   }
 
-  export type EmployeeUpdateManyWithoutGateNestedInput = {
-    create?: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput> | EmployeeCreateWithoutGateInput[] | EmployeeUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutGateInput | EmployeeCreateOrConnectWithoutGateInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutGateInput | EmployeeUpsertWithWhereUniqueWithoutGateInput[]
-    createMany?: EmployeeCreateManyGateInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutGateInput | EmployeeUpdateWithWhereUniqueWithoutGateInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutGateInput | EmployeeUpdateManyWithWhereWithoutGateInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type EmployeeGateUpdateManyWithoutGateNestedInput = {
+    create?: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput> | EmployeeGateCreateWithoutGateInput[] | EmployeeGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutGateInput | EmployeeGateCreateOrConnectWithoutGateInput[]
+    upsert?: EmployeeGateUpsertWithWhereUniqueWithoutGateInput | EmployeeGateUpsertWithWhereUniqueWithoutGateInput[]
+    createMany?: EmployeeGateCreateManyGateInputEnvelope
+    set?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    disconnect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    delete?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    update?: EmployeeGateUpdateWithWhereUniqueWithoutGateInput | EmployeeGateUpdateWithWhereUniqueWithoutGateInput[]
+    updateMany?: EmployeeGateUpdateManyWithWhereWithoutGateInput | EmployeeGateUpdateManyWithWhereWithoutGateInput[]
+    deleteMany?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
   }
 
   export type ActivityUpdateManyWithoutGateNestedInput = {
@@ -21190,32 +26335,32 @@ export namespace Prisma {
     deleteMany?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
   }
 
-  export type VendorUncheckedUpdateManyWithoutGateNestedInput = {
-    create?: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput> | VendorCreateWithoutGateInput[] | VendorUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: VendorCreateOrConnectWithoutGateInput | VendorCreateOrConnectWithoutGateInput[]
-    upsert?: VendorUpsertWithWhereUniqueWithoutGateInput | VendorUpsertWithWhereUniqueWithoutGateInput[]
-    createMany?: VendorCreateManyGateInputEnvelope
-    set?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    disconnect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    delete?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    connect?: VendorWhereUniqueInput | VendorWhereUniqueInput[]
-    update?: VendorUpdateWithWhereUniqueWithoutGateInput | VendorUpdateWithWhereUniqueWithoutGateInput[]
-    updateMany?: VendorUpdateManyWithWhereWithoutGateInput | VendorUpdateManyWithWhereWithoutGateInput[]
-    deleteMany?: VendorScalarWhereInput | VendorScalarWhereInput[]
+  export type VendorGateUncheckedUpdateManyWithoutGateNestedInput = {
+    create?: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput> | VendorGateCreateWithoutGateInput[] | VendorGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: VendorGateCreateOrConnectWithoutGateInput | VendorGateCreateOrConnectWithoutGateInput[]
+    upsert?: VendorGateUpsertWithWhereUniqueWithoutGateInput | VendorGateUpsertWithWhereUniqueWithoutGateInput[]
+    createMany?: VendorGateCreateManyGateInputEnvelope
+    set?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    disconnect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    delete?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    connect?: VendorGateWhereUniqueInput | VendorGateWhereUniqueInput[]
+    update?: VendorGateUpdateWithWhereUniqueWithoutGateInput | VendorGateUpdateWithWhereUniqueWithoutGateInput[]
+    updateMany?: VendorGateUpdateManyWithWhereWithoutGateInput | VendorGateUpdateManyWithWhereWithoutGateInput[]
+    deleteMany?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutGateNestedInput = {
-    create?: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput> | EmployeeCreateWithoutGateInput[] | EmployeeUncheckedCreateWithoutGateInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutGateInput | EmployeeCreateOrConnectWithoutGateInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutGateInput | EmployeeUpsertWithWhereUniqueWithoutGateInput[]
-    createMany?: EmployeeCreateManyGateInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutGateInput | EmployeeUpdateWithWhereUniqueWithoutGateInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutGateInput | EmployeeUpdateManyWithWhereWithoutGateInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type EmployeeGateUncheckedUpdateManyWithoutGateNestedInput = {
+    create?: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput> | EmployeeGateCreateWithoutGateInput[] | EmployeeGateUncheckedCreateWithoutGateInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutGateInput | EmployeeGateCreateOrConnectWithoutGateInput[]
+    upsert?: EmployeeGateUpsertWithWhereUniqueWithoutGateInput | EmployeeGateUpsertWithWhereUniqueWithoutGateInput[]
+    createMany?: EmployeeGateCreateManyGateInputEnvelope
+    set?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    disconnect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    delete?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    update?: EmployeeGateUpdateWithWhereUniqueWithoutGateInput | EmployeeGateUpdateWithWhereUniqueWithoutGateInput[]
+    updateMany?: EmployeeGateUpdateManyWithWhereWithoutGateInput | EmployeeGateUpdateManyWithWhereWithoutGateInput[]
+    deleteMany?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
   }
 
   export type ActivityUncheckedUpdateManyWithoutGateNestedInput = {
@@ -21280,16 +26425,18 @@ export namespace Prisma {
     connect?: VendorWhereUniqueInput
   }
 
-  export type GateCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: GateCreateOrConnectWithoutEmployeesInput
-    connect?: GateWhereUniqueInput
+  export type EmployeeGateCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeGateCreateManyEmployeeInputEnvelope
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
   }
 
-  export type ZoneCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: ZoneCreateOrConnectWithoutEmployeesInput
-    connect?: ZoneWhereUniqueInput
+  export type EmployeeZoneCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput> | EmployeeZoneCreateWithoutEmployeeInput[] | EmployeeZoneUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutEmployeeInput | EmployeeZoneCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeZoneCreateManyEmployeeInputEnvelope
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
   }
 
   export type ActivityCreateNestedManyWithoutEmployeeInput = {
@@ -21325,6 +26472,20 @@ export namespace Prisma {
     connectOrCreate?: AlertCreateOrConnectWithoutEmployeeInput | AlertCreateOrConnectWithoutEmployeeInput[]
     createMany?: AlertCreateManyEmployeeInputEnvelope
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
+  }
+
+  export type EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeGateCreateManyEmployeeInputEnvelope
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+  }
+
+  export type EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput> | EmployeeZoneCreateWithoutEmployeeInput[] | EmployeeZoneUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutEmployeeInput | EmployeeZoneCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeZoneCreateManyEmployeeInputEnvelope
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
   }
 
   export type ActivityUncheckedCreateNestedManyWithoutEmployeeInput = {
@@ -21374,24 +26535,32 @@ export namespace Prisma {
     update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutEmployeesInput, VendorUpdateWithoutEmployeesInput>, VendorUncheckedUpdateWithoutEmployeesInput>
   }
 
-  export type GateUpdateOneWithoutEmployeesNestedInput = {
-    create?: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: GateCreateOrConnectWithoutEmployeesInput
-    upsert?: GateUpsertWithoutEmployeesInput
-    disconnect?: GateWhereInput | boolean
-    delete?: GateWhereInput | boolean
-    connect?: GateWhereUniqueInput
-    update?: XOR<XOR<GateUpdateToOneWithWhereWithoutEmployeesInput, GateUpdateWithoutEmployeesInput>, GateUncheckedUpdateWithoutEmployeesInput>
+  export type EmployeeGateUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeGateUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeGateUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeGateCreateManyEmployeeInputEnvelope
+    set?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    disconnect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    delete?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    update?: EmployeeGateUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeGateUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeGateUpdateManyWithWhereWithoutEmployeeInput | EmployeeGateUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
   }
 
-  export type ZoneUpdateOneWithoutEmployeesNestedInput = {
-    create?: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: ZoneCreateOrConnectWithoutEmployeesInput
-    upsert?: ZoneUpsertWithoutEmployeesInput
-    disconnect?: ZoneWhereInput | boolean
-    delete?: ZoneWhereInput | boolean
-    connect?: ZoneWhereUniqueInput
-    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutEmployeesInput, ZoneUpdateWithoutEmployeesInput>, ZoneUncheckedUpdateWithoutEmployeesInput>
+  export type EmployeeZoneUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput> | EmployeeZoneCreateWithoutEmployeeInput[] | EmployeeZoneUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutEmployeeInput | EmployeeZoneCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeZoneUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeZoneUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeZoneCreateManyEmployeeInputEnvelope
+    set?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    disconnect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    delete?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    update?: EmployeeZoneUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeZoneUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeZoneUpdateManyWithWhereWithoutEmployeeInput | EmployeeZoneUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
   }
 
   export type ActivityUpdateManyWithoutEmployeeNestedInput = {
@@ -21462,6 +26631,34 @@ export namespace Prisma {
     update?: AlertUpdateWithWhereUniqueWithoutEmployeeInput | AlertUpdateWithWhereUniqueWithoutEmployeeInput[]
     updateMany?: AlertUpdateManyWithWhereWithoutEmployeeInput | AlertUpdateManyWithWhereWithoutEmployeeInput[]
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
+  }
+
+  export type EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeGateUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeGateUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeGateCreateManyEmployeeInputEnvelope
+    set?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    disconnect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    delete?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    connect?: EmployeeGateWhereUniqueInput | EmployeeGateWhereUniqueInput[]
+    update?: EmployeeGateUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeGateUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeGateUpdateManyWithWhereWithoutEmployeeInput | EmployeeGateUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
+  }
+
+  export type EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput> | EmployeeZoneCreateWithoutEmployeeInput[] | EmployeeZoneUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeZoneCreateOrConnectWithoutEmployeeInput | EmployeeZoneCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeZoneUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeZoneUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeZoneCreateManyEmployeeInputEnvelope
+    set?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    disconnect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    delete?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    connect?: EmployeeZoneWhereUniqueInput | EmployeeZoneWhereUniqueInput[]
+    update?: EmployeeZoneUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeZoneUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeZoneUpdateManyWithWhereWithoutEmployeeInput | EmployeeZoneUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
   }
 
   export type ActivityUncheckedUpdateManyWithoutEmployeeNestedInput = {
@@ -21874,6 +27071,118 @@ export namespace Prisma {
     upsert?: PermissionUpsertWithoutEmployeePermissionsInput
     connect?: PermissionWhereUniqueInput
     update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutEmployeePermissionsInput, PermissionUpdateWithoutEmployeePermissionsInput>, PermissionUncheckedUpdateWithoutEmployeePermissionsInput>
+  }
+
+  export type VendorCreateNestedOneWithoutGatesInput = {
+    create?: XOR<VendorCreateWithoutGatesInput, VendorUncheckedCreateWithoutGatesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutGatesInput
+    connect?: VendorWhereUniqueInput
+  }
+
+  export type GateCreateNestedOneWithoutVendorsInput = {
+    create?: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
+    connectOrCreate?: GateCreateOrConnectWithoutVendorsInput
+    connect?: GateWhereUniqueInput
+  }
+
+  export type VendorUpdateOneRequiredWithoutGatesNestedInput = {
+    create?: XOR<VendorCreateWithoutGatesInput, VendorUncheckedCreateWithoutGatesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutGatesInput
+    upsert?: VendorUpsertWithoutGatesInput
+    connect?: VendorWhereUniqueInput
+    update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutGatesInput, VendorUpdateWithoutGatesInput>, VendorUncheckedUpdateWithoutGatesInput>
+  }
+
+  export type GateUpdateOneRequiredWithoutVendorsNestedInput = {
+    create?: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
+    connectOrCreate?: GateCreateOrConnectWithoutVendorsInput
+    upsert?: GateUpsertWithoutVendorsInput
+    connect?: GateWhereUniqueInput
+    update?: XOR<XOR<GateUpdateToOneWithWhereWithoutVendorsInput, GateUpdateWithoutVendorsInput>, GateUncheckedUpdateWithoutVendorsInput>
+  }
+
+  export type VendorCreateNestedOneWithoutZonesInput = {
+    create?: XOR<VendorCreateWithoutZonesInput, VendorUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutZonesInput
+    connect?: VendorWhereUniqueInput
+  }
+
+  export type ZoneCreateNestedOneWithoutVendorsInput = {
+    create?: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutVendorsInput
+    connect?: ZoneWhereUniqueInput
+  }
+
+  export type VendorUpdateOneRequiredWithoutZonesNestedInput = {
+    create?: XOR<VendorCreateWithoutZonesInput, VendorUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutZonesInput
+    upsert?: VendorUpsertWithoutZonesInput
+    connect?: VendorWhereUniqueInput
+    update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutZonesInput, VendorUpdateWithoutZonesInput>, VendorUncheckedUpdateWithoutZonesInput>
+  }
+
+  export type ZoneUpdateOneRequiredWithoutVendorsNestedInput = {
+    create?: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutVendorsInput
+    upsert?: ZoneUpsertWithoutVendorsInput
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutVendorsInput, ZoneUpdateWithoutVendorsInput>, ZoneUncheckedUpdateWithoutVendorsInput>
+  }
+
+  export type EmployeeCreateNestedOneWithoutGatesInput = {
+    create?: XOR<EmployeeCreateWithoutGatesInput, EmployeeUncheckedCreateWithoutGatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutGatesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type GateCreateNestedOneWithoutEmployeesInput = {
+    create?: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: GateCreateOrConnectWithoutEmployeesInput
+    connect?: GateWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutGatesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutGatesInput, EmployeeUncheckedCreateWithoutGatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutGatesInput
+    upsert?: EmployeeUpsertWithoutGatesInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutGatesInput, EmployeeUpdateWithoutGatesInput>, EmployeeUncheckedUpdateWithoutGatesInput>
+  }
+
+  export type GateUpdateOneRequiredWithoutEmployeesNestedInput = {
+    create?: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: GateCreateOrConnectWithoutEmployeesInput
+    upsert?: GateUpsertWithoutEmployeesInput
+    connect?: GateWhereUniqueInput
+    update?: XOR<XOR<GateUpdateToOneWithWhereWithoutEmployeesInput, GateUpdateWithoutEmployeesInput>, GateUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type EmployeeCreateNestedOneWithoutZonesInput = {
+    create?: XOR<EmployeeCreateWithoutZonesInput, EmployeeUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutZonesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type ZoneCreateNestedOneWithoutEmployeesInput = {
+    create?: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutEmployeesInput
+    connect?: ZoneWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutZonesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutZonesInput, EmployeeUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutZonesInput
+    upsert?: EmployeeUpsertWithoutZonesInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutZonesInput, EmployeeUpdateWithoutZonesInput>, EmployeeUncheckedUpdateWithoutZonesInput>
+  }
+
+  export type ZoneUpdateOneRequiredWithoutEmployeesNestedInput = {
+    create?: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutEmployeesInput
+    upsert?: ZoneUpsertWithoutEmployeesInput
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutEmployeesInput, ZoneUpdateWithoutEmployeesInput>, ZoneUncheckedUpdateWithoutEmployeesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -22318,14 +27627,14 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
@@ -22338,14 +27647,14 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
@@ -22387,56 +27696,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type GateCreateWithoutVendorsInput = {
+  export type VendorGateCreateWithoutVendorInput = {
     id?: string
-    name: string
-    description?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeCreateNestedManyWithoutGateInput
-    activities?: ActivityCreateNestedManyWithoutGateInput
+    gate: GateCreateNestedOneWithoutVendorsInput
   }
 
-  export type GateUncheckedCreateWithoutVendorsInput = {
+  export type VendorGateUncheckedCreateWithoutVendorInput = {
     id?: string
-    name: string
-    description?: string | null
+    gateId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeUncheckedCreateNestedManyWithoutGateInput
-    activities?: ActivityUncheckedCreateNestedManyWithoutGateInput
   }
 
-  export type GateCreateOrConnectWithoutVendorsInput = {
-    where: GateWhereUniqueInput
-    create: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
+  export type VendorGateCreateOrConnectWithoutVendorInput = {
+    where: VendorGateWhereUniqueInput
+    create: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput>
   }
 
-  export type ZoneCreateWithoutVendorsInput = {
+  export type VendorGateCreateManyVendorInputEnvelope = {
+    data: VendorGateCreateManyVendorInput | VendorGateCreateManyVendorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorZoneCreateWithoutVendorInput = {
     id?: string
-    name: string
-    description?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeCreateNestedManyWithoutZoneInput
+    zone: ZoneCreateNestedOneWithoutVendorsInput
   }
 
-  export type ZoneUncheckedCreateWithoutVendorsInput = {
+  export type VendorZoneUncheckedCreateWithoutVendorInput = {
     id?: string
-    name: string
-    description?: string | null
+    zoneId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeUncheckedCreateNestedManyWithoutZoneInput
   }
 
-  export type ZoneCreateOrConnectWithoutVendorsInput = {
-    where: ZoneWhereUniqueInput
-    create: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
+  export type VendorZoneCreateOrConnectWithoutVendorInput = {
+    where: VendorZoneWhereUniqueInput
+    create: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput>
+  }
+
+  export type VendorZoneCreateManyVendorInputEnvelope = {
+    data: VendorZoneCreateManyVendorInput | VendorZoneCreateManyVendorInput[]
+    skipDuplicates?: boolean
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutVendorInput = {
@@ -22463,15 +27764,13 @@ export namespace Prisma {
     identifier?: StringFilter<"Employee"> | string
     name?: StringFilter<"Employee"> | string
     job?: StringFilter<"Employee"> | string
-    description?: StringNullableFilter<"Employee"> | string | null
+    nationalId?: StringFilter<"Employee"> | string
     version?: IntFilter<"Employee"> | number
     createdAt?: DateTimeFilter<"Employee"> | Date | string
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     vendorId?: StringFilter<"Employee"> | string
-    gateId?: StringNullableFilter<"Employee"> | string | null
-    zoneId?: StringNullableFilter<"Employee"> | string | null
   }
 
   export type VendorAttachmentUpsertWithWhereUniqueWithoutVendorInput = {
@@ -22501,296 +27800,185 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"VendorAttachment"> | Date | string
   }
 
-  export type GateUpsertWithoutVendorsInput = {
-    update: XOR<GateUpdateWithoutVendorsInput, GateUncheckedUpdateWithoutVendorsInput>
-    create: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
-    where?: GateWhereInput
+  export type VendorGateUpsertWithWhereUniqueWithoutVendorInput = {
+    where: VendorGateWhereUniqueInput
+    update: XOR<VendorGateUpdateWithoutVendorInput, VendorGateUncheckedUpdateWithoutVendorInput>
+    create: XOR<VendorGateCreateWithoutVendorInput, VendorGateUncheckedCreateWithoutVendorInput>
   }
 
-  export type GateUpdateToOneWithWhereWithoutVendorsInput = {
-    where?: GateWhereInput
-    data: XOR<GateUpdateWithoutVendorsInput, GateUncheckedUpdateWithoutVendorsInput>
+  export type VendorGateUpdateWithWhereUniqueWithoutVendorInput = {
+    where: VendorGateWhereUniqueInput
+    data: XOR<VendorGateUpdateWithoutVendorInput, VendorGateUncheckedUpdateWithoutVendorInput>
   }
 
-  export type GateUpdateWithoutVendorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUpdateManyWithoutGateNestedInput
-    activities?: ActivityUpdateManyWithoutGateNestedInput
+  export type VendorGateUpdateManyWithWhereWithoutVendorInput = {
+    where: VendorGateScalarWhereInput
+    data: XOR<VendorGateUpdateManyMutationInput, VendorGateUncheckedUpdateManyWithoutVendorInput>
   }
 
-  export type GateUncheckedUpdateWithoutVendorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUncheckedUpdateManyWithoutGateNestedInput
-    activities?: ActivityUncheckedUpdateManyWithoutGateNestedInput
+  export type VendorGateScalarWhereInput = {
+    AND?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
+    OR?: VendorGateScalarWhereInput[]
+    NOT?: VendorGateScalarWhereInput | VendorGateScalarWhereInput[]
+    id?: StringFilter<"VendorGate"> | string
+    vendorId?: StringFilter<"VendorGate"> | string
+    gateId?: StringFilter<"VendorGate"> | string
+    createdAt?: DateTimeFilter<"VendorGate"> | Date | string
   }
 
-  export type ZoneUpsertWithoutVendorsInput = {
-    update: XOR<ZoneUpdateWithoutVendorsInput, ZoneUncheckedUpdateWithoutVendorsInput>
-    create: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
-    where?: ZoneWhereInput
+  export type VendorZoneUpsertWithWhereUniqueWithoutVendorInput = {
+    where: VendorZoneWhereUniqueInput
+    update: XOR<VendorZoneUpdateWithoutVendorInput, VendorZoneUncheckedUpdateWithoutVendorInput>
+    create: XOR<VendorZoneCreateWithoutVendorInput, VendorZoneUncheckedCreateWithoutVendorInput>
   }
 
-  export type ZoneUpdateToOneWithWhereWithoutVendorsInput = {
-    where?: ZoneWhereInput
-    data: XOR<ZoneUpdateWithoutVendorsInput, ZoneUncheckedUpdateWithoutVendorsInput>
+  export type VendorZoneUpdateWithWhereUniqueWithoutVendorInput = {
+    where: VendorZoneWhereUniqueInput
+    data: XOR<VendorZoneUpdateWithoutVendorInput, VendorZoneUncheckedUpdateWithoutVendorInput>
   }
 
-  export type ZoneUpdateWithoutVendorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUpdateManyWithoutZoneNestedInput
+  export type VendorZoneUpdateManyWithWhereWithoutVendorInput = {
+    where: VendorZoneScalarWhereInput
+    data: XOR<VendorZoneUpdateManyMutationInput, VendorZoneUncheckedUpdateManyWithoutVendorInput>
   }
 
-  export type ZoneUncheckedUpdateWithoutVendorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUncheckedUpdateManyWithoutZoneNestedInput
+  export type VendorZoneScalarWhereInput = {
+    AND?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
+    OR?: VendorZoneScalarWhereInput[]
+    NOT?: VendorZoneScalarWhereInput | VendorZoneScalarWhereInput[]
+    id?: StringFilter<"VendorZone"> | string
+    vendorId?: StringFilter<"VendorZone"> | string
+    zoneId?: StringFilter<"VendorZone"> | string
+    createdAt?: DateTimeFilter<"VendorZone"> | Date | string
   }
 
-  export type VendorCreateWithoutZoneInput = {
+  export type VendorZoneCreateWithoutZoneInput = {
     id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeCreateNestedManyWithoutVendorInput
-    vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
-    gate?: GateCreateNestedOneWithoutVendorsInput
+    vendor: VendorCreateNestedOneWithoutZonesInput
   }
 
-  export type VendorUncheckedCreateWithoutZoneInput = {
+  export type VendorZoneUncheckedCreateWithoutZoneInput = {
     id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    gateId?: string | null
-    employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
-    vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
-  }
-
-  export type VendorCreateOrConnectWithoutZoneInput = {
-    where: VendorWhereUniqueInput
-    create: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput>
-  }
-
-  export type VendorCreateManyZoneInputEnvelope = {
-    data: VendorCreateManyZoneInput | VendorCreateManyZoneInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type EmployeeCreateWithoutZoneInput = {
-    id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
-    vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    activities?: ActivityCreateNestedManyWithoutEmployeeInput
-    workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
-    employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
-    employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
-    alerts?: AlertCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type EmployeeUncheckedCreateWithoutZoneInput = {
-    id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
-    workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
-    employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
-    employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    createdAt?: Date | string
   }
 
-  export type EmployeeCreateOrConnectWithoutZoneInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput>
+  export type VendorZoneCreateOrConnectWithoutZoneInput = {
+    where: VendorZoneWhereUniqueInput
+    create: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput>
   }
 
-  export type EmployeeCreateManyZoneInputEnvelope = {
-    data: EmployeeCreateManyZoneInput | EmployeeCreateManyZoneInput[]
+  export type VendorZoneCreateManyZoneInputEnvelope = {
+    data: VendorZoneCreateManyZoneInput | VendorZoneCreateManyZoneInput[]
     skipDuplicates?: boolean
   }
 
-  export type VendorUpsertWithWhereUniqueWithoutZoneInput = {
-    where: VendorWhereUniqueInput
-    update: XOR<VendorUpdateWithoutZoneInput, VendorUncheckedUpdateWithoutZoneInput>
-    create: XOR<VendorCreateWithoutZoneInput, VendorUncheckedCreateWithoutZoneInput>
-  }
-
-  export type VendorUpdateWithWhereUniqueWithoutZoneInput = {
-    where: VendorWhereUniqueInput
-    data: XOR<VendorUpdateWithoutZoneInput, VendorUncheckedUpdateWithoutZoneInput>
-  }
-
-  export type VendorUpdateManyWithWhereWithoutZoneInput = {
-    where: VendorScalarWhereInput
-    data: XOR<VendorUpdateManyMutationInput, VendorUncheckedUpdateManyWithoutZoneInput>
-  }
-
-  export type VendorScalarWhereInput = {
-    AND?: VendorScalarWhereInput | VendorScalarWhereInput[]
-    OR?: VendorScalarWhereInput[]
-    NOT?: VendorScalarWhereInput | VendorScalarWhereInput[]
-    id?: StringFilter<"Vendor"> | string
-    name?: StringFilter<"Vendor"> | string
-    description?: StringNullableFilter<"Vendor"> | string | null
-    phoneNumber?: StringNullableFilter<"Vendor"> | string | null
-    allowedStaffCount?: IntFilter<"Vendor"> | number
-    accessToken?: StringFilter<"Vendor"> | string
-    createdAt?: DateTimeFilter<"Vendor"> | Date | string
-    updatedAt?: DateTimeFilter<"Vendor"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Vendor"> | Date | string | null
-    gateId?: StringNullableFilter<"Vendor"> | string | null
-    zoneId?: StringNullableFilter<"Vendor"> | string | null
-  }
-
-  export type EmployeeUpsertWithWhereUniqueWithoutZoneInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutZoneInput, EmployeeUncheckedUpdateWithoutZoneInput>
-    create: XOR<EmployeeCreateWithoutZoneInput, EmployeeUncheckedCreateWithoutZoneInput>
-  }
-
-  export type EmployeeUpdateWithWhereUniqueWithoutZoneInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutZoneInput, EmployeeUncheckedUpdateWithoutZoneInput>
-  }
-
-  export type EmployeeUpdateManyWithWhereWithoutZoneInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutZoneInput>
-  }
-
-  export type VendorCreateWithoutGateInput = {
+  export type EmployeeZoneCreateWithoutZoneInput = {
     id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    employees?: EmployeeCreateNestedManyWithoutVendorInput
-    vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
-    zone?: ZoneCreateNestedOneWithoutVendorsInput
+    employee: EmployeeCreateNestedOneWithoutZonesInput
   }
 
-  export type VendorUncheckedCreateWithoutGateInput = {
+  export type EmployeeZoneUncheckedCreateWithoutZoneInput = {
     id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
+    employeeId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    zoneId?: string | null
-    employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
-    vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
   }
 
-  export type VendorCreateOrConnectWithoutGateInput = {
-    where: VendorWhereUniqueInput
-    create: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput>
+  export type EmployeeZoneCreateOrConnectWithoutZoneInput = {
+    where: EmployeeZoneWhereUniqueInput
+    create: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput>
   }
 
-  export type VendorCreateManyGateInputEnvelope = {
-    data: VendorCreateManyGateInput | VendorCreateManyGateInput[]
+  export type EmployeeZoneCreateManyZoneInputEnvelope = {
+    data: EmployeeZoneCreateManyZoneInput | EmployeeZoneCreateManyZoneInput[]
     skipDuplicates?: boolean
   }
 
-  export type EmployeeCreateWithoutGateInput = {
-    id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
-    vendor: VendorCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
-    activities?: ActivityCreateNestedManyWithoutEmployeeInput
-    workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
-    employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
-    employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
-    alerts?: AlertCreateNestedManyWithoutEmployeeInput
+  export type VendorZoneUpsertWithWhereUniqueWithoutZoneInput = {
+    where: VendorZoneWhereUniqueInput
+    update: XOR<VendorZoneUpdateWithoutZoneInput, VendorZoneUncheckedUpdateWithoutZoneInput>
+    create: XOR<VendorZoneCreateWithoutZoneInput, VendorZoneUncheckedCreateWithoutZoneInput>
   }
 
-  export type EmployeeUncheckedCreateWithoutGateInput = {
+  export type VendorZoneUpdateWithWhereUniqueWithoutZoneInput = {
+    where: VendorZoneWhereUniqueInput
+    data: XOR<VendorZoneUpdateWithoutZoneInput, VendorZoneUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type VendorZoneUpdateManyWithWhereWithoutZoneInput = {
+    where: VendorZoneScalarWhereInput
+    data: XOR<VendorZoneUpdateManyMutationInput, VendorZoneUncheckedUpdateManyWithoutZoneInput>
+  }
+
+  export type EmployeeZoneUpsertWithWhereUniqueWithoutZoneInput = {
+    where: EmployeeZoneWhereUniqueInput
+    update: XOR<EmployeeZoneUpdateWithoutZoneInput, EmployeeZoneUncheckedUpdateWithoutZoneInput>
+    create: XOR<EmployeeZoneCreateWithoutZoneInput, EmployeeZoneUncheckedCreateWithoutZoneInput>
+  }
+
+  export type EmployeeZoneUpdateWithWhereUniqueWithoutZoneInput = {
+    where: EmployeeZoneWhereUniqueInput
+    data: XOR<EmployeeZoneUpdateWithoutZoneInput, EmployeeZoneUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type EmployeeZoneUpdateManyWithWhereWithoutZoneInput = {
+    where: EmployeeZoneScalarWhereInput
+    data: XOR<EmployeeZoneUpdateManyMutationInput, EmployeeZoneUncheckedUpdateManyWithoutZoneInput>
+  }
+
+  export type EmployeeZoneScalarWhereInput = {
+    AND?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
+    OR?: EmployeeZoneScalarWhereInput[]
+    NOT?: EmployeeZoneScalarWhereInput | EmployeeZoneScalarWhereInput[]
+    id?: StringFilter<"EmployeeZone"> | string
+    employeeId?: StringFilter<"EmployeeZone"> | string
+    zoneId?: StringFilter<"EmployeeZone"> | string
+    createdAt?: DateTimeFilter<"EmployeeZone"> | Date | string
+  }
+
+  export type VendorGateCreateWithoutGateInput = {
     id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
+    vendor: VendorCreateNestedOneWithoutGatesInput
+  }
+
+  export type VendorGateUncheckedCreateWithoutGateInput = {
+    id?: string
     vendorId: string
-    zoneId?: string | null
-    activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
-    workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
-    employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
-    employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    createdAt?: Date | string
   }
 
-  export type EmployeeCreateOrConnectWithoutGateInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput>
+  export type VendorGateCreateOrConnectWithoutGateInput = {
+    where: VendorGateWhereUniqueInput
+    create: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput>
   }
 
-  export type EmployeeCreateManyGateInputEnvelope = {
-    data: EmployeeCreateManyGateInput | EmployeeCreateManyGateInput[]
+  export type VendorGateCreateManyGateInputEnvelope = {
+    data: VendorGateCreateManyGateInput | VendorGateCreateManyGateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmployeeGateCreateWithoutGateInput = {
+    id?: string
+    createdAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutGatesInput
+  }
+
+  export type EmployeeGateUncheckedCreateWithoutGateInput = {
+    id?: string
+    employeeId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeGateCreateOrConnectWithoutGateInput = {
+    where: EmployeeGateWhereUniqueInput
+    create: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput>
+  }
+
+  export type EmployeeGateCreateManyGateInputEnvelope = {
+    data: EmployeeGateCreateManyGateInput | EmployeeGateCreateManyGateInput[]
     skipDuplicates?: boolean
   }
 
@@ -22830,36 +28018,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type VendorUpsertWithWhereUniqueWithoutGateInput = {
-    where: VendorWhereUniqueInput
-    update: XOR<VendorUpdateWithoutGateInput, VendorUncheckedUpdateWithoutGateInput>
-    create: XOR<VendorCreateWithoutGateInput, VendorUncheckedCreateWithoutGateInput>
+  export type VendorGateUpsertWithWhereUniqueWithoutGateInput = {
+    where: VendorGateWhereUniqueInput
+    update: XOR<VendorGateUpdateWithoutGateInput, VendorGateUncheckedUpdateWithoutGateInput>
+    create: XOR<VendorGateCreateWithoutGateInput, VendorGateUncheckedCreateWithoutGateInput>
   }
 
-  export type VendorUpdateWithWhereUniqueWithoutGateInput = {
-    where: VendorWhereUniqueInput
-    data: XOR<VendorUpdateWithoutGateInput, VendorUncheckedUpdateWithoutGateInput>
+  export type VendorGateUpdateWithWhereUniqueWithoutGateInput = {
+    where: VendorGateWhereUniqueInput
+    data: XOR<VendorGateUpdateWithoutGateInput, VendorGateUncheckedUpdateWithoutGateInput>
   }
 
-  export type VendorUpdateManyWithWhereWithoutGateInput = {
-    where: VendorScalarWhereInput
-    data: XOR<VendorUpdateManyMutationInput, VendorUncheckedUpdateManyWithoutGateInput>
+  export type VendorGateUpdateManyWithWhereWithoutGateInput = {
+    where: VendorGateScalarWhereInput
+    data: XOR<VendorGateUpdateManyMutationInput, VendorGateUncheckedUpdateManyWithoutGateInput>
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutGateInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutGateInput, EmployeeUncheckedUpdateWithoutGateInput>
-    create: XOR<EmployeeCreateWithoutGateInput, EmployeeUncheckedCreateWithoutGateInput>
+  export type EmployeeGateUpsertWithWhereUniqueWithoutGateInput = {
+    where: EmployeeGateWhereUniqueInput
+    update: XOR<EmployeeGateUpdateWithoutGateInput, EmployeeGateUncheckedUpdateWithoutGateInput>
+    create: XOR<EmployeeGateCreateWithoutGateInput, EmployeeGateUncheckedCreateWithoutGateInput>
   }
 
-  export type EmployeeUpdateWithWhereUniqueWithoutGateInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutGateInput, EmployeeUncheckedUpdateWithoutGateInput>
+  export type EmployeeGateUpdateWithWhereUniqueWithoutGateInput = {
+    where: EmployeeGateWhereUniqueInput
+    data: XOR<EmployeeGateUpdateWithoutGateInput, EmployeeGateUncheckedUpdateWithoutGateInput>
   }
 
-  export type EmployeeUpdateManyWithWhereWithoutGateInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutGateInput>
+  export type EmployeeGateUpdateManyWithWhereWithoutGateInput = {
+    where: EmployeeGateScalarWhereInput
+    data: XOR<EmployeeGateUpdateManyMutationInput, EmployeeGateUncheckedUpdateManyWithoutGateInput>
+  }
+
+  export type EmployeeGateScalarWhereInput = {
+    AND?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
+    OR?: EmployeeGateScalarWhereInput[]
+    NOT?: EmployeeGateScalarWhereInput | EmployeeGateScalarWhereInput[]
+    id?: StringFilter<"EmployeeGate"> | string
+    employeeId?: StringFilter<"EmployeeGate"> | string
+    gateId?: StringFilter<"EmployeeGate"> | string
+    createdAt?: DateTimeFilter<"EmployeeGate"> | Date | string
   }
 
   export type ActivityUpsertWithWhereUniqueWithoutGateInput = {
@@ -22946,8 +28144,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
-    gate?: GateCreateNestedOneWithoutVendorsInput
-    zone?: ZoneCreateNestedOneWithoutVendorsInput
+    gates?: VendorGateCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUncheckedCreateWithoutEmployeesInput = {
@@ -22960,9 +28158,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    gateId?: string | null
-    zoneId?: string | null
     vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
+    gates?: VendorGateUncheckedCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorCreateOrConnectWithoutEmployeesInput = {
@@ -22970,56 +28168,48 @@ export namespace Prisma {
     create: XOR<VendorCreateWithoutEmployeesInput, VendorUncheckedCreateWithoutEmployeesInput>
   }
 
-  export type GateCreateWithoutEmployeesInput = {
+  export type EmployeeGateCreateWithoutEmployeeInput = {
     id?: string
-    name: string
-    description?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    vendors?: VendorCreateNestedManyWithoutGateInput
-    activities?: ActivityCreateNestedManyWithoutGateInput
+    gate: GateCreateNestedOneWithoutEmployeesInput
   }
 
-  export type GateUncheckedCreateWithoutEmployeesInput = {
+  export type EmployeeGateUncheckedCreateWithoutEmployeeInput = {
     id?: string
-    name: string
-    description?: string | null
+    gateId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    vendors?: VendorUncheckedCreateNestedManyWithoutGateInput
-    activities?: ActivityUncheckedCreateNestedManyWithoutGateInput
   }
 
-  export type GateCreateOrConnectWithoutEmployeesInput = {
-    where: GateWhereUniqueInput
-    create: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
+  export type EmployeeGateCreateOrConnectWithoutEmployeeInput = {
+    where: EmployeeGateWhereUniqueInput
+    create: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type ZoneCreateWithoutEmployeesInput = {
+  export type EmployeeGateCreateManyEmployeeInputEnvelope = {
+    data: EmployeeGateCreateManyEmployeeInput | EmployeeGateCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmployeeZoneCreateWithoutEmployeeInput = {
     id?: string
-    name: string
-    description?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    vendors?: VendorCreateNestedManyWithoutZoneInput
+    zone: ZoneCreateNestedOneWithoutEmployeesInput
   }
 
-  export type ZoneUncheckedCreateWithoutEmployeesInput = {
+  export type EmployeeZoneUncheckedCreateWithoutEmployeeInput = {
     id?: string
-    name: string
-    description?: string | null
+    zoneId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    vendors?: VendorUncheckedCreateNestedManyWithoutZoneInput
   }
 
-  export type ZoneCreateOrConnectWithoutEmployeesInput = {
-    where: ZoneWhereUniqueInput
-    create: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
+  export type EmployeeZoneCreateOrConnectWithoutEmployeeInput = {
+    where: EmployeeZoneWhereUniqueInput
+    create: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeZoneCreateManyEmployeeInputEnvelope = {
+    data: EmployeeZoneCreateManyEmployeeInput | EmployeeZoneCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
   }
 
   export type ActivityCreateWithoutEmployeeInput = {
@@ -23198,8 +28388,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
-    gate?: GateUpdateOneWithoutVendorsNestedInput
-    zone?: ZoneUpdateOneWithoutVendorsNestedInput
+    gates?: VendorGateUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorUncheckedUpdateWithoutEmployeesInput = {
@@ -23212,73 +28402,41 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
+    gates?: VendorGateUncheckedUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUncheckedUpdateManyWithoutVendorNestedInput
   }
 
-  export type GateUpsertWithoutEmployeesInput = {
-    update: XOR<GateUpdateWithoutEmployeesInput, GateUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
-    where?: GateWhereInput
+  export type EmployeeGateUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeGateWhereUniqueInput
+    update: XOR<EmployeeGateUpdateWithoutEmployeeInput, EmployeeGateUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type GateUpdateToOneWithWhereWithoutEmployeesInput = {
-    where?: GateWhereInput
-    data: XOR<GateUpdateWithoutEmployeesInput, GateUncheckedUpdateWithoutEmployeesInput>
+  export type EmployeeGateUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeGateWhereUniqueInput
+    data: XOR<EmployeeGateUpdateWithoutEmployeeInput, EmployeeGateUncheckedUpdateWithoutEmployeeInput>
   }
 
-  export type GateUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUpdateManyWithoutGateNestedInput
-    activities?: ActivityUpdateManyWithoutGateNestedInput
+  export type EmployeeGateUpdateManyWithWhereWithoutEmployeeInput = {
+    where: EmployeeGateScalarWhereInput
+    data: XOR<EmployeeGateUpdateManyMutationInput, EmployeeGateUncheckedUpdateManyWithoutEmployeeInput>
   }
 
-  export type GateUncheckedUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUncheckedUpdateManyWithoutGateNestedInput
-    activities?: ActivityUncheckedUpdateManyWithoutGateNestedInput
+  export type EmployeeZoneUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeZoneWhereUniqueInput
+    update: XOR<EmployeeZoneUpdateWithoutEmployeeInput, EmployeeZoneUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<EmployeeZoneCreateWithoutEmployeeInput, EmployeeZoneUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type ZoneUpsertWithoutEmployeesInput = {
-    update: XOR<ZoneUpdateWithoutEmployeesInput, ZoneUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
-    where?: ZoneWhereInput
+  export type EmployeeZoneUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeZoneWhereUniqueInput
+    data: XOR<EmployeeZoneUpdateWithoutEmployeeInput, EmployeeZoneUncheckedUpdateWithoutEmployeeInput>
   }
 
-  export type ZoneUpdateToOneWithWhereWithoutEmployeesInput = {
-    where?: ZoneWhereInput
-    data: XOR<ZoneUpdateWithoutEmployeesInput, ZoneUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type ZoneUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUpdateManyWithoutZoneNestedInput
-  }
-
-  export type ZoneUncheckedUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUncheckedUpdateManyWithoutZoneNestedInput
+  export type EmployeeZoneUpdateManyWithWhereWithoutEmployeeInput = {
+    where: EmployeeZoneScalarWhereInput
+    data: XOR<EmployeeZoneUpdateManyMutationInput, EmployeeZoneUncheckedUpdateManyWithoutEmployeeInput>
   }
 
   export type ActivityUpsertWithWhereUniqueWithoutEmployeeInput = {
@@ -23392,15 +28550,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
@@ -23412,15 +28570,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23448,15 +28606,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
@@ -23468,15 +28626,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23488,15 +28646,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
@@ -23508,15 +28666,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23606,15 +28764,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
@@ -23626,15 +28784,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23720,15 +28878,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
@@ -23740,15 +28898,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23798,8 +28956,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorCreateNestedManyWithoutGateInput
-    employees?: EmployeeCreateNestedManyWithoutGateInput
+    vendors?: VendorGateCreateNestedManyWithoutGateInput
+    employees?: EmployeeGateCreateNestedManyWithoutGateInput
   }
 
   export type GateUncheckedCreateWithoutActivitiesInput = {
@@ -23809,8 +28967,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    vendors?: VendorUncheckedCreateNestedManyWithoutGateInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutGateInput
+    vendors?: VendorGateUncheckedCreateNestedManyWithoutGateInput
+    employees?: EmployeeGateUncheckedCreateNestedManyWithoutGateInput
   }
 
   export type GateCreateOrConnectWithoutActivitiesInput = {
@@ -23868,15 +29026,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
@@ -23888,15 +29046,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23958,8 +29116,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUpdateManyWithoutGateNestedInput
-    employees?: EmployeeUpdateManyWithoutGateNestedInput
+    vendors?: VendorGateUpdateManyWithoutGateNestedInput
+    employees?: EmployeeGateUpdateManyWithoutGateNestedInput
   }
 
   export type GateUncheckedUpdateWithoutActivitiesInput = {
@@ -23969,8 +29127,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    vendors?: VendorUncheckedUpdateManyWithoutGateNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutGateNestedInput
+    vendors?: VendorGateUncheckedUpdateManyWithoutGateNestedInput
+    employees?: EmployeeGateUncheckedUpdateManyWithoutGateNestedInput
   }
 
   export type AlertUpsertWithWhereUniqueWithoutActivityInput = {
@@ -24082,8 +29240,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     employees?: EmployeeCreateNestedManyWithoutVendorInput
-    gate?: GateCreateNestedOneWithoutVendorsInput
-    zone?: ZoneCreateNestedOneWithoutVendorsInput
+    gates?: VendorGateCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUncheckedCreateWithoutVendorAttachmentsInput = {
@@ -24096,9 +29254,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    gateId?: string | null
-    zoneId?: string | null
     employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
+    gates?: VendorGateUncheckedCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorCreateOrConnectWithoutVendorAttachmentsInput = {
@@ -24159,8 +29317,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     employees?: EmployeeUpdateManyWithoutVendorNestedInput
-    gate?: GateUpdateOneWithoutVendorsNestedInput
-    zone?: ZoneUpdateOneWithoutVendorsNestedInput
+    gates?: VendorGateUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorUncheckedUpdateWithoutVendorAttachmentsInput = {
@@ -24173,9 +29331,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
+    gates?: VendorGateUncheckedUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type AttachmentUpsertWithoutVendorAttachmentsInput = {
@@ -24220,15 +29378,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
@@ -24240,15 +29398,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
@@ -24307,15 +29465,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
@@ -24327,15 +29485,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -24384,15 +29542,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendor: VendorCreateNestedOneWithoutEmployeesInput
-    gate?: GateCreateNestedOneWithoutEmployeesInput
-    zone?: ZoneCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
@@ -24404,15 +29562,15 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-    zoneId?: string | null
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
@@ -24463,15 +29621,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
@@ -24483,15 +29641,15 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -24525,6 +29683,582 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type VendorCreateWithoutGatesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    phoneNumber?: string | null
+    allowedStaffCount: number
+    accessToken?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeCreateNestedManyWithoutVendorInput
+    vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorUncheckedCreateWithoutGatesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    phoneNumber?: string | null
+    allowedStaffCount: number
+    accessToken?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
+    vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
+    zones?: VendorZoneUncheckedCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorCreateOrConnectWithoutGatesInput = {
+    where: VendorWhereUniqueInput
+    create: XOR<VendorCreateWithoutGatesInput, VendorUncheckedCreateWithoutGatesInput>
+  }
+
+  export type GateCreateWithoutVendorsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeGateCreateNestedManyWithoutGateInput
+    activities?: ActivityCreateNestedManyWithoutGateInput
+  }
+
+  export type GateUncheckedCreateWithoutVendorsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeGateUncheckedCreateNestedManyWithoutGateInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutGateInput
+  }
+
+  export type GateCreateOrConnectWithoutVendorsInput = {
+    where: GateWhereUniqueInput
+    create: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
+  }
+
+  export type VendorUpsertWithoutGatesInput = {
+    update: XOR<VendorUpdateWithoutGatesInput, VendorUncheckedUpdateWithoutGatesInput>
+    create: XOR<VendorCreateWithoutGatesInput, VendorUncheckedCreateWithoutGatesInput>
+    where?: VendorWhereInput
+  }
+
+  export type VendorUpdateToOneWithWhereWithoutGatesInput = {
+    where?: VendorWhereInput
+    data: XOR<VendorUpdateWithoutGatesInput, VendorUncheckedUpdateWithoutGatesInput>
+  }
+
+  export type VendorUpdateWithoutGatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeUpdateManyWithoutVendorNestedInput
+    vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorUncheckedUpdateWithoutGatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
+    vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
+    zones?: VendorZoneUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type GateUpsertWithoutVendorsInput = {
+    update: XOR<GateUpdateWithoutVendorsInput, GateUncheckedUpdateWithoutVendorsInput>
+    create: XOR<GateCreateWithoutVendorsInput, GateUncheckedCreateWithoutVendorsInput>
+    where?: GateWhereInput
+  }
+
+  export type GateUpdateToOneWithWhereWithoutVendorsInput = {
+    where?: GateWhereInput
+    data: XOR<GateUpdateWithoutVendorsInput, GateUncheckedUpdateWithoutVendorsInput>
+  }
+
+  export type GateUpdateWithoutVendorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeGateUpdateManyWithoutGateNestedInput
+    activities?: ActivityUpdateManyWithoutGateNestedInput
+  }
+
+  export type GateUncheckedUpdateWithoutVendorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeGateUncheckedUpdateManyWithoutGateNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutGateNestedInput
+  }
+
+  export type VendorCreateWithoutZonesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    phoneNumber?: string | null
+    allowedStaffCount: number
+    accessToken?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeCreateNestedManyWithoutVendorInput
+    vendorAttachments?: VendorAttachmentCreateNestedManyWithoutVendorInput
+    gates?: VendorGateCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorUncheckedCreateWithoutZonesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    phoneNumber?: string | null
+    allowedStaffCount: number
+    accessToken?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeUncheckedCreateNestedManyWithoutVendorInput
+    vendorAttachments?: VendorAttachmentUncheckedCreateNestedManyWithoutVendorInput
+    gates?: VendorGateUncheckedCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorCreateOrConnectWithoutZonesInput = {
+    where: VendorWhereUniqueInput
+    create: XOR<VendorCreateWithoutZonesInput, VendorUncheckedCreateWithoutZonesInput>
+  }
+
+  export type ZoneCreateWithoutVendorsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeZoneCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateWithoutVendorsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    employees?: EmployeeZoneUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneCreateOrConnectWithoutVendorsInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
+  }
+
+  export type VendorUpsertWithoutZonesInput = {
+    update: XOR<VendorUpdateWithoutZonesInput, VendorUncheckedUpdateWithoutZonesInput>
+    create: XOR<VendorCreateWithoutZonesInput, VendorUncheckedCreateWithoutZonesInput>
+    where?: VendorWhereInput
+  }
+
+  export type VendorUpdateToOneWithWhereWithoutZonesInput = {
+    where?: VendorWhereInput
+    data: XOR<VendorUpdateWithoutZonesInput, VendorUncheckedUpdateWithoutZonesInput>
+  }
+
+  export type VendorUpdateWithoutZonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeUpdateManyWithoutVendorNestedInput
+    vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
+    gates?: VendorGateUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorUncheckedUpdateWithoutZonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
+    vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
+    gates?: VendorGateUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type ZoneUpsertWithoutVendorsInput = {
+    update: XOR<ZoneUpdateWithoutVendorsInput, ZoneUncheckedUpdateWithoutVendorsInput>
+    create: XOR<ZoneCreateWithoutVendorsInput, ZoneUncheckedCreateWithoutVendorsInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutVendorsInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutVendorsInput, ZoneUncheckedUpdateWithoutVendorsInput>
+  }
+
+  export type ZoneUpdateWithoutVendorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeZoneUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateWithoutVendorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employees?: EmployeeZoneUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
+  export type EmployeeCreateWithoutGatesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendor: VendorCreateNestedOneWithoutEmployeesInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutGatesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendorId: string
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutGatesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutGatesInput, EmployeeUncheckedCreateWithoutGatesInput>
+  }
+
+  export type GateCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    vendors?: VendorGateCreateNestedManyWithoutGateInput
+    activities?: ActivityCreateNestedManyWithoutGateInput
+  }
+
+  export type GateUncheckedCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    vendors?: VendorGateUncheckedCreateNestedManyWithoutGateInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutGateInput
+  }
+
+  export type GateCreateOrConnectWithoutEmployeesInput = {
+    where: GateWhereUniqueInput
+    create: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
+  }
+
+  export type EmployeeUpsertWithoutGatesInput = {
+    update: XOR<EmployeeUpdateWithoutGatesInput, EmployeeUncheckedUpdateWithoutGatesInput>
+    create: XOR<EmployeeCreateWithoutGatesInput, EmployeeUncheckedCreateWithoutGatesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutGatesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutGatesInput, EmployeeUncheckedUpdateWithoutGatesInput>
+  }
+
+  export type EmployeeUpdateWithoutGatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutGatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendorId?: StringFieldUpdateOperationsInput | string
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type GateUpsertWithoutEmployeesInput = {
+    update: XOR<GateUpdateWithoutEmployeesInput, GateUncheckedUpdateWithoutEmployeesInput>
+    create: XOR<GateCreateWithoutEmployeesInput, GateUncheckedCreateWithoutEmployeesInput>
+    where?: GateWhereInput
+  }
+
+  export type GateUpdateToOneWithWhereWithoutEmployeesInput = {
+    where?: GateWhereInput
+    data: XOR<GateUpdateWithoutEmployeesInput, GateUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type GateUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendors?: VendorGateUpdateManyWithoutGateNestedInput
+    activities?: ActivityUpdateManyWithoutGateNestedInput
+  }
+
+  export type GateUncheckedUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendors?: VendorGateUncheckedUpdateManyWithoutGateNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutGateNestedInput
+  }
+
+  export type EmployeeCreateWithoutZonesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendor: VendorCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutZonesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendorId: string
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutZonesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutZonesInput, EmployeeUncheckedCreateWithoutZonesInput>
+  }
+
+  export type ZoneCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    vendors?: VendorZoneCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    vendors?: VendorZoneUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneCreateOrConnectWithoutEmployeesInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
+  }
+
+  export type EmployeeUpsertWithoutZonesInput = {
+    update: XOR<EmployeeUpdateWithoutZonesInput, EmployeeUncheckedUpdateWithoutZonesInput>
+    create: XOR<EmployeeCreateWithoutZonesInput, EmployeeUncheckedCreateWithoutZonesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutZonesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutZonesInput, EmployeeUncheckedUpdateWithoutZonesInput>
+  }
+
+  export type EmployeeUpdateWithoutZonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutZonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendorId?: StringFieldUpdateOperationsInput | string
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type ZoneUpsertWithoutEmployeesInput = {
+    update: XOR<ZoneUpdateWithoutEmployeesInput, ZoneUncheckedUpdateWithoutEmployeesInput>
+    create: XOR<ZoneCreateWithoutEmployeesInput, ZoneUncheckedCreateWithoutEmployeesInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutEmployeesInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutEmployeesInput, ZoneUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type ZoneUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendors?: VendorZoneUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendors?: VendorZoneUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ActivityCreateManyScannerInput = {
@@ -24630,14 +30364,12 @@ export namespace Prisma {
     identifier?: string
     name: string
     job: string
-    description?: string | null
+    nationalId: string
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
-    gateId?: string | null
-    zoneId?: string | null
   }
 
   export type VendorAttachmentCreateManyVendorInput = {
@@ -24647,19 +30379,31 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type VendorGateCreateManyVendorInput = {
+    id?: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type VendorZoneCreateManyVendorInput = {
+    id?: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
   export type EmployeeUpdateWithoutVendorInput = {
     id?: StringFieldUpdateOperationsInput | string
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
@@ -24672,14 +30416,14 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -24692,14 +30436,12 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nationalId?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VendorAttachmentUpdateWithoutVendorInput = {
@@ -24723,158 +30465,100 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VendorCreateManyZoneInput = {
-    id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    gateId?: string | null
+  export type VendorGateUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gate?: GateUpdateOneRequiredWithoutVendorsNestedInput
   }
 
-  export type EmployeeCreateManyZoneInput = {
+  export type VendorGateUncheckedUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorGateUncheckedUpdateManyWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zone?: ZoneUpdateOneRequiredWithoutVendorsNestedInput
+  }
+
+  export type VendorZoneUncheckedUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneUncheckedUpdateManyWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneCreateManyZoneInput = {
     id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
     vendorId: string
-    gateId?: string | null
-  }
-
-  export type VendorUpdateWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUpdateManyWithoutVendorNestedInput
-    vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
-    gate?: GateUpdateOneWithoutVendorsNestedInput
-  }
-
-  export type VendorUncheckedUpdateWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
-    vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
-  }
-
-  export type VendorUncheckedUpdateManyWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type EmployeeUpdateWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    gate?: GateUpdateOneWithoutEmployeesNestedInput
-    activities?: ActivityUpdateManyWithoutEmployeeNestedInput
-    workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
-    employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
-    employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
-    alerts?: AlertUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-    activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
-    workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
-    employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateManyWithoutZoneInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    vendorId?: StringFieldUpdateOperationsInput | string
-    gateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type VendorCreateManyGateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    phoneNumber?: string | null
-    allowedStaffCount: number
-    accessToken?: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    zoneId?: string | null
   }
 
-  export type EmployeeCreateManyGateInput = {
+  export type EmployeeZoneCreateManyZoneInput = {
     id?: string
-    identifier?: string
-    name: string
-    job: string
-    description?: string | null
-    version?: number
+    employeeId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    status?: $Enums.EmployeeStatus
+  }
+
+  export type VendorZoneUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutZonesNestedInput
+  }
+
+  export type VendorZoneUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorZoneUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vendorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutZonesNestedInput
+  }
+
+  export type EmployeeZoneUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorGateCreateManyGateInput = {
+    id?: string
     vendorId: string
-    zoneId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type EmployeeGateCreateManyGateInput = {
+    id?: string
+    employeeId: string
+    createdAt?: Date | string
   }
 
   export type ActivityCreateManyGateInput = {
@@ -24889,102 +30573,40 @@ export namespace Prisma {
     scannerId?: string | null
   }
 
-  export type VendorUpdateWithoutGateInput = {
+  export type VendorGateUpdateWithoutGateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employees?: EmployeeUpdateManyWithoutVendorNestedInput
-    vendorAttachments?: VendorAttachmentUpdateManyWithoutVendorNestedInput
-    zone?: ZoneUpdateOneWithoutVendorsNestedInput
+    vendor?: VendorUpdateOneRequiredWithoutGatesNestedInput
   }
 
-  export type VendorUncheckedUpdateWithoutGateInput = {
+  export type VendorGateUncheckedUpdateWithoutGateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
-    employees?: EmployeeUncheckedUpdateManyWithoutVendorNestedInput
-    vendorAttachments?: VendorAttachmentUncheckedUpdateManyWithoutVendorNestedInput
-  }
-
-  export type VendorUncheckedUpdateManyWithoutGateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    allowedStaffCount?: IntFieldUpdateOperationsInput | number
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type EmployeeUpdateWithoutGateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
-    vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
-    zone?: ZoneUpdateOneWithoutEmployeesNestedInput
-    activities?: ActivityUpdateManyWithoutEmployeeNestedInput
-    workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
-    employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
-    employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
-    alerts?: AlertUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutGateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
-    activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
-    workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
-    employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutGateInput = {
+  export type VendorGateUncheckedUpdateManyWithoutGateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    job?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    version?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     vendorId?: StringFieldUpdateOperationsInput | string
-    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateUpdateWithoutGateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutGatesNestedInput
+  }
+
+  export type EmployeeGateUncheckedUpdateWithoutGateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateUncheckedUpdateManyWithoutGateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ActivityUpdateWithoutGateInput = {
@@ -25061,6 +30683,18 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EmployeeGateCreateManyEmployeeInput = {
+    id?: string
+    gateId: string
+    createdAt?: Date | string
+  }
+
+  export type EmployeeZoneCreateManyEmployeeInput = {
+    id?: string
+    zoneId: string
+    createdAt?: Date | string
+  }
+
   export type ActivityCreateManyEmployeeInput = {
     id?: string
     type?: $Enums.ActivityType
@@ -25110,6 +30744,42 @@ export namespace Prisma {
     updatedAt?: Date | string
     userId?: string | null
     activityId?: string | null
+  }
+
+  export type EmployeeGateUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gate?: GateUpdateOneRequiredWithoutEmployeesNestedInput
+  }
+
+  export type EmployeeGateUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeGateUncheckedUpdateManyWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zone?: ZoneUpdateOneRequiredWithoutEmployeesNestedInput
+  }
+
+  export type EmployeeZoneUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeZoneUncheckedUpdateManyWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ActivityUpdateWithoutEmployeeInput = {

@@ -20,12 +20,28 @@ export const activityRouter = createTRPCRouter({
         include: {
           vendor: {
             include: {
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
+            },
+          },
+          gates: {
+            include: {
               gate: true,
+            },
+          },
+          zones: {
+            include: {
               zone: true,
             },
           },
-          gate: true,
-          zone: true,
           workingHours: true,
           employeeAttachments: {
             include: {
@@ -72,21 +88,34 @@ export const activityRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Verify that the scanner (current user) exists in the database
+      const scanner = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
+
       const activity = await ctx.db.activity.create({
         data: {
           type: input.type,
           status: input.status,
           denialReason: input.denialReason,
           employeeId: input.employeeId,
-          scannerId: ctx.session.user.id,
+          scannerId: scanner ? ctx.session.user.id : null, // Only set if user exists
           gateId: input.gateId,
         },
         include: {
           employee: {
             include: {
               vendor: true,
-              gate: true,
-              zone: true,
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
               employeeAttachments: {
                 include: {
                   attachment: true,
@@ -139,8 +168,16 @@ export const activityRouter = createTRPCRouter({
           employee: {
             include: {
               vendor: true,
-              gate: true,
-              zone: true,
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
               employeeAttachments: {
                 include: {
                   attachment: true,
@@ -188,12 +225,28 @@ export const activityRouter = createTRPCRouter({
         include: {
           vendor: {
             include: {
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
+            },
+          },
+          gates: {
+            include: {
               gate: true,
+            },
+          },
+          zones: {
+            include: {
               zone: true,
             },
           },
-          gate: true,
-          zone: true,
           workingHours: true,
           employeeAttachments: {
             include: {
@@ -251,8 +304,16 @@ export const activityRouter = createTRPCRouter({
           employee: {
             include: {
               vendor: true,
-              gate: true,
-              zone: true,
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
               employeeAttachments: {
                 include: {
                   attachment: true,

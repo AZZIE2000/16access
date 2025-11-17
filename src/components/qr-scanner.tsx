@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Camera, CameraOff, Loader2 } from "lucide-react";
+import { Camera, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface QRScannerProps {
   onScan: (data: string) => void;
   onError?: (error: Error) => void;
+  autoStart?: boolean; // Auto-start camera when component mounts
 }
 
 // Extend Navigator interface for BarcodeDetector
@@ -32,7 +32,11 @@ declare global {
   }
 }
 
-export function QRScanner({ onScan, onError }: QRScannerProps) {
+export function QRScanner({
+  onScan,
+  onError,
+  autoStart = false,
+}: QRScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -59,9 +63,30 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
     void checkSupport();
   }, []);
 
+  // Auto-start camera if autoStart is true
+  useEffect(() => {
+    if (
+      autoStart &&
+      !isScanning &&
+      !isLoading &&
+      supportsNativeScanner !== null
+    ) {
+      // Small delay to ensure component is fully mounted
+      const timer = setTimeout(() => {
+        void startScanning();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [autoStart, supportsNativeScanner]);
+
   const startScanning = async () => {
     if (!videoRef.current) {
       toast.error("Camera not available");
+      return;
+    }
+
+    // Prevent multiple simultaneous starts
+    if (isLoading || isScanning) {
       return;
     }
 
@@ -78,20 +103,33 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
       });
 
       streamRef.current = stream;
-      videoRef.current.srcObject = stream;
-      await videoRef.current.play();
 
-      setIsScanning(true);
-      setIsLoading(false);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
 
-      // Start scanning
-      if (supportsNativeScanner) {
-        startNativeScanning();
-      } else {
-        // Fallback: just show camera, user can manually enter code
-        toast.info(
-          "Native QR scanning not supported. Please use a QR code reader app.",
-        );
+        // Wait for video to be ready before playing
+        videoRef.current.onloadedmetadata = async () => {
+          try {
+            if (videoRef.current) {
+              await videoRef.current.play();
+              setIsScanning(true);
+              setIsLoading(false);
+
+              // Start scanning
+              if (supportsNativeScanner) {
+                startNativeScanning();
+              } else {
+                // Fallback: just show camera, user can manually enter code
+                toast.info(
+                  "Native QR scanning not supported. Please use a QR code reader app.",
+                );
+              }
+            }
+          } catch (playErr) {
+            console.error("Error playing video:", playErr);
+            setIsLoading(false);
+          }
+        };
       }
     } catch (err) {
       console.error("Error starting scanner:", err);
@@ -149,12 +187,14 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
       streamRef.current = null;
     }
 
-    // Clear video
+    // Clear video and event handlers
     if (videoRef.current) {
       videoRef.current.srcObject = null;
+      videoRef.current.onloadedmetadata = null;
     }
 
     setIsScanning(false);
+    setIsLoading(false);
   };
 
   // Cleanup on unmount
@@ -166,7 +206,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="relative aspect-video w-full bg-black">
+      <div className="relative w-full bg-black" style={{ height: "300px" }}>
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
@@ -207,39 +247,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
         )}
       </div>
 
-      <div className="space-y-4 p-4">
-        {/* Control buttons */}
-        <div className="flex gap-2">
-          {!isScanning ? (
-            <Button
-              onClick={startScanning}
-              disabled={isLoading}
-              className="flex-1"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Starting...
-                </>
-              ) : (
-                <>
-                  <Camera className="mr-2 h-4 w-4" />
-                  Start Scanning
-                </>
-              )}
-            </Button>
-          ) : (
-            <Button
-              onClick={stopScanning}
-              variant="destructive"
-              className="flex-1"
-            >
-              <CameraOff className="mr-2 h-4 w-4" />
-              Stop Scanning
-            </Button>
-          )}
-        </div>
-
+      <div className="p-3">
         <p className="text-muted-foreground text-center text-xs">
           Position the QR code within the frame to scan
         </p>

@@ -30,8 +30,16 @@ export const zoneRouter = createTRPCRouter({
       const zone = await ctx.db.zone.findUnique({
         where: { id: input.id },
         include: {
-          vendors: true,
-          employees: true,
+          vendors: {
+            include: {
+              vendor: true,
+            },
+          },
+          employees: {
+            include: {
+              employee: true,
+            },
+          },
         },
       });
 
@@ -179,4 +187,3 @@ export const zoneRouter = createTRPCRouter({
       };
     }),
 });
-

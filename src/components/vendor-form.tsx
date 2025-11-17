@@ -6,14 +6,8 @@ import { api } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { toast } from "sonner";
 import { Copy, RefreshCw } from "lucide-react";
 
@@ -29,6 +23,18 @@ type Gate = {
   description: string | null;
 };
 
+type VendorGate = {
+  id: string;
+  gateId: string;
+  gate: Gate;
+};
+
+type VendorZone = {
+  id: string;
+  zoneId: string;
+  zone: Zone;
+};
+
 type Vendor = {
   id: string;
   name: string;
@@ -36,10 +42,8 @@ type Vendor = {
   phoneNumber: string | null;
   allowedStaffCount: number;
   accessToken: string;
-  gateId: string | null;
-  zoneId: string | null;
-  gate: Gate | null;
-  zone: Zone | null;
+  gates: VendorGate[];
+  zones: VendorZone[];
 };
 
 type VendorFormProps = {
@@ -62,8 +66,8 @@ export function VendorForm({
     description: vendor?.description ?? "",
     phoneNumber: vendor?.phoneNumber ?? "",
     allowedStaffCount: vendor?.allowedStaffCount ?? 1,
-    gateId: vendor?.gateId ?? "",
-    zoneId: vendor?.zoneId ?? "",
+    gateIds: vendor?.gates.map((vg) => vg.gateId) ?? [],
+    zoneIds: vendor?.zones.map((vz) => vz.zoneId) ?? [],
   });
 
   const [accessToken, setAccessToken] = useState(vendor?.accessToken ?? "");
@@ -133,8 +137,8 @@ export function VendorForm({
       description: formData.description || undefined,
       phoneNumber: formData.phoneNumber || undefined,
       allowedStaffCount: formData.allowedStaffCount,
-      gateId: formData.gateId || undefined,
-      zoneId: formData.zoneId || undefined,
+      gateIds: formData.gateIds.length > 0 ? formData.gateIds : undefined,
+      zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : undefined,
     };
 
     if (isCreate) {
@@ -144,8 +148,6 @@ export function VendorForm({
         id: vendor.id,
         ...data,
         phoneNumber: formData.phoneNumber || null,
-        gateId: formData.gateId || null,
-        zoneId: formData.zoneId || null,
       });
     }
   };
@@ -242,45 +244,33 @@ export function VendorForm({
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-2">
-            <Label htmlFor="zone">Zone</Label>
-            <Select
-              value={formData.zoneId || undefined}
-              onValueChange={(value) =>
-                setFormData({ ...formData, zoneId: value })
+            <Label htmlFor="zones">Zones</Label>
+            <MultiSelect
+              options={zones.map((zone) => ({
+                label: zone.name,
+                value: zone.id,
+              }))}
+              selected={formData.zoneIds}
+              onChange={(selected) =>
+                setFormData({ ...formData, zoneIds: selected })
               }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a zone (optional)" />
-              </SelectTrigger>
-              <SelectContent>
-                {zones.map((zone) => (
-                  <SelectItem key={zone.id} value={zone.id}>
-                    {zone.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              placeholder="Select zones (optional)"
+            />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="gate">Gate</Label>
-            <Select
-              value={formData.gateId || undefined}
-              onValueChange={(value) =>
-                setFormData({ ...formData, gateId: value })
+            <Label htmlFor="gates">Gates</Label>
+            <MultiSelect
+              options={gates.map((gate) => ({
+                label: gate.name,
+                value: gate.id,
+              }))}
+              selected={formData.gateIds}
+              onChange={(selected) =>
+                setFormData({ ...formData, gateIds: selected })
               }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a gate (optional)" />
-              </SelectTrigger>
-              <SelectContent>
-                {gates.map((gate) => (
-                  <SelectItem key={gate.id} value={gate.id}>
-                    {gate.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              placeholder="Select gates (optional)"
+            />
           </div>
         </CardContent>
       </Card>

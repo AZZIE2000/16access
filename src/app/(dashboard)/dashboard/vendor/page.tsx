@@ -30,13 +30,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Plus,
   Pencil,
   Trash2,
   Copy,
   RefreshCw,
-  MessageCircle,
   Users,
   MoreVertical,
 } from "lucide-react";
@@ -96,8 +96,12 @@ export default function VendorPage() {
       (vendor) =>
         vendor.name.toLowerCase().includes(query) ||
         vendor.description?.toLowerCase().includes(query) ||
-        vendor.zone?.name.toLowerCase().includes(query) ||
-        vendor.gate?.name.toLowerCase().includes(query) ||
+        vendor.zones?.some((vz) =>
+          vz.zone.name.toLowerCase().includes(query),
+        ) ||
+        vendor.gates?.some((vg) =>
+          vg.gate.name.toLowerCase().includes(query),
+        ) ||
         vendor.phoneNumber?.toLowerCase().includes(query),
     );
   }, [vendors, searchQuery]);
@@ -138,25 +142,8 @@ export default function VendorPage() {
     }
   };
 
-  const handleRegenerateToken = () => {
-    if (
-      selectedVendor &&
-      confirm(
-        "Are you sure you want to regenerate the access token? This will invalidate the current vendor portal link.",
-      )
-    ) {
-      regenerateTokenMutation.mutate({ id: selectedVendor.id });
-    }
-  };
-
-  const handleWhatsApp = (
-    phoneNumber: string,
-    vendorName: string,
-    vendorId: string,
-    accessToken: string,
-  ) => {
-    const portalUrl = `${window.location.origin}/vendor/${vendorId}/${accessToken}`;
-    const message = `Hello ${vendorName}! 👋
+  const getWhatsAppMessage = (vendorName: string, portalUrl: string) => {
+    return `Hello ${vendorName}! 👋
 
 Welcome to our Event Vendor Access Management System.
 
@@ -172,9 +159,26 @@ ${portalUrl}
 If you have any questions, feel free to contact us.
 
 Thank you!`;
+  };
 
-    const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+  const handleCopyWhatsAppMessage = () => {
+    if (selectedVendor) {
+      const portalUrl = `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`;
+      const message = getWhatsAppMessage(selectedVendor.name, portalUrl);
+      void navigator.clipboard.writeText(message);
+      toast.success("WhatsApp message copied to clipboard");
+    }
+  };
+
+  const handleRegenerateToken = () => {
+    if (
+      selectedVendor &&
+      confirm(
+        "Are you sure you want to regenerate the access token? This will invalidate the current vendor portal link.",
+      )
+    ) {
+      regenerateTokenMutation.mutate({ id: selectedVendor.id });
+    }
   };
 
   return (
@@ -266,38 +270,23 @@ Thank you!`;
                     <div>
                       <span className="text-muted-foreground">Phone:</span>
                       <div className="font-medium">
-                        {vendor.phoneNumber ? (
-                          <Button
-                            variant="link"
-                            size="sm"
-                            onClick={() =>
-                              handleWhatsApp(
-                                vendor.phoneNumber!,
-                                vendor.name,
-                                vendor.id,
-                                vendor.accessToken,
-                              )
-                            }
-                            className="h-auto p-0 text-sm"
-                          >
-                            <MessageCircle className="mr-1 h-3 w-3" />
-                            {vendor.phoneNumber}
-                          </Button>
-                        ) : (
-                          "-"
-                        )}
+                        {vendor.phoneNumber ?? "-"}
                       </div>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">Zone:</span>
+                      <span className="text-muted-foreground">Zones:</span>
                       <div className="font-medium">
-                        {vendor.zone?.name ?? "-"}
+                        {vendor.zones && vendor.zones.length > 0
+                          ? vendor.zones.map((vz) => vz.zone.name).join(", ")
+                          : "-"}
                       </div>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">Gate:</span>
+                      <span className="text-muted-foreground">Gates:</span>
                       <div className="font-medium">
-                        {vendor.gate?.name ?? "-"}
+                        {vendor.gates && vendor.gates.length > 0
+                          ? vendor.gates.map((vg) => vg.gate.name).join(", ")
+                          : "-"}
                       </div>
                     </div>
                     <div>
@@ -339,30 +328,17 @@ Thank you!`;
                   <TableRow key={vendor.id}>
                     <TableCell className="font-medium">{vendor.name}</TableCell>
                     <TableCell>{vendor.description ?? "-"}</TableCell>
+                    <TableCell>{vendor.phoneNumber ?? "-"}</TableCell>
                     <TableCell>
-                      {vendor.phoneNumber ? (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            handleWhatsApp(
-                              vendor.phoneNumber!,
-                              vendor.name,
-                              vendor.id,
-                              vendor.accessToken,
-                            )
-                          }
-                          className="h-8 gap-2"
-                        >
-                          <MessageCircle className="h-4 w-4" />
-                          {vendor.phoneNumber}
-                        </Button>
-                      ) : (
-                        "-"
-                      )}
+                      {vendor.zones && vendor.zones.length > 0
+                        ? vendor.zones.map((vz) => vz.zone.name).join(", ")
+                        : "-"}
                     </TableCell>
-                    <TableCell>{vendor.zone?.name ?? "-"}</TableCell>
-                    <TableCell>{vendor.gate?.name ?? "-"}</TableCell>
+                    <TableCell>
+                      {vendor.gates && vendor.gates.length > 0
+                        ? vendor.gates.map((vg) => vg.gate.name).join(", ")
+                        : "-"}
+                    </TableCell>
                     <TableCell>{vendor.allowedStaffCount}</TableCell>
                     <TableCell>{vendor._count.employees}</TableCell>
                     <TableCell className="text-right">
@@ -438,6 +414,7 @@ Thank you!`;
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
+            {/* Portal Link Section */}
             <div className="space-y-2">
               <Label htmlFor="portal-link">Vendor Portal Link</Label>
               <div className="flex gap-2">
@@ -458,6 +435,35 @@ Thank you!`;
                   title="Copy link"
                 >
                   <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* WhatsApp Message Section */}
+            <div className="space-y-2">
+              <Label htmlFor="whatsapp-message">WhatsApp Message</Label>
+              <div className="space-y-2">
+                <Textarea
+                  id="whatsapp-message"
+                  value={
+                    selectedVendor
+                      ? getWhatsAppMessage(
+                          selectedVendor.name,
+                          `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`,
+                        )
+                      : ""
+                  }
+                  readOnly
+                  className="font-mono text-sm"
+                  rows={12}
+                />
+                <Button
+                  variant="outline"
+                  onClick={handleCopyWhatsAppMessage}
+                  className="w-full"
+                >
+                  <Copy className="mr-2 h-4 w-4" />
+                  Copy WhatsApp Message
                 </Button>
               </div>
             </div>

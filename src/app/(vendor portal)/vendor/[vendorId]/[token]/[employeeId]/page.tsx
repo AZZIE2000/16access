@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   ArrowLeft,
   Save,
@@ -40,12 +39,12 @@ export default function EmployeeFormPage() {
   const [formData, setFormData] = useState({
     name: "",
     job: "",
-    description: "",
+    nationalId: "",
     profilePhotoUrl: "",
   });
 
-  // Multiple ID card URLs
-  const [idCardUrls, setIdCardUrls] = useState<string[]>([]);
+  // Single ID card URL (required)
+  const [idCardUrl, setIdCardUrl] = useState<string>("");
 
   // Image crop dialog state
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
@@ -127,11 +126,11 @@ export default function EmployeeFormPage() {
       setFormData({
         name: employee.name,
         job: employee.job,
-        description: employee.description ?? "",
+        nationalId: employee.nationalId,
         profilePhotoUrl: profilePhoto?.attachment.url ?? "",
       });
 
-      setIdCardUrls(idCards);
+      setIdCardUrl(idCards[0] ?? "");
     }
   }, [employee, isCreate]);
 
@@ -180,11 +179,10 @@ export default function EmployeeFormPage() {
   };
 
   // Handle ID card removal
-  const handleRemoveIdCard = (index: number) => {
-    const urlToRemove = idCardUrls[index];
-    if (urlToRemove) {
-      deleteFileMutation.mutate({ fileUrl: urlToRemove });
-      setIdCardUrls(idCardUrls.filter((_, i) => i !== index));
+  const handleRemoveIdCard = () => {
+    if (idCardUrl) {
+      deleteFileMutation.mutate({ fileUrl: idCardUrl });
+      setIdCardUrl("");
     }
   };
 
@@ -197,15 +195,31 @@ export default function EmployeeFormPage() {
       return;
     }
 
+    // Validate national ID card is uploaded
+    if (!idCardUrl) {
+      toast.error("Please upload your National ID card");
+      return;
+    }
+
+    // Validate national ID is exactly 10 digits
+    if (formData.nationalId.length !== 10) {
+      toast.error("National ID must be exactly 10 digits");
+      return;
+    }
+
+    // Use vendor's gates and zones
+    const gateIds = vendor?.gates?.map((vg) => vg.gateId) ?? [];
+    const zoneIds = vendor?.zones?.map((vz) => vz.zoneId) ?? [];
+
     const data = {
       token,
       name: formData.name,
       job: formData.job,
-      description: formData.description || undefined,
-      gateId: vendor?.gateId || undefined,
-      zoneId: vendor?.zoneId || undefined,
+      nationalId: formData.nationalId,
+      gateIds: gateIds.length > 0 ? gateIds : undefined,
+      zoneIds: zoneIds.length > 0 ? zoneIds : undefined,
       profilePhotoUrl: formData.profilePhotoUrl,
-      idCardUrls: idCardUrls.length > 0 ? idCardUrls : undefined,
+      idCardUrls: idCardUrl ? [idCardUrl] : undefined,
     };
 
     if (isCreate) {
@@ -214,11 +228,10 @@ export default function EmployeeFormPage() {
       updateMutation.mutate({
         id: employeeId,
         ...data,
-        description: formData.description || null,
-        gateId: vendor?.gateId || null,
-        zoneId: vendor?.zoneId || null,
+        gateIds: gateIds.length > 0 ? gateIds : null,
+        zoneIds: zoneIds.length > 0 ? zoneIds : null,
         profilePhotoUrl: formData.profilePhotoUrl,
-        idCardUrls: idCardUrls.length > 0 ? idCardUrls : null,
+        idCardUrls: idCardUrl ? [idCardUrl] : null,
       });
     }
   };
@@ -349,16 +362,27 @@ export default function EmployeeFormPage() {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                  placeholder="Additional notes or description (optional)"
-                  rows={3}
+                <Label htmlFor="nationalId">
+                  National ID <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="nationalId"
+                  value={formData.nationalId}
+                  onChange={(e) => {
+                    const value = e.target.value
+                      .replace(/\D/g, "")
+                      .slice(0, 10);
+                    setFormData({ ...formData, nationalId: value });
+                  }}
+                  placeholder="10-digit National ID"
+                  maxLength={10}
+                  required
                 />
+                {formData.nationalId && formData.nationalId.length !== 10 && (
+                  <p className="text-destructive text-sm">
+                    National ID must be exactly 10 digits
+                  </p>
+                )}
               </div>
 
               {/* Profile Photo Upload with Crop */}
@@ -436,74 +460,70 @@ export default function EmployeeFormPage() {
                 </div>
               </div>
 
-              {/* ID Cards Upload (Multiple) */}
+              {/* National ID Card Upload (Single, Required) */}
               <div className="grid gap-2">
                 <Label className="flex items-center gap-2">
                   <CreditCard className="h-4 w-4" />
-                  ID Cards (ID, Passport, etc.)
-                  <span className="text-muted-foreground text-xs font-normal">
-                    (Optional)
-                  </span>
+                  National ID Card
+                  <span className="text-destructive">*</span>
                 </Label>
+                <p className="text-muted-foreground text-xs">
+                  Please upload a clear photo of your National ID card
+                </p>
 
-                {/* Display uploaded ID cards */}
-                {idCardUrls.length > 0 && (
-                  <div className="flex flex-wrap gap-3">
-                    {idCardUrls.map((url, index) => (
-                      <div key={index} className="relative w-24 shrink-0">
-                        <div className="border-muted-foreground/25 relative aspect-square w-full overflow-hidden rounded-lg border-2 border-dashed">
-                          <Image
-                            src={url}
-                            alt={`ID card ${index + 1}`}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          className="absolute -top-2 -right-2 h-6 w-6 p-0"
-                          onClick={() => handleRemoveIdCard(index)}
-                          disabled={deleteFileMutation.isPending}
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    ))}
+                {/* Display uploaded ID card */}
+                {idCardUrl && (
+                  <div className="relative w-32 shrink-0">
+                    <div className="border-muted-foreground/25 relative aspect-square w-full overflow-hidden rounded-lg border-2 border-dashed">
+                      <Image
+                        src={idCardUrl}
+                        alt="National ID card"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute -top-2 -right-2 h-6 w-6 p-0"
+                      onClick={handleRemoveIdCard}
+                      disabled={deleteFileMutation.isPending}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
                   </div>
                 )}
 
-                {/* Upload button */}
-                <div className="flex items-center gap-2">
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      if (res?.[0]?.url) {
-                        setIdCardUrls([...idCardUrls, res[0].url]);
-                        toast.success("ID card uploaded");
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast.error(`Upload failed: ${error.message}`);
-                    }}
-                    appearance={{
-                      button:
-                        "ut-ready:bg-primary ut-uploading:cursor-not-allowed ut-uploading:bg-primary/50 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 text-sm font-medium rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-                      allowedContent: "hidden",
-                    }}
-                    content={{
-                      button({ ready, isUploading }) {
-                        if (isUploading) return "Uploading...";
-                        if (ready) return "Add ID Card";
-                        return "Getting ready...";
-                      },
-                    }}
-                  />
-                  <span className="text-muted-foreground text-sm">
-                    Upload ID cards, passports, or other documents
-                  </span>
-                </div>
+                {/* Upload button - only show if no ID card uploaded */}
+                {!idCardUrl && (
+                  <div className="flex items-center gap-2">
+                    <UploadButton
+                      endpoint="imageUploader"
+                      onClientUploadComplete={(res) => {
+                        if (res?.[0]?.url) {
+                          setIdCardUrl(res[0].url);
+                          toast.success("National ID card uploaded");
+                        }
+                      }}
+                      onUploadError={(error: Error) => {
+                        toast.error(`Upload failed: ${error.message}`);
+                      }}
+                      appearance={{
+                        button:
+                          "ut-ready:bg-primary ut-uploading:cursor-not-allowed ut-uploading:bg-primary/50 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 text-sm font-medium rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+                        allowedContent: "hidden",
+                      }}
+                      content={{
+                        button({ ready, isUploading }) {
+                          if (isUploading) return "Uploading...";
+                          if (ready) return "Upload National ID Card";
+                          return "Getting ready...";
+                        },
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-3 pt-4">

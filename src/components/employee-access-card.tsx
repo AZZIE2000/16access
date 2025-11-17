@@ -12,8 +12,8 @@ interface EmployeeAccessCardProps {
     identifier: string;
     name: string;
     job: string;
-    gate?: { name: string } | null;
-    zone?: { name: string } | null;
+    gates?: Array<{ gate: { name: string } }>;
+    zones?: Array<{ zone: { name: string } }>;
     vendor?: { name: string } | null;
     employeeAttachments?: Array<{
       type: string;
@@ -425,7 +425,9 @@ export function EmployeeAccessCard({ employee }: EmployeeAccessCardProps) {
                       fontFamily: "Montserrat, sans-serif",
                     }}
                   >
-                    {employee.gate?.name ?? "Main Gate Access"}
+                    {employee.gates && employee.gates.length > 0
+                      ? employee.gates.map((eg) => eg.gate.name).join(", ")
+                      : "Main Gate Access"}
                   </p>
                   <p
                     className="montserrat"
@@ -436,7 +438,9 @@ export function EmployeeAccessCard({ employee }: EmployeeAccessCardProps) {
                       fontFamily: "Montserrat, sans-serif",
                     }}
                   >
-                    {employee.zone?.name ?? "Parking Only (ZONE)"}
+                    {employee.zones && employee.zones.length > 0
+                      ? employee.zones.map((ez) => ez.zone.name).join(", ")
+                      : "Parking Only (ZONE)"}
                   </p>
                 </div>
               </div>

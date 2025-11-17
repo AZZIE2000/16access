@@ -70,7 +70,7 @@ function LoginForm() {
         if (session?.user?.role === "admin") {
           router.push("/dashboard");
         } else if (session?.user?.role === "usher") {
-          router.push("/usher");
+          router.push("/usher/scan");
         } else {
           router.push(callbackUrl);
         }

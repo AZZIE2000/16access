@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MultiSelect } from "@/components/ui/multi-select";
 import {
   Dialog,
   DialogContent,
@@ -83,8 +84,10 @@ export default function EmployeeManagementPage() {
   const [editFormData, setEditFormData] = useState({
     name: "",
     job: "",
-    description: "",
+    nationalId: "",
     status: "ACTIVE" as EmployeeStatus,
+    gateIds: [] as string[],
+    zoneIds: [] as string[],
   });
 
   // Fetch all employees with filters
@@ -133,8 +136,10 @@ export default function EmployeeManagementPage() {
       setEditFormData({
         name: employee.name,
         job: employee.job,
-        description: employee.description ?? "",
+        nationalId: employee.nationalId,
         status: employee.status,
+        gateIds: employee.gates.map((eg) => eg.gateId),
+        zoneIds: employee.zones.map((ez) => ez.zoneId),
       });
       setSelectedEmployee(employeeId);
       setEditDialogOpen(true);
@@ -165,9 +170,9 @@ export default function EmployeeManagementPage() {
       vendorId: employee.vendorId,
       name: editFormData.name,
       job: editFormData.job,
-      description: editFormData.description || null,
-      gateId: employee.gateId,
-      zoneId: employee.zoneId,
+      nationalId: editFormData.nationalId,
+      gateIds: editFormData.gateIds.length > 0 ? editFormData.gateIds : null,
+      zoneIds: editFormData.zoneIds.length > 0 ? editFormData.zoneIds : null,
       profilePhotoUrl: profilePhoto?.attachment.url ?? "",
       idCardUrls: idCards.length > 0 ? idCards : null,
       status: editFormData.status,
@@ -440,12 +445,16 @@ export default function EmployeeManagementPage() {
                           </Link>
                         </TableCell>
                         <TableCell>
-                          {employee.gate?.name ?? (
+                          {employee.gates && employee.gates.length > 0 ? (
+                            employee.gates.map((eg) => eg.gate.name).join(", ")
+                          ) : (
                             <span className="text-muted-foreground">-</span>
                           )}
                         </TableCell>
                         <TableCell>
-                          {employee.zone?.name ?? (
+                          {employee.zones && employee.zones.length > 0 ? (
+                            employee.zones.map((ez) => ez.zone.name).join(", ")
+                          ) : (
                             <span className="text-muted-foreground">-</span>
                           )}
                         </TableCell>
@@ -580,16 +589,24 @@ export default function EmployeeManagementPage() {
                             {employee.vendor.name}
                           </Link>
                         </div>
-                        {employee.gate && (
+                        {employee.gates && employee.gates.length > 0 && (
                           <div className="flex items-center gap-2 text-sm">
                             <DoorOpen className="text-muted-foreground h-4 w-4" />
-                            <span>{employee.gate.name}</span>
+                            <span>
+                              {employee.gates
+                                .map((eg) => eg.gate.name)
+                                .join(", ")}
+                            </span>
                           </div>
                         )}
-                        {employee.zone && (
+                        {employee.zones && employee.zones.length > 0 && (
                           <div className="flex items-center gap-2 text-sm">
                             <MapPin className="text-muted-foreground h-4 w-4" />
-                            <span>{employee.zone.name}</span>
+                            <span>
+                              {employee.zones
+                                .map((ez) => ez.zone.name)
+                                .join(", ")}
+                            </span>
                           </div>
                         )}
                         <div className="flex items-center justify-between">
@@ -641,17 +658,54 @@ export default function EmployeeManagementPage() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="edit-description">Description</Label>
+              <Label htmlFor="edit-nationalId">National ID *</Label>
               <Input
-                id="edit-description"
-                value={editFormData.description}
-                onChange={(e) =>
+                id="edit-nationalId"
+                value={editFormData.nationalId}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "").slice(0, 10);
                   setEditFormData({
                     ...editFormData,
-                    description: e.target.value,
-                  })
+                    nationalId: value,
+                  });
+                }}
+                placeholder="10-digit National ID"
+                maxLength={10}
+                required
+              />
+              {editFormData.nationalId &&
+                editFormData.nationalId.length !== 10 && (
+                  <p className="text-destructive text-sm">
+                    National ID must be exactly 10 digits
+                  </p>
+                )}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-gates">Gates</Label>
+              <MultiSelect
+                options={gates.map((gate) => ({
+                  label: gate.name,
+                  value: gate.id,
+                }))}
+                selected={editFormData.gateIds}
+                onChange={(selected) =>
+                  setEditFormData({ ...editFormData, gateIds: selected })
                 }
-                placeholder="Optional description"
+                placeholder="Select gates..."
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-zones">Zones</Label>
+              <MultiSelect
+                options={zones.map((zone) => ({
+                  label: zone.name,
+                  value: zone.id,
+                }))}
+                selected={editFormData.zoneIds}
+                onChange={(selected) =>
+                  setEditFormData({ ...editFormData, zoneIds: selected })
+                }
+                placeholder="Select zones..."
               />
             </div>
             <div className="grid gap-2">
@@ -741,8 +795,8 @@ export default function EmployeeManagementPage() {
                   identifier: "",
                   name: "",
                   job: "",
-                  gate: null,
-                  zone: null,
+                  gates: [],
+                  zones: [],
                   vendor: null,
                   employeeAttachments: [],
                 }

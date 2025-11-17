@@ -62,7 +62,7 @@ export default async function VendorEmployeesPage({
       <div className="mb-6">
         <h1 className="text-3xl font-bold">Manage Employees</h1>
         <p className="text-muted-foreground">
-          Manage employees for {vendor.name}
+          Manage employees for <b className="text-black">{vendor.name}</b>
         </p>
       </div>
 

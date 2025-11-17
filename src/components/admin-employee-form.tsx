@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -21,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { ArrowLeft, Save, User, CreditCard, X, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { UploadButton, useUploadThing } from "@/utils/uploadthing";
@@ -50,19 +50,41 @@ type EmployeeAttachment = {
   attachment: Attachment;
 };
 
+type EmployeeGate = {
+  id: string;
+  gateId: string;
+  gate: Gate;
+};
+
+type EmployeeZone = {
+  id: string;
+  zoneId: string;
+  zone: Zone;
+};
+
 type Employee = {
   id: string;
   identifier: string;
   name: string;
   job: string;
-  description: string | null;
+  nationalId: string;
   version: number;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
-  gateId: string | null;
-  zoneId: string | null;
-  gate: Gate | null;
-  zone: Zone | null;
+  gates: EmployeeGate[];
+  zones: EmployeeZone[];
   employeeAttachments?: EmployeeAttachment[];
+};
+
+type VendorGate = {
+  id: string;
+  gateId: string;
+  gate: Gate;
+};
+
+type VendorZone = {
+  id: string;
+  zoneId: string;
+  zone: Zone;
 };
 
 type Vendor = {
@@ -72,10 +94,8 @@ type Vendor = {
   phoneNumber: string | null;
   allowedStaffCount: number;
   accessToken: string;
-  gateId: string | null;
-  zoneId: string | null;
-  gate: Gate | null;
-  zone: Zone | null;
+  gates: VendorGate[];
+  zones: VendorZone[];
 };
 
 type AdminEmployeeFormProps = {
@@ -99,19 +119,19 @@ export function AdminEmployeeForm({
   const [formData, setFormData] = useState({
     name: "",
     job: "",
-    description: "",
-    gateId: null as string | null,
-    zoneId: null as string | null,
+    nationalId: "",
+    gateIds: [] as string[],
+    zoneIds: [] as string[],
     profilePhotoUrl: "",
     status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
   });
   useEffect(() => {
     console.log("Vendor object:", vendor);
-    console.log("Vendor gateId:", vendor.gateId);
-    console.log("Vendor zoneId:", vendor.zoneId);
+    console.log("Vendor gates:", vendor.gates);
+    console.log("Vendor zones:", vendor.zones);
     console.log("Form data:", formData);
   }, [vendor, formData]);
-  const [idCardUrls, setIdCardUrls] = useState<string[]>([]);
+  const [idCardUrl, setIdCardUrl] = useState<string>("");
 
   // Image crop dialog state
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
@@ -172,35 +192,34 @@ export function AdminEmployeeForm({
       const profilePhoto = employee.employeeAttachments?.find(
         (att) => att.type === "PROFILE_PHOTO",
       );
-      const idCards =
-        employee.employeeAttachments
-          ?.filter((att) => att.type === "ID_CARD")
-          .map((att) => att.attachment.url) ?? [];
+      const idCard = employee.employeeAttachments?.find(
+        (att) => att.type === "ID_CARD",
+      );
 
       setFormData({
         name: employee.name,
         job: employee.job,
-        description: employee.description ?? "",
-        gateId: employee.gateId ?? vendor.gateId,
-        zoneId: employee.zoneId ?? vendor.zoneId,
+        nationalId: employee.nationalId,
+        gateIds: employee.gates.map((eg) => eg.gateId),
+        zoneIds: employee.zones.map((ez) => ez.zoneId),
         profilePhotoUrl: profilePhoto?.attachment.url ?? "",
         status: employee.status,
       });
 
-      setIdCardUrls(idCards);
+      setIdCardUrl(idCard?.attachment.url ?? "");
     } else {
-      // Creating new employee - set vendor's gate and zone as default
+      // Creating new employee - set vendor's gates and zones as default
       setFormData({
-        gateId: vendor.gateId,
+        gateIds: vendor.gates.map((vg) => vg.gateId),
         name: "",
         job: "",
-        description: "",
-        zoneId: vendor.zoneId,
+        nationalId: "",
+        zoneIds: vendor.zones.map((vz) => vz.zoneId),
         profilePhotoUrl: "",
         status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
       });
     }
-  }, [employee, isCreate, vendor, vendor.gateId, vendor.zoneId]);
+  }, [employee, isCreate, vendor, vendor.gates, vendor.zones]);
 
   // Handle profile photo file selection (before upload)
   const handleProfilePhotoSelect = (file: File) => {
@@ -246,11 +265,10 @@ export function AdminEmployeeForm({
   };
 
   // Handle ID card removal
-  const handleRemoveIdCard = (index: number) => {
-    const urlToRemove = idCardUrls[index];
-    if (urlToRemove) {
-      deleteFileMutation.mutate({ fileUrl: urlToRemove });
-      setIdCardUrls(idCardUrls.filter((_, i) => i !== index));
+  const handleRemoveIdCard = () => {
+    if (idCardUrl) {
+      deleteFileMutation.mutate({ fileUrl: idCardUrl });
+      setIdCardUrl("");
     }
   };
 
@@ -262,15 +280,27 @@ export function AdminEmployeeForm({
       return;
     }
 
+    // Validate national ID
+    if (formData.nationalId.length !== 10) {
+      toast.error("National ID must be exactly 10 digits");
+      return;
+    }
+
+    // Validate ID card is uploaded
+    if (!idCardUrl) {
+      toast.error("Please upload the National ID card");
+      return;
+    }
+
     const data = {
       vendorId: vendor.id,
       name: formData.name,
       job: formData.job,
-      description: formData.description || undefined,
-      gateId: formData.gateId || undefined,
-      zoneId: formData.zoneId || undefined,
+      nationalId: formData.nationalId,
+      gateIds: formData.gateIds.length > 0 ? formData.gateIds : undefined,
+      zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : undefined,
       profilePhotoUrl: formData.profilePhotoUrl,
-      idCardUrls: idCardUrls.length > 0 ? idCardUrls : undefined,
+      idCardUrls: idCardUrl ? [idCardUrl] : undefined,
       status: formData.status,
     };
 
@@ -280,10 +310,9 @@ export function AdminEmployeeForm({
       updateMutation.mutate({
         id: employee.id,
         ...data,
-        description: formData.description || null,
-        gateId: formData.gateId || null,
-        zoneId: formData.zoneId || null,
-        idCardUrls: idCardUrls.length > 0 ? idCardUrls : null,
+        gateIds: formData.gateIds.length > 0 ? formData.gateIds : null,
+        zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : null,
+        idCardUrls: idCardUrl ? [idCardUrl] : null,
       });
     }
   };
@@ -296,15 +325,27 @@ export function AdminEmployeeForm({
       return;
     }
 
+    // Validate national ID
+    if (formData.nationalId.length !== 10) {
+      toast.error("National ID must be exactly 10 digits");
+      return;
+    }
+
+    // Validate ID card is uploaded
+    if (!idCardUrl) {
+      toast.error("Please upload the National ID card");
+      return;
+    }
+
     const data = {
       oldEmployeeId: employee.id,
       name: formData.name,
       job: formData.job,
-      description: formData.description || null,
-      gateId: formData.gateId || null,
-      zoneId: formData.zoneId || null,
+      nationalId: formData.nationalId,
+      gateIds: formData.gateIds.length > 0 ? formData.gateIds : null,
+      zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : null,
       profilePhotoUrl: formData.profilePhotoUrl,
-      idCardUrls: idCardUrls.length > 0 ? idCardUrls : null,
+      idCardUrls: idCardUrl ? [idCardUrl] : null,
       status: formData.status,
     };
 
@@ -375,67 +416,68 @@ export function AdminEmployeeForm({
               </p>
             </div>
 
-            {/* Description */}
+            {/* National ID */}
             <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                placeholder="Additional notes or description (optional)"
-                rows={3}
+              <Label htmlFor="nationalId">
+                National ID <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="nationalId"
+                value={formData.nationalId}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  setFormData({ ...formData, nationalId: value });
+                }}
+                placeholder="10-digit National ID"
+                maxLength={10}
+                required
               />
+              {formData.nationalId && formData.nationalId.length !== 10 && (
+                <p className="text-destructive text-sm">
+                  National ID must be exactly 10 digits
+                </p>
+              )}
             </div>
 
-            {/* Zone and Gate */}
+            {/* Zones and Gates */}
             <div className="grid gap-4 md:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="zone">Zone</Label>
-                <Select
-                  value={formData.zoneId ?? undefined}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, zoneId: value })
+                <Label htmlFor="zones">Zones</Label>
+                <MultiSelect
+                  options={zones.map((zone) => ({
+                    label: zone.name,
+                    value: zone.id,
+                  }))}
+                  selected={formData.zoneIds}
+                  onChange={(selected) =>
+                    setFormData({ ...formData, zoneIds: selected })
                   }
-                >
-                  <SelectTrigger id="zone">
-                    <SelectValue placeholder="Select a zone (optional)" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {zones.map((zone) => (
-                      <SelectItem key={zone.id} value={zone.id}>
-                        {zone.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  placeholder="Select zones (optional)"
+                />
                 <p className="text-muted-foreground text-xs">
-                  Default: {vendor.zone?.name ?? "Not assigned"}
+                  Default:{" "}
+                  {vendor.zones.map((vz) => vz.zone.name).join(", ") ||
+                    "Not assigned"}
                 </p>
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="gate">Gate</Label>
-                <Select
-                  value={formData.gateId ?? undefined}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, gateId: value })
+                <Label htmlFor="gates">Gates</Label>
+                <MultiSelect
+                  options={gates.map((gate) => ({
+                    label: gate.name,
+                    value: gate.id,
+                  }))}
+                  selected={formData.gateIds}
+                  onChange={(selected) =>
+                    setFormData({ ...formData, gateIds: selected })
                   }
-                >
-                  <SelectTrigger id="gate">
-                    <SelectValue placeholder="Select a gate (optional)" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {gates.map((gate) => (
-                      <SelectItem key={gate.id} value={gate.id}>
-                        {gate.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  placeholder="Select gates (optional)"
+                />
                 <p className="text-muted-foreground text-xs">
-                  Default: {vendor.gate?.name ?? "Not assigned"}
+                  Default:{" "}
+                  {vendor.gates.map((vg) => vg.gate.name).join(", ") ||
+                    "Not assigned"}
                 </p>
               </div>
             </div>
@@ -536,50 +578,49 @@ export function AdminEmployeeForm({
               </div>
             </div>
 
-            {/* ID Cards Upload (Multiple) */}
+            {/* National ID Card Upload (Single, Required) */}
             <div className="grid gap-2">
               <Label className="flex items-center gap-2">
                 <CreditCard className="h-4 w-4" />
-                ID Cards (ID, Passport, etc.)
-                <span className="text-muted-foreground text-xs font-normal">
-                  (Optional)
-                </span>
+                National ID Card
+                <span className="text-destructive">*</span>
               </Label>
+              <p className="text-muted-foreground text-xs">
+                Please upload a clear photo of the National ID card
+              </p>
 
-              {idCardUrls.length > 0 && (
-                <div className="flex flex-wrap gap-3">
-                  {idCardUrls.map((url, index) => (
-                    <div key={index} className="relative w-24 shrink-0">
-                      <div className="border-muted-foreground/25 relative aspect-square w-full overflow-hidden rounded-lg border-2 border-dashed">
-                        <Image
-                          src={url}
-                          alt={`ID card ${index + 1}`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="sm"
-                        className="absolute -top-2 -right-2 h-6 w-6 p-0"
-                        onClick={() => handleRemoveIdCard(index)}
-                        disabled={deleteFileMutation.isPending}
-                      >
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  ))}
+              {/* Display uploaded ID card */}
+              {idCardUrl && (
+                <div className="relative w-32 shrink-0">
+                  <div className="border-muted-foreground/25 relative aspect-square w-full overflow-hidden rounded-lg border-2 border-dashed">
+                    <Image
+                      src={idCardUrl}
+                      alt="National ID card"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute -top-2 -right-2 h-6 w-6 p-0"
+                    onClick={handleRemoveIdCard}
+                    disabled={deleteFileMutation.isPending}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
                 </div>
               )}
 
-              <div className="flex items-center gap-2">
+              {/* Upload button - only show if no ID card uploaded */}
+              {!idCardUrl && (
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
                     if (res?.[0]?.url) {
-                      setIdCardUrls([...idCardUrls, res[0].url]);
-                      toast.success("ID card uploaded");
+                      setIdCardUrl(res[0].url);
+                      toast.success("National ID card uploaded");
                     }
                   }}
                   onUploadError={(error: Error) => {
@@ -593,15 +634,12 @@ export function AdminEmployeeForm({
                   content={{
                     button({ ready, isUploading }) {
                       if (isUploading) return "Uploading...";
-                      if (ready) return "Add ID Card";
+                      if (ready) return "Upload National ID Card";
                       return "Getting ready...";
                     },
                   }}
                 />
-                <span className="text-muted-foreground text-sm">
-                  Upload ID cards, passports, or other documents
-                </span>
-              </div>
+              )}
             </div>
 
             {/* Action Buttons */}

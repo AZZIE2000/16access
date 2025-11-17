@@ -142,9 +142,7 @@ exports.Prisma.VendorScalarFieldEnum = {
   accessToken: 'accessToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  gateId: 'gateId',
-  zoneId: 'zoneId'
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.ZoneScalarFieldEnum = {
@@ -179,15 +177,13 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   identifier: 'identifier',
   name: 'name',
   job: 'job',
-  description: 'description',
+  nationalId: 'nationalId',
   version: 'version',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   status: 'status',
-  vendorId: 'vendorId',
-  gateId: 'gateId',
-  zoneId: 'zoneId'
+  vendorId: 'vendorId'
 };
 
 exports.Prisma.WorkingHoursScalarFieldEnum = {
@@ -266,6 +262,34 @@ exports.Prisma.EmployeePermissionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.VendorGateScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  gateId: 'gateId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VendorZoneScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  zoneId: 'zoneId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EmployeeGateScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  gateId: 'gateId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EmployeeZoneScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  zoneId: 'zoneId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -331,7 +355,11 @@ exports.Prisma.ModelName = {
   Attachment: 'Attachment',
   VendorAttachment: 'VendorAttachment',
   EmployeeAttachment: 'EmployeeAttachment',
-  EmployeePermission: 'EmployeePermission'
+  EmployeePermission: 'EmployeePermission',
+  VendorGate: 'VendorGate',
+  VendorZone: 'VendorZone',
+  EmployeeGate: 'EmployeeGate',
+  EmployeeZone: 'EmployeeZone'
 };
 
 /**

@@ -71,15 +71,31 @@ export const employeeRouter = createTRPCRouter({
           deletedAt: null,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           employees: {
             where: {
               deletedAt: null,
             },
             include: {
-              gate: true,
-              zone: true,
+              gates: {
+                include: {
+                  gate: true,
+                },
+              },
+              zones: {
+                include: {
+                  zone: true,
+                },
+              },
               employeeAttachments: {
                 include: {
                   attachment: true,
@@ -130,8 +146,16 @@ export const employeeRouter = createTRPCRouter({
       const employee = await ctx.db.employee.findUnique({
         where: { id: input.id },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
           employeeAttachments: {
             include: {
@@ -166,9 +190,11 @@ export const employeeRouter = createTRPCRouter({
         token: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        description: z.string().optional(),
-        gateId: z.string().optional(),
-        zoneId: z.string().optional(),
+        nationalId: z
+          .string()
+          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+        gateIds: z.array(z.string()).optional(),
+        zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional(),
       }),
@@ -208,28 +234,34 @@ export const employeeRouter = createTRPCRouter({
         });
       }
 
-      // Validate gate exists if provided
-      if (input.gateId) {
-        const gate = await ctx.db.gate.findUnique({
-          where: { id: input.gateId },
+      // Validate gates exist if provided
+      if (input.gateIds && input.gateIds.length > 0) {
+        const gates = await ctx.db.gate.findMany({
+          where: {
+            id: { in: input.gateIds },
+            deletedAt: null,
+          },
         });
-        if (!gate || gate.deletedAt) {
+        if (gates.length !== input.gateIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected gate not found",
+            message: "One or more selected gates not found",
           });
         }
       }
 
-      // Validate zone exists if provided
-      if (input.zoneId) {
-        const zone = await ctx.db.zone.findUnique({
-          where: { id: input.zoneId },
+      // Validate zones exist if provided
+      if (input.zoneIds && input.zoneIds.length > 0) {
+        const zones = await ctx.db.zone.findMany({
+          where: {
+            id: { in: input.zoneIds },
+            deletedAt: null,
+          },
         });
-        if (!zone || zone.deletedAt) {
+        if (zones.length !== input.zoneIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected zone not found",
+            message: "One or more selected zones not found",
           });
         }
       }
@@ -238,14 +270,34 @@ export const employeeRouter = createTRPCRouter({
         data: {
           name: input.name,
           job: input.job,
-          description: input.description,
+          nationalId: input.nationalId,
           vendorId: vendor.id,
-          gateId: input.gateId,
-          zoneId: input.zoneId,
+          gates: input.gateIds
+            ? {
+                create: input.gateIds.map((gateId) => ({
+                  gateId,
+                })),
+              }
+            : undefined,
+          zones: input.zoneIds
+            ? {
+                create: input.zoneIds.map((zoneId) => ({
+                  zoneId,
+                })),
+              }
+            : undefined,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
         },
       });
@@ -302,9 +354,11 @@ export const employeeRouter = createTRPCRouter({
         token: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        description: z.string().optional().nullable(),
-        gateId: z.string().optional().nullable(),
-        zoneId: z.string().optional().nullable(),
+        nationalId: z
+          .string()
+          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+        gateIds: z.array(z.string()).optional().nullable(),
+        zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
       }),
@@ -345,44 +399,78 @@ export const employeeRouter = createTRPCRouter({
         });
       }
 
-      // Validate gate exists if provided
-      if (input.gateId) {
-        const gate = await ctx.db.gate.findUnique({
-          where: { id: input.gateId },
+      // Validate gates exist if provided
+      if (input.gateIds && input.gateIds.length > 0) {
+        const gates = await ctx.db.gate.findMany({
+          where: {
+            id: { in: input.gateIds },
+            deletedAt: null,
+          },
         });
-        if (!gate || gate.deletedAt) {
+        if (gates.length !== input.gateIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected gate not found",
+            message: "One or more selected gates not found",
           });
         }
       }
 
-      // Validate zone exists if provided
-      if (input.zoneId) {
-        const zone = await ctx.db.zone.findUnique({
-          where: { id: input.zoneId },
+      // Validate zones exist if provided
+      if (input.zoneIds && input.zoneIds.length > 0) {
+        const zones = await ctx.db.zone.findMany({
+          where: {
+            id: { in: input.zoneIds },
+            deletedAt: null,
+          },
         });
-        if (!zone || zone.deletedAt) {
+        if (zones.length !== input.zoneIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected zone not found",
+            message: "One or more selected zones not found",
           });
         }
       }
+
+      // Delete existing gate and zone relations
+      await ctx.db.employeeGate.deleteMany({
+        where: { employeeId: input.id },
+      });
+      await ctx.db.employeeZone.deleteMany({
+        where: { employeeId: input.id },
+      });
 
       const employee = await ctx.db.employee.update({
         where: { id: input.id },
         data: {
           name: input.name,
           job: input.job,
-          description: input.description,
-          gateId: input.gateId,
-          zoneId: input.zoneId,
+          nationalId: input.nationalId,
+          gates: input.gateIds
+            ? {
+                create: input.gateIds.map((gateId) => ({
+                  gateId,
+                })),
+              }
+            : undefined,
+          zones: input.zoneIds
+            ? {
+                create: input.zoneIds.map((zoneId) => ({
+                  zoneId,
+                })),
+              }
+            : undefined,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
         },
       });
@@ -587,8 +675,8 @@ export const employeeRouter = createTRPCRouter({
       const where: {
         deletedAt: null;
         vendorId?: string;
-        gateId?: string | null;
-        zoneId?: string | null;
+        gates?: { some: { gateId: string } };
+        zones?: { some: { zoneId: string } };
         status?: "PENDING" | "ACTIVE" | "SUSPENDED";
         OR?: Array<{
           name?: { contains: string; mode: "insensitive" };
@@ -604,11 +692,11 @@ export const employeeRouter = createTRPCRouter({
       }
 
       if (input?.gateId) {
-        where.gateId = input.gateId;
+        where.gates = { some: { gateId: input.gateId } };
       }
 
       if (input?.zoneId) {
-        where.zoneId = input.zoneId;
+        where.zones = { some: { zoneId: input.zoneId } };
       }
 
       if (input?.status) {
@@ -628,8 +716,16 @@ export const employeeRouter = createTRPCRouter({
       const employees = await ctx.db.employee.findMany({
         where,
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
           employeeAttachments: {
             include: {
@@ -652,8 +748,16 @@ export const employeeRouter = createTRPCRouter({
       const employee = await ctx.db.employee.findUnique({
         where: { id: input.id },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
           employeeAttachments: {
             include: {
@@ -680,9 +784,11 @@ export const employeeRouter = createTRPCRouter({
         vendorId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        description: z.string().optional(),
-        gateId: z.string().optional(),
-        zoneId: z.string().optional(),
+        nationalId: z
+          .string()
+          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+        gateIds: z.array(z.string()).optional(),
+        zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]).default("PENDING"),
@@ -721,28 +827,34 @@ export const employeeRouter = createTRPCRouter({
         });
       }
 
-      // Validate gate exists if provided
-      if (input.gateId) {
-        const gate = await ctx.db.gate.findUnique({
-          where: { id: input.gateId },
+      // Validate gates exist if provided
+      if (input.gateIds && input.gateIds.length > 0) {
+        const gates = await ctx.db.gate.findMany({
+          where: {
+            id: { in: input.gateIds },
+            deletedAt: null,
+          },
         });
-        if (!gate || gate.deletedAt) {
+        if (gates.length !== input.gateIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected gate not found",
+            message: "One or more selected gates not found",
           });
         }
       }
 
-      // Validate zone exists if provided
-      if (input.zoneId) {
-        const zone = await ctx.db.zone.findUnique({
-          where: { id: input.zoneId },
+      // Validate zones exist if provided
+      if (input.zoneIds && input.zoneIds.length > 0) {
+        const zones = await ctx.db.zone.findMany({
+          where: {
+            id: { in: input.zoneIds },
+            deletedAt: null,
+          },
         });
-        if (!zone || zone.deletedAt) {
+        if (zones.length !== input.zoneIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected zone not found",
+            message: "One or more selected zones not found",
           });
         }
       }
@@ -751,15 +863,35 @@ export const employeeRouter = createTRPCRouter({
         data: {
           name: input.name,
           job: input.job,
-          description: input.description,
+          nationalId: input.nationalId,
           vendorId: input.vendorId,
-          gateId: input.gateId,
-          zoneId: input.zoneId,
           status: input.status,
+          gates: input.gateIds
+            ? {
+                create: input.gateIds.map((gateId) => ({
+                  gateId,
+                })),
+              }
+            : undefined,
+          zones: input.zoneIds
+            ? {
+                create: input.zoneIds.map((zoneId) => ({
+                  zoneId,
+                })),
+              }
+            : undefined,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
         },
       });
@@ -816,9 +948,11 @@ export const employeeRouter = createTRPCRouter({
         vendorId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        description: z.string().optional().nullable(),
-        gateId: z.string().optional().nullable(),
-        zoneId: z.string().optional().nullable(),
+        nationalId: z
+          .string()
+          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+        gateIds: z.array(z.string()).optional().nullable(),
+        zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
@@ -837,31 +971,45 @@ export const employeeRouter = createTRPCRouter({
         });
       }
 
-      // Validate gate exists if provided
-      if (input.gateId) {
-        const gate = await ctx.db.gate.findUnique({
-          where: { id: input.gateId },
+      // Validate gates exist if provided
+      if (input.gateIds && input.gateIds.length > 0) {
+        const gates = await ctx.db.gate.findMany({
+          where: {
+            id: { in: input.gateIds },
+            deletedAt: null,
+          },
         });
-        if (!gate || gate.deletedAt) {
+        if (gates.length !== input.gateIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected gate not found",
+            message: "One or more selected gates not found",
           });
         }
       }
 
-      // Validate zone exists if provided
-      if (input.zoneId) {
-        const zone = await ctx.db.zone.findUnique({
-          where: { id: input.zoneId },
+      // Validate zones exist if provided
+      if (input.zoneIds && input.zoneIds.length > 0) {
+        const zones = await ctx.db.zone.findMany({
+          where: {
+            id: { in: input.zoneIds },
+            deletedAt: null,
+          },
         });
-        if (!zone || zone.deletedAt) {
+        if (zones.length !== input.zoneIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected zone not found",
+            message: "One or more selected zones not found",
           });
         }
       }
+
+      // Delete existing gate and zone relations
+      await ctx.db.employeeGate.deleteMany({
+        where: { employeeId: input.id },
+      });
+      await ctx.db.employeeZone.deleteMany({
+        where: { employeeId: input.id },
+      });
 
       // Update employee
       const employee = await ctx.db.employee.update({
@@ -869,14 +1017,34 @@ export const employeeRouter = createTRPCRouter({
         data: {
           name: input.name,
           job: input.job,
-          description: input.description,
-          gateId: input.gateId,
-          zoneId: input.zoneId,
+          nationalId: input.nationalId,
           status: input.status,
+          gates: input.gateIds
+            ? {
+                create: input.gateIds.map((gateId) => ({
+                  gateId,
+                })),
+              }
+            : undefined,
+          zones: input.zoneIds
+            ? {
+                create: input.zoneIds.map((zoneId) => ({
+                  zoneId,
+                })),
+              }
+            : undefined,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
         },
       });
@@ -937,9 +1105,11 @@ export const employeeRouter = createTRPCRouter({
         oldEmployeeId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        description: z.string().optional().nullable(),
-        gateId: z.string().optional().nullable(),
-        zoneId: z.string().optional().nullable(),
+        nationalId: z
+          .string()
+          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+        gateIds: z.array(z.string()).optional().nullable(),
+        zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
@@ -958,28 +1128,34 @@ export const employeeRouter = createTRPCRouter({
         });
       }
 
-      // Validate gate exists if provided
-      if (input.gateId) {
-        const gate = await ctx.db.gate.findUnique({
-          where: { id: input.gateId },
+      // Validate gates exist if provided
+      if (input.gateIds && input.gateIds.length > 0) {
+        const gates = await ctx.db.gate.findMany({
+          where: {
+            id: { in: input.gateIds },
+            deletedAt: null,
+          },
         });
-        if (!gate || gate.deletedAt) {
+        if (gates.length !== input.gateIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected gate not found",
+            message: "One or more selected gates not found",
           });
         }
       }
 
-      // Validate zone exists if provided
-      if (input.zoneId) {
-        const zone = await ctx.db.zone.findUnique({
-          where: { id: input.zoneId },
+      // Validate zones exist if provided
+      if (input.zoneIds && input.zoneIds.length > 0) {
+        const zones = await ctx.db.zone.findMany({
+          where: {
+            id: { in: input.zoneIds },
+            deletedAt: null,
+          },
         });
-        if (!zone || zone.deletedAt) {
+        if (zones.length !== input.zoneIds.length) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Selected zone not found",
+            message: "One or more selected zones not found",
           });
         }
       }
@@ -997,15 +1173,35 @@ export const employeeRouter = createTRPCRouter({
           version: oldEmployee.version + 1, // Increment version
           name: input.name,
           job: input.job,
-          description: input.description,
+          nationalId: input.nationalId,
           vendorId: oldEmployee.vendorId,
-          gateId: input.gateId,
-          zoneId: input.zoneId,
           status: input.status,
+          gates: input.gateIds
+            ? {
+                create: input.gateIds.map((gateId) => ({
+                  gateId,
+                })),
+              }
+            : undefined,
+          zones: input.zoneIds
+            ? {
+                create: input.zoneIds.map((zoneId) => ({
+                  zoneId,
+                })),
+              }
+            : undefined,
         },
         include: {
-          gate: true,
-          zone: true,
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
           vendor: true,
         },
       });
