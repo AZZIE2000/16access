@@ -6,11 +6,19 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/react";
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 
 export const metadata: Metadata = {
   title: "Access Management",
   description: "Christmas Market Access Management System",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  manifest: "/manifest.json",
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "16Access",
+  },
 };
 
 const geist = Geist({
@@ -25,8 +33,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${geist.variable}`}>
+      <head>
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      </head>
       <body className="">
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          {children}
+          <PWAInstallPrompt />
+        </TRPCReactProvider>
       </body>
     </html>
   );

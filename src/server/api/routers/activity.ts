@@ -129,6 +129,7 @@ export const activityRouter = createTRPCRouter({
         where: {
           ...(input?.gateId && { gateId: input.gateId }),
           ...(input?.status && { status: input.status }),
+          scannerId: ctx.session.user.id,
         },
         take: input?.limit ?? 50,
         orderBy: {

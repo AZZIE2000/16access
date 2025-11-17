@@ -15,7 +15,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { DoorOpen, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
 interface ScanInterfaceProps {
   denialReason: string; // e.g., "Denied by usher" or "Denied by admin"
   gateSelectionTitle?: string;
@@ -111,54 +118,39 @@ export function ScanInterface({
   }
 
   // Step 1: Select gate
-  if (!selectedGateId) {
-    return (
-      <div className="container mx-auto max-w-2xl space-y-4 p-3">
-        <Card>
-          <CardHeader className="p-4 pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <DoorOpen className="h-5 w-5" />
-              {gateSelectionTitle}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 p-4 pt-0">
-            <p className="text-muted-foreground text-xs">
-              {gateSelectionDescription}
-            </p>
-
-            <div className="space-y-2">
-              <label className="text-xs font-medium">Gate</label>
-              <Select value={selectedGateId} onValueChange={setSelectedGateId}>
-                <SelectTrigger className="h-9">
-                  <SelectValue placeholder="Select a gate" />
-                </SelectTrigger>
-                <SelectContent>
-                  {gates?.map((gate) => (
-                    <SelectItem key={gate.id} value={gate.id}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm">{gate.name}</span>
-                        {gate.description && (
-                          <span className="text-muted-foreground text-xs">
-                            - {gate.description}
-                          </span>
-                        )}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {gates && gates.length === 0 && (
-              <p className="text-muted-foreground text-center text-xs">
-                No gates available. Please contact an administrator.
-              </p>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // if (!selectedGateId) {
+  //   return (
+  //     <div className="container mx-auto max-w-2xl space-y-4 p-3">
+  //       <Item variant="outline">
+  //         <ItemContent>
+  //           <ItemTitle>{gateSelectionTitle}</ItemTitle>
+  //           <ItemDescription>{gateSelectionDescription}</ItemDescription>
+  //         </ItemContent>
+  //         <ItemActions>
+  //           <Select value={selectedGateId} onValueChange={setSelectedGateId}>
+  //             <SelectTrigger className="h-9">
+  //               <SelectValue placeholder="Select a gate" />
+  //             </SelectTrigger>
+  //             <SelectContent>
+  //               {gates?.map((gate) => (
+  //                 <SelectItem key={gate.id} value={gate.id}>
+  //                   <div className="flex items-center gap-2">
+  //                     <span className="text-sm">{gate.name}</span>
+  //                     {gate.description && (
+  //                       <span className="text-muted-foreground text-xs">
+  //                         - {gate.description}
+  //                       </span>
+  //                     )}
+  //                   </div>
+  //                 </SelectItem>
+  //               ))}
+  //             </SelectContent>
+  //           </Select>
+  //         </ItemActions>
+  //       </Item>
+  //     </div>
+  //   );
+  // }
 
   // Step 2: Scan QR codes
   const selectedGate = gates?.find((g) => g.id === selectedGateId);
@@ -166,46 +158,50 @@ export function ScanInterface({
   return (
     <div className="container mx-auto max-w-4xl space-y-3 p-3">
       {/* Header */}
-      <Card>
-        <CardContent className="flex items-center justify-between p-3">
-          <div className="flex items-center gap-2">
-            <DoorOpen className="h-4 w-4" />
-            <div>
-              <p className="text-xs font-medium">Current Gate</p>
-              <p className="text-muted-foreground text-[10px]">
-                {selectedGate?.name}
-              </p>
-            </div>
-          </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-7 text-xs"
-            onClick={() => {
-              setSelectedGateId("");
-              setScannedEmployee(null);
-            }}
-          >
-            Change
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="container mx-auto max-w-2xl space-y-4 p-3">
+        <Item variant="outline">
+          <ItemContent>
+            <ItemTitle>{gateSelectionTitle}</ItemTitle>
+            <ItemDescription>{gateSelectionDescription}</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <Select value={selectedGateId} onValueChange={setSelectedGateId}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="Select a gate" />
+              </SelectTrigger>
+              <SelectContent>
+                {gates?.map((gate) => (
+                  <SelectItem key={gate.id} value={gate.id}>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">{gate.name}</span>
+                      {gate.description && (
+                        <span className="text-muted-foreground text-xs">
+                          - {gate.description}
+                        </span>
+                      )}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </ItemActions>
+        </Item>
+      </div>
 
       {/* QR Scanner */}
-      {!scannedEmployee && (
+      {!scannedEmployee && selectedGateId && (
         <div>
           <QRScanner onScan={handleScan} />
         </div>
       )}
 
       {/* Employee Info & Actions */}
-      {scannedEmployee && (
+      {scannedEmployee && selectedGateId && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">Scanned Employee</h3>
             <Button
-              variant="ghost"
+              variant="success"
               size="sm"
               className="h-7 text-xs"
               onClick={() => setScannedEmployee(null)}
@@ -226,4 +222,3 @@ export function ScanInterface({
     </div>
   );
 }
-

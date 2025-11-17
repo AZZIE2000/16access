@@ -224,7 +224,7 @@ export function EmployeeScanResult({
           <Button
             onClick={onGrantAccess}
             disabled={isProcessing}
-            className="h-auto flex-col gap-1 py-2"
+            className="h-auto flex-col gap-1 py-1"
             size="sm"
           >
             <CheckCircle2 className="h-5 w-5" />
@@ -235,7 +235,7 @@ export function EmployeeScanResult({
             onClick={onGrantExit}
             disabled={isProcessing}
             variant="secondary"
-            className="h-auto flex-col gap-1 py-2"
+            className="h-auto flex-col gap-1 py-1"
             size="sm"
           >
             <LogOut className="h-5 w-5" />
@@ -246,7 +246,7 @@ export function EmployeeScanResult({
             onClick={onDenyAccess}
             disabled={isProcessing}
             variant="destructive"
-            className="h-auto flex-col gap-1 py-2"
+            className="h-auto flex-col gap-1 py-1"
             size="sm"
           >
             <XCircle className="h-5 w-5" />

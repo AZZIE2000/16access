@@ -5,7 +5,7 @@ export default function ScanPage() {
     <ScanInterface
       denialReason="Denied by usher"
       gateSelectionTitle="Select Your Gate"
-      gateSelectionDescription="Please select the gate you are currently stationed at before starting to scan employee QR codes."
+      gateSelectionDescription="Where are you now?"
     />
   );
 }

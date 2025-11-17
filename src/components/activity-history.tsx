@@ -24,8 +24,12 @@ import {
 import { formatDistanceToNow } from "date-fns";
 
 export function ActivityHistory() {
-  const [selectedGateId, setSelectedGateId] = useState<string>("");
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [selectedGateId, setSelectedGateId] = useState<string | undefined>(
+    undefined,
+  );
+  const [selectedStatus, setSelectedStatus] = useState<string | undefined>(
+    undefined,
+  );
 
   // Fetch gates for filter
   const { data: gates } = api.gate.getAll.useQuery();
@@ -33,7 +37,7 @@ export function ActivityHistory() {
   // Fetch activities
   const { data: activities, isLoading } = api.activity.getRecent.useQuery({
     limit: 100,
-    gateId: selectedGateId || undefined,
+    gateId: selectedGateId,
     status:
       selectedStatus === "GRANTED" || selectedStatus === "DENIED"
         ? selectedStatus
@@ -63,12 +67,17 @@ export function ActivityHistory() {
             {/* Gate Filter */}
             <div className="space-y-1">
               <label className="text-[10px] font-medium">Gate</label>
-              <Select value={selectedGateId} onValueChange={setSelectedGateId}>
+              <Select
+                value={selectedGateId ?? "all"}
+                onValueChange={(value) =>
+                  setSelectedGateId(value === "all" ? undefined : value)
+                }
+              >
                 <SelectTrigger className="h-8 text-xs">
                   <SelectValue placeholder="All Gates" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Gates</SelectItem>
+                  <SelectItem value="all">All Gates</SelectItem>
                   {gates?.map((gate) => (
                     <SelectItem key={gate.id} value={gate.id}>
                       {gate.name}
@@ -82,14 +91,16 @@ export function ActivityHistory() {
             <div className="space-y-1">
               <label className="text-[10px] font-medium">Status</label>
               <Select
-                value={selectedStatus}
-                onValueChange={setSelectedStatus}
+                value={selectedStatus ?? "all"}
+                onValueChange={(value) =>
+                  setSelectedStatus(value === "all" ? undefined : value)
+                }
               >
                 <SelectTrigger className="h-8 text-xs">
                   <SelectValue placeholder="All Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Status</SelectItem>
+                  <SelectItem value="all">All Status</SelectItem>
                   <SelectItem value="GRANTED">Granted</SelectItem>
                   <SelectItem value="DENIED">Denied</SelectItem>
                 </SelectContent>
@@ -144,7 +155,7 @@ export function ActivityHistory() {
                   {/* Employee Name & Status */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
-                      <h3 className="truncate text-sm font-semibold leading-tight">
+                      <h3 className="truncate text-sm leading-tight font-semibold">
                         {activity.employee.name}
                       </h3>
                       <p className="text-muted-foreground truncate text-[10px]">
@@ -194,7 +205,7 @@ export function ActivityHistory() {
 
                   {/* Timestamp */}
                   <div className="flex items-center gap-1 text-[10px]">
-                    <Clock className="h-2.5 w-2.5 text-muted-foreground" />
+                    <Clock className="text-muted-foreground h-2.5 w-2.5" />
                     <span className="text-muted-foreground">
                       {formatDistanceToNow(new Date(activity.scannedAt), {
                         addSuffix: true,
@@ -223,4 +234,3 @@ export function ActivityHistory() {
     </div>
   );
 }
-
