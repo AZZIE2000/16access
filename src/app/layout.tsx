@@ -10,7 +10,7 @@ import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 import { PWASplashScreen } from "@/components/pwa-splash-screen";
 
 export const metadata: Metadata = {
-  title: "Access Management",
+  title: "Christmas Market Access",
   description: "Christmas Market Access Management System",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   manifest: "/manifest.json",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "16Access",
+    title: "Christmas Market",
   },
 };
 

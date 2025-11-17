@@ -114,10 +114,6 @@ export function EmployeeScanResult({
   const idCards =
     employee.employeeAttachments?.filter((att) => att.type === "ID_CARD") ?? [];
 
-  // Debug: Log employee attachments
-  console.log("Employee Attachments:", employee.employeeAttachments);
-  console.log("ID Cards:", idCards);
-
   return (
     <Card>
       <CardHeader className="">

@@ -113,7 +113,7 @@ export function PWAInstallPrompt() {
               <div>
                 <h3 className="text-sm font-semibold">Install App</h3>
                 <p className="text-muted-foreground text-xs">
-                  Install 16Access for quick access and offline support
+                  Install Christmas Market for quick access and offline support
                 </p>
               </div>
               <div className="flex gap-2">
