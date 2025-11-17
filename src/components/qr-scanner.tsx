@@ -35,6 +35,9 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
   useEffect(() => {
     const getDevices = async () => {
       try {
+        // Request camera permission first
+        await navigator.mediaDevices.getUserMedia({ video: true });
+
         const videoDevices =
           await codeReaderRef.current?.listVideoInputDevices();
         if (videoDevices && videoDevices.length > 0) {
@@ -46,10 +49,15 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
           setSelectedDeviceId(
             backCamera?.deviceId ?? videoDevices[0]?.deviceId ?? "",
           );
+        } else {
+          // Fallback: set a default device ID to enable the button
+          setSelectedDeviceId("default");
         }
       } catch (err) {
         console.error("Error getting video devices:", err);
-        toast.error("Failed to access camera devices");
+        // Don't show error toast here - user might not have granted permission yet
+        // Set a default device ID to enable the button
+        setSelectedDeviceId("default");
       }
     };
 
@@ -57,7 +65,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
   }, []);
 
   const startScanning = async () => {
-    if (!codeReaderRef.current || !videoRef.current || !selectedDeviceId) {
+    if (!codeReaderRef.current || !videoRef.current) {
       toast.error("Camera not available");
       return;
     }
@@ -65,8 +73,11 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
     setIsLoading(true);
 
     try {
+      // If selectedDeviceId is "default" or empty, let the browser choose
+      const deviceId = selectedDeviceId === "default" ? null : selectedDeviceId;
+
       await codeReaderRef.current.decodeFromVideoDevice(
-        selectedDeviceId,
+        deviceId,
         videoRef.current,
         (result, error) => {
           if (result) {
@@ -91,7 +102,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
       setIsLoading(false);
     } catch (err) {
       console.error("Error starting scanner:", err);
-      toast.error("Failed to start camera");
+      toast.error("Failed to start camera. Please grant camera permissions.");
       setIsLoading(false);
       if (onError && err instanceof Error) {
         onError(err);
@@ -137,13 +148,13 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <div className="relative h-64 w-64">
               {/* Corner brackets */}
-              <div className="absolute left-0 top-0 h-16 w-16 border-l-4 border-t-4 border-green-500" />
-              <div className="absolute right-0 top-0 h-16 w-16 border-r-4 border-t-4 border-green-500" />
+              <div className="absolute top-0 left-0 h-16 w-16 border-t-4 border-l-4 border-green-500" />
+              <div className="absolute top-0 right-0 h-16 w-16 border-t-4 border-r-4 border-green-500" />
               <div className="absolute bottom-0 left-0 h-16 w-16 border-b-4 border-l-4 border-green-500" />
-              <div className="absolute bottom-0 right-0 h-16 w-16 border-b-4 border-r-4 border-green-500" />
+              <div className="absolute right-0 bottom-0 h-16 w-16 border-r-4 border-b-4 border-green-500" />
 
               {/* Scanning line animation */}
-              <div className="absolute left-0 right-0 top-0 h-1 animate-scan bg-green-500" />
+              <div className="animate-scan absolute top-0 right-0 left-0 h-1 bg-green-500" />
             </div>
           </div>
         )}
@@ -158,7 +169,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
               value={selectedDeviceId}
               onChange={(e) => setSelectedDeviceId(e.target.value)}
               disabled={isScanning}
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             >
               {devices.map((device) => (
                 <option key={device.deviceId} value={device.deviceId}>
@@ -174,7 +185,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
           {!isScanning ? (
             <Button
               onClick={startScanning}
-              disabled={isLoading || !selectedDeviceId}
+              disabled={isLoading}
               className="flex-1"
             >
               {isLoading ? (
@@ -226,4 +237,3 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
     </Card>
   );
 }
-
