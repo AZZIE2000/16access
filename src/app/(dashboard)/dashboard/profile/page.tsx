@@ -1,11 +1,13 @@
-import React from "react";
+import { auth } from "@/server/auth";
+import { ProfilePage } from "@/components/profile-page";
+import { redirect } from "next/navigation";
 
-const Page = () => {
-  return (
-    <div className="flex h-screen w-full items-center justify-center">
-      profile
-    </div>
-  );
-};
+export default async function Page() {
+  const session = await auth();
 
-export default Page;
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  return <ProfilePage user={session.user} variant="dashboard" />;
+}

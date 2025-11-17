@@ -217,4 +217,113 @@ export const activityRouter = createTRPCRouter({
         )?.attachment.url,
       };
     }),
+
+  // Get all recent activities (admin only - no scannerId filter)
+  getAllRecent: protectedProcedure
+    .input(
+      z
+        .object({
+          limit: z.number().min(1).max(100).default(50),
+          gateId: z.string().optional(),
+          status: z.enum(["GRANTED", "DENIED"]).optional(),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      // Check if user is admin
+      if (ctx.session.user.role !== "admin") {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Only admins can view all activities",
+        });
+      }
+
+      const activities = await ctx.db.activity.findMany({
+        where: {
+          ...(input?.gateId && { gateId: input.gateId }),
+          ...(input?.status && { status: input.status }),
+        },
+        take: input?.limit ?? 50,
+        orderBy: {
+          scannedAt: "desc",
+        },
+        include: {
+          employee: {
+            include: {
+              vendor: true,
+              gate: true,
+              zone: true,
+              employeeAttachments: {
+                include: {
+                  attachment: true,
+                },
+              },
+            },
+          },
+          scanner: true,
+          gate: true,
+        },
+      });
+
+      return activities;
+    }),
+
+  // Get dashboard statistics (admin only)
+  getDashboardStats: protectedProcedure.query(async ({ ctx }) => {
+    // Check if user is admin
+    if (ctx.session.user.role !== "admin") {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Only admins can view dashboard statistics",
+      });
+    }
+
+    // Count total vendors
+    const totalVendors = await ctx.db.vendor.count({
+      where: {
+        deletedAt: null,
+      },
+    });
+
+    // Count total employees
+    const totalEmployees = await ctx.db.employee.count({
+      where: {
+        deletedAt: null,
+      },
+    });
+
+    // Get employees currently on-site (last activity was ENTRY with GRANTED status)
+    const employeesOnSite = await ctx.db.employee.findMany({
+      where: {
+        deletedAt: null,
+        activities: {
+          some: {},
+        },
+      },
+      include: {
+        activities: {
+          orderBy: {
+            scannedAt: "desc",
+          },
+          take: 1,
+        },
+      },
+    });
+
+    // Filter to only those whose last activity was an entry
+    const onSiteCount = employeesOnSite.filter((emp) => {
+      const lastActivity = emp.activities[0];
+      return (
+        lastActivity &&
+        lastActivity.type === "ENTRY" &&
+        lastActivity.status === "GRANTED"
+      );
+    }).length;
+
+    return {
+      totalVendors,
+      totalEmployees,
+      employeesOnSite: onSiteCount,
+    };
+  }),
 });
