@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Camera, CameraOff, Loader2 } from "lucide-react";
@@ -12,60 +11,56 @@ interface QRScannerProps {
   onError?: (error: Error) => void;
 }
 
+// Extend Navigator interface for BarcodeDetector
+declare global {
+  interface Window {
+    BarcodeDetector?: {
+      new (options?: { formats: string[] }): BarcodeDetector;
+      getSupportedFormats(): Promise<string[]>;
+    };
+  }
+
+  interface BarcodeDetector {
+    detect(image: ImageBitmapSource): Promise<DetectedBarcode[]>;
+  }
+
+  interface DetectedBarcode {
+    rawValue: string;
+    format: string;
+    boundingBox: DOMRectReadOnly;
+    cornerPoints: { x: number; y: number }[];
+  }
+}
+
 export function QRScanner({ onScan, onError }: QRScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState<string>("");
-  const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
+  const [supportsNativeScanner, setSupportsNativeScanner] = useState(false);
 
-  // Initialize code reader
+  // Check for native barcode detector support
   useEffect(() => {
-    codeReaderRef.current = new BrowserMultiFormatReader();
-
-    return () => {
-      if (codeReaderRef.current) {
-        codeReaderRef.current.reset();
-      }
-    };
-  }, []);
-
-  // Get available cameras
-  useEffect(() => {
-    const getDevices = async () => {
-      try {
-        // Request camera permission first
-        await navigator.mediaDevices.getUserMedia({ video: true });
-
-        const videoDevices =
-          await codeReaderRef.current?.listVideoInputDevices();
-        if (videoDevices && videoDevices.length > 0) {
-          setDevices(videoDevices);
-          // Prefer back camera on mobile
-          const backCamera = videoDevices.find((device) =>
-            device.label.toLowerCase().includes("back"),
-          );
-          setSelectedDeviceId(
-            backCamera?.deviceId ?? videoDevices[0]?.deviceId ?? "",
-          );
-        } else {
-          // Fallback: set a default device ID to enable the button
-          setSelectedDeviceId("default");
+    const checkSupport = async () => {
+      if ("BarcodeDetector" in window) {
+        try {
+          const formats = await window.BarcodeDetector!.getSupportedFormats();
+          setSupportsNativeScanner(formats.includes("qr_code"));
+        } catch (err) {
+          console.error("BarcodeDetector check failed:", err);
+          setSupportsNativeScanner(false);
         }
-      } catch (err) {
-        console.error("Error getting video devices:", err);
-        // Don't show error toast here - user might not have granted permission yet
-        // Set a default device ID to enable the button
-        setSelectedDeviceId("default");
+      } else {
+        setSupportsNativeScanner(false);
       }
     };
 
-    void getDevices();
+    void checkSupport();
   }, []);
 
   const startScanning = async () => {
-    if (!codeReaderRef.current || !videoRef.current) {
+    if (!videoRef.current) {
       toast.error("Camera not available");
       return;
     }
@@ -73,33 +68,31 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
     setIsLoading(true);
 
     try {
-      // If selectedDeviceId is "default" or empty, let the browser choose
-      const deviceId = selectedDeviceId === "default" ? null : selectedDeviceId;
-
-      await codeReaderRef.current.decodeFromVideoDevice(
-        deviceId,
-        videoRef.current,
-        (result, error) => {
-          if (result) {
-            const text = result.getText();
-            if (text) {
-              onScan(text);
-              // Optionally stop scanning after successful scan
-              // stopScanning();
-            }
-          }
-
-          if (error && !(error instanceof NotFoundException)) {
-            console.error("Scan error:", error);
-            if (onError) {
-              onError(error as Error);
-            }
-          }
+      // Request camera with environment facing (back camera on mobile)
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: "environment" },
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
         },
-      );
+      });
+
+      streamRef.current = stream;
+      videoRef.current.srcObject = stream;
+      await videoRef.current.play();
 
       setIsScanning(true);
       setIsLoading(false);
+
+      // Start scanning
+      if (supportsNativeScanner) {
+        startNativeScanning();
+      } else {
+        // Fallback: just show camera, user can manually enter code
+        toast.info(
+          "Native QR scanning not supported. Please use a QR code reader app.",
+        );
+      }
     } catch (err) {
       console.error("Error starting scanner:", err);
       toast.error("Failed to start camera. Please grant camera permissions.");
@@ -110,12 +103,66 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
     }
   };
 
+  const startNativeScanning = async () => {
+    if (!videoRef.current || !window.BarcodeDetector) return;
+
+    const barcodeDetector = new window.BarcodeDetector({
+      formats: ["qr_code"],
+    });
+
+    const detectQRCode = async () => {
+      if (!videoRef.current || !streamRef.current) return;
+
+      try {
+        const barcodes = await barcodeDetector.detect(videoRef.current);
+
+        if (barcodes.length > 0) {
+          const qrCode = barcodes[0];
+          if (qrCode?.rawValue) {
+            onScan(qrCode.rawValue);
+            // Continue scanning for more codes
+          }
+        }
+      } catch (err) {
+        console.error("QR detection error:", err);
+      }
+
+      // Continue scanning if stream is still active
+      if (streamRef.current) {
+        animationFrameRef.current = requestAnimationFrame(detectQRCode);
+      }
+    };
+
+    detectQRCode();
+  };
+
   const stopScanning = () => {
-    if (codeReaderRef.current) {
-      codeReaderRef.current.reset();
+    // Stop animation frame
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
     }
+
+    // Stop video stream
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+
+    // Clear video
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+
     setIsScanning(false);
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopScanning();
+    };
+  }, []);
 
   return (
     <Card className="overflow-hidden">
@@ -161,25 +208,6 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
       </div>
 
       <div className="space-y-4 p-4">
-        {/* Camera selection */}
-        {devices.length > 1 && (
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Select Camera</label>
-            <select
-              value={selectedDeviceId}
-              onChange={(e) => setSelectedDeviceId(e.target.value)}
-              disabled={isScanning}
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {devices.map((device) => (
-                <option key={device.deviceId} value={device.deviceId}>
-                  {device.label || `Camera ${device.deviceId.slice(0, 8)}`}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
         {/* Control buttons */}
         <div className="flex gap-2">
           {!isScanning ? (
