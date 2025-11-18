@@ -12,14 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item";
-import {
   Table,
   TableBody,
   TableCell,
@@ -40,8 +32,6 @@ import {
   Trash2,
   Building2,
   Users,
-  MapPin,
-  DoorOpen,
   MoreVertical,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -156,7 +146,7 @@ export default function VendorPortalPage() {
             </CardHeader>
           </Card>
 
-          <Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Description</CardTitle>
             </CardHeader>
@@ -165,7 +155,7 @@ export default function VendorPortalPage() {
                 {vendor.description ?? "No description provided"}
               </p>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
 
         {/* Employees Table */}

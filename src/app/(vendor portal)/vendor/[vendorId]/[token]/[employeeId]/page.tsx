@@ -188,7 +188,7 @@ export default function EmployeeFormPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    // !formData.profilePhotoUrl || !idCardUrl || formData.nationalId.length !== 10
     // Validate profile photo is uploaded
     if (!formData.profilePhotoUrl) {
       toast.error("Please upload a profile photo");
@@ -537,8 +537,13 @@ export default function EmployeeFormPage() {
                 </Button>
                 <Button
                   type="submit"
+                  variant={"success"}
                   disabled={
-                    createMutation.isPending || updateMutation.isPending
+                    createMutation.isPending ||
+                    updateMutation.isPending ||
+                    !formData.profilePhotoUrl ||
+                    !idCardUrl ||
+                    formData.nationalId.length !== 10
                   }
                   className="flex-1"
                 >

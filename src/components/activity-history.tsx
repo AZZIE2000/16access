@@ -174,7 +174,7 @@ export function ActivityHistory() {
                     <Badge
                       variant={
                         activity.type === "ENTRY"
-                          ? "default"
+                          ? "success"
                           : activity.type === "EXIT"
                             ? "secondary"
                             : "destructive"
