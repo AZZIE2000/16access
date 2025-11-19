@@ -15,6 +15,7 @@ import {
   Calendar,
   Edit,
   IdCard,
+  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -64,6 +65,11 @@ interface EmployeeAttachment {
   };
 }
 
+interface AllowedDate {
+  id: string;
+  date: Date;
+}
+
 interface EmployeeData {
   id: string;
   identifier: string;
@@ -79,6 +85,7 @@ interface EmployeeData {
   workingHours: WorkingHours[];
   activities: Activity[];
   employeeAttachments?: EmployeeAttachment[];
+  allowedDates?: AllowedDate[];
   profilePhoto?: string;
 }
 
@@ -107,8 +114,18 @@ export function EmployeeScanResult({
   // Check if employee is active
   const isActive = employee.status === "ACTIVE";
 
+  // Check if employee is allowed on current date
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const hasDateRestriction =
+    employee.allowedDates && employee.allowedDates.length > 0;
+  const isAllowedToday =
+    !hasDateRestriction ||
+    employee.allowedDates!.some(
+      (ad) => new Date(ad.date).toISOString().split("T")[0] === today,
+    );
+
   // Determine if access should be granted
-  const shouldGrantAccess = isActive && hasGateAccess;
+  const shouldGrantAccess = isActive && hasGateAccess && isAllowedToday;
 
   // Get all ID card attachments
   const idCards =
@@ -238,6 +255,38 @@ export function EmployeeScanResult({
               </div>
             </div>
           )}
+
+          {/* Working Dates */}
+          {hasDateRestriction && (
+            <div className="space-y-1.5 border-t pt-2">
+              <div className="flex items-center gap-1.5 text-xs font-medium">
+                <Calendar className="h-3 w-3 shrink-0" />
+                <span>Working Dates:</span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {employee.allowedDates!.map((ad) => {
+                  const date = new Date(ad.date);
+                  const dateStr = date.toISOString().split("T")[0];
+                  const isToday = dateStr === today;
+                  const day = String(date.getDate()).padStart(2, "0");
+                  const month = String(date.getMonth() + 1).padStart(2, "0");
+                  const dayName = date
+                    .toLocaleDateString("en-US", { weekday: "short" })
+                    .slice(0, 3);
+
+                  return (
+                    <Badge
+                      key={ad.id}
+                      variant={isToday ? "success" : "secondary"}
+                      className="text-[10px]"
+                    >
+                      {day}/{month} {dayName}
+                    </Badge>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ID Cards */}
@@ -316,6 +365,40 @@ export function EmployeeScanResult({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Access Denial Reason */}
+        {!shouldGrantAccess && (
+          <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+            <div className="flex items-start gap-2">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
+              <div className="flex-1 space-y-1.5">
+                <h4 className="text-sm font-semibold text-red-900">
+                  Access Denied
+                </h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  {!isActive && (
+                    <li className="flex items-start gap-1.5">
+                      <span className="mt-0.5">•</span>
+                      <span>Employee status is not active</span>
+                    </li>
+                  )}
+                  {!hasGateAccess && (
+                    <li className="flex items-start gap-1.5">
+                      <span className="mt-0.5">•</span>
+                      <span>No access permission for this gate</span>
+                    </li>
+                  )}
+                  {!isAllowedToday && (
+                    <li className="flex items-start gap-1.5">
+                      <span className="mt-0.5">•</span>
+                      <span>Not scheduled to work today</span>
+                    </li>
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
         )}

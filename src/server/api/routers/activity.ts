@@ -48,6 +48,11 @@ export const activityRouter = createTRPCRouter({
               attachment: true,
             },
           },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
+            },
+          },
           activities: {
             take: 3,
             orderBy: {
@@ -251,6 +256,11 @@ export const activityRouter = createTRPCRouter({
           employeeAttachments: {
             include: {
               attachment: true,
+            },
+          },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
             },
           },
         },

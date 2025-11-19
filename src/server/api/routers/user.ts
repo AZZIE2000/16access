@@ -329,10 +329,13 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Find user by username or email
+      // Convert identifier to lowercase for case-insensitive lookup
+      const identifierLower = input.identifier.toLowerCase();
+
+      // Find user by username or email (case-insensitive)
       const user = await ctx.db.user.findFirst({
         where: {
-          OR: [{ username: input.identifier }, { email: input.identifier }],
+          OR: [{ username: identifierLower }, { email: identifierLower }],
         },
         select: {
           id: true,

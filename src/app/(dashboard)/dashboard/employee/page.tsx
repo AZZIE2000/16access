@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,15 +60,18 @@ import {
   DoorOpen,
   CreditCard,
   Printer,
+  Download,
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { EmployeeAccessCard } from "@/components/employee-access-card";
 import { BulkAccessCards } from "@/components/bulk-access-cards";
+import { generateAllowedDateOptions } from "@/lib/allowed-dates";
 
 type EmployeeStatus = "PENDING" | "ACTIVE" | "SUSPENDED";
 
 export default function EmployeeManagementPage() {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<EmployeeStatus | "ALL">(
     "ALL",
@@ -81,6 +85,8 @@ export default function EmployeeManagementPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [accessCardDialogOpen, setAccessCardDialogOpen] = useState(false);
   const [bulkPrintDialogOpen, setBulkPrintDialogOpen] = useState(false);
+  const [bulkStatusDialogOpen, setBulkStatusDialogOpen] = useState(false);
+  const [bulkStatus, setBulkStatus] = useState<EmployeeStatus>("ACTIVE");
   const [editFormData, setEditFormData] = useState({
     name: "",
     job: "",
@@ -88,7 +94,11 @@ export default function EmployeeManagementPage() {
     status: "ACTIVE" as EmployeeStatus,
     gateIds: [] as string[],
     zoneIds: [] as string[],
+    allowedDates: [] as string[],
   });
+
+  // Generate allowed date options
+  const allowedDateOptions = generateAllowedDateOptions();
 
   // Fetch all employees with filters
   const { data: employees = [], refetch } = api.employee.getAllAdmin.useQuery({
@@ -130,19 +140,25 @@ export default function EmployeeManagementPage() {
     },
   });
 
+  // Bulk update status mutation
+  const bulkUpdateStatusMutation = api.employee.bulkUpdateStatus.useMutation({
+    onSuccess: (data) => {
+      toast.success(data.message);
+      setBulkStatusDialogOpen(false);
+      setSelectedEmployees([]);
+      void refetch();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const handleEdit = (employeeId: string) => {
     const employee = employees.find((e) => e.id === employeeId);
     if (employee) {
-      setEditFormData({
-        name: employee.name,
-        job: employee.job,
-        nationalId: employee.nationalId,
-        status: employee.status,
-        gateIds: employee.gates.map((eg) => eg.gateId),
-        zoneIds: employee.zones.map((ez) => ez.zoneId),
-      });
-      setSelectedEmployee(employeeId);
-      setEditDialogOpen(true);
+      router.push(
+        `/dashboard/vendor/${employee.vendorId}/employees/${employeeId}`,
+      );
     }
   };
 
@@ -176,6 +192,8 @@ export default function EmployeeManagementPage() {
       profilePhotoUrl: profilePhoto?.attachment.url ?? "",
       idCardUrls: idCards.length > 0 ? idCards : null,
       status: editFormData.status,
+      allowedDates:
+        editFormData.allowedDates.length > 0 ? editFormData.allowedDates : null,
     });
   };
 
@@ -235,10 +253,57 @@ export default function EmployeeManagementPage() {
     }
   };
 
+  const handleBulkStatusUpdate = () => {
+    if (selectedEmployees.length === 0) {
+      toast.error("Please select at least one employee");
+      return;
+    }
+    bulkUpdateStatusMutation.mutate({
+      employeeIds: selectedEmployees,
+      status: bulkStatus,
+    });
+  };
+
+  const handleExportEmployees = () => {
+    // Determine which employees to export
+    const employeesToExport =
+      selectedEmployees.length > 0
+        ? employees.filter((e) => selectedEmployees.includes(e.id))
+        : employees;
+
+    if (employeesToExport.length === 0) {
+      toast.error("No employees to export");
+      return;
+    }
+
+    // Create CSV content
+    const csvHeader = "Name,National ID\n";
+    const csvRows = employeesToExport
+      .map((emp) => `"${emp.name}","${emp.nationalId}"`)
+      .join("\n");
+    const csvContent = csvHeader + csvRows;
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute(
+      "download",
+      `employees_${new Date().toISOString().split("T")[0]}.csv`,
+    );
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast.success(
+      `Exported ${employeesToExport.length} employee${employeesToExport.length !== 1 ? "s" : ""}`,
+    );
+  };
+
   const isAllSelected =
     employees.length > 0 && selectedEmployees.length === employees.length;
-  const isSomeSelected =
-    selectedEmployees.length > 0 && selectedEmployees.length < employees.length;
 
   return (
     <div className="space-y-6 p-3 md:p-6">
@@ -252,7 +317,7 @@ export default function EmployeeManagementPage() {
       {/* Selection Actions */}
       {selectedEmployees.length > 0 && (
         <Card className="border-primary bg-primary/5">
-          <CardContent className="flex items-center justify-between p-4">
+          <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2">
               <Checkbox
                 checked={isAllSelected}
@@ -263,7 +328,7 @@ export default function EmployeeManagementPage() {
                 {selectedEmployees.length !== 1 ? "s" : ""} selected
               </span>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 variant="outline"
                 size="sm"
@@ -271,9 +336,17 @@ export default function EmployeeManagementPage() {
               >
                 Clear Selection
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setBulkStatusDialogOpen(true)}
+              >
+                <CheckCircle className="mr-2 h-4 w-4" />
+                Change Status
+              </Button>
               <Button size="sm" onClick={() => setBulkPrintDialogOpen(true)}>
                 <Printer className="mr-2 h-4 w-4" />
-                Print Selected Cards
+                Print Cards
               </Button>
             </div>
           </CardContent>
@@ -281,85 +354,104 @@ export default function EmployeeManagementPage() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col gap-3 md:flex-row">
-        <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-          <Input
-            id="search"
-            placeholder="Search by name, job, or vendor..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 md:flex-row">
+          <div className="relative flex-1">
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+            <Input
+              id="search"
+              placeholder="Search by name, job, or vendor..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+
+          <Select
+            value={statusFilter}
+            onValueChange={(value) =>
+              setStatusFilter(value as EmployeeStatus | "ALL")
+            }
+          >
+            <SelectTrigger className="w-full md:w-40">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Status</SelectItem>
+              <SelectItem value="ACTIVE">Active</SelectItem>
+              <SelectItem value="PENDING">Pending</SelectItem>
+              <SelectItem value="SUSPENDED">Suspended</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={vendorFilter}
+            onValueChange={(value) => setVendorFilter(value)}
+          >
+            <SelectTrigger className="w-full md:w-40">
+              <SelectValue placeholder="Vendor" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Vendors</SelectItem>
+              {vendors.map((vendor) => (
+                <SelectItem key={vendor.id} value={vendor.id}>
+                  {vendor.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={gateFilter}
+            onValueChange={(value) => setGateFilter(value)}
+          >
+            <SelectTrigger className="w-full md:w-40">
+              <SelectValue placeholder="Gate" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Gates</SelectItem>
+              {gates.map((gate) => (
+                <SelectItem key={gate.id} value={gate.id}>
+                  {gate.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={zoneFilter}
+            onValueChange={(value) => setZoneFilter(value)}
+          >
+            <SelectTrigger className="w-full md:w-40">
+              <SelectValue placeholder="Zone" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Zones</SelectItem>
+              {zones.map((zone) => (
+                <SelectItem key={zone.id} value={zone.id}>
+                  {zone.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        <Select
-          value={statusFilter}
-          onValueChange={(value) =>
-            setStatusFilter(value as EmployeeStatus | "ALL")
-          }
-        >
-          <SelectTrigger className="w-full md:w-40">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">All Status</SelectItem>
-            <SelectItem value="ACTIVE">Active</SelectItem>
-            <SelectItem value="PENDING">Pending</SelectItem>
-            <SelectItem value="SUSPENDED">Suspended</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={vendorFilter}
-          onValueChange={(value) => setVendorFilter(value)}
-        >
-          <SelectTrigger className="w-full md:w-40">
-            <SelectValue placeholder="Vendor" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">All Vendors</SelectItem>
-            {vendors.map((vendor) => (
-              <SelectItem key={vendor.id} value={vendor.id}>
-                {vendor.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={gateFilter}
-          onValueChange={(value) => setGateFilter(value)}
-        >
-          <SelectTrigger className="w-full md:w-40">
-            <SelectValue placeholder="Gate" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">All Gates</SelectItem>
-            {gates.map((gate) => (
-              <SelectItem key={gate.id} value={gate.id}>
-                {gate.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={zoneFilter}
-          onValueChange={(value) => setZoneFilter(value)}
-        >
-          <SelectTrigger className="w-full md:w-40">
-            <SelectValue placeholder="Zone" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">All Zones</SelectItem>
-            {zones.map((zone) => (
-              <SelectItem key={zone.id} value={zone.id}>
-                {zone.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {/* Export Button */}
+        <div className="flex justify-end">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportEmployees}
+            disabled={employees.length === 0}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Export {selectedEmployees.length > 0 ? "Selected" : "All"} (
+            {selectedEmployees.length > 0
+              ? selectedEmployees.length
+              : employees.length}
+            )
+          </Button>
+        </div>
       </div>
 
       {/* Results */}
@@ -709,6 +801,20 @@ export default function EmployeeManagementPage() {
               />
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="edit-allowed-dates">Working Dates</Label>
+              <MultiSelect
+                options={allowedDateOptions}
+                selected={editFormData.allowedDates}
+                onChange={(selected) =>
+                  setEditFormData({ ...editFormData, allowedDates: selected })
+                }
+                placeholder="Select dates (leave empty for all dates)..."
+              />
+              <p className="text-muted-foreground text-xs">
+                Leave empty to allow access on all dates
+              </p>
+            </div>
+            <div className="grid gap-2">
               <Label htmlFor="edit-status">Status *</Label>
               <Select
                 value={editFormData.status}
@@ -801,6 +907,7 @@ export default function EmployeeManagementPage() {
                   employeeAttachments: [],
                 }
               }
+              totalGatesCount={gates.length}
             />
           )}
         </DialogContent>
@@ -819,7 +926,82 @@ export default function EmployeeManagementPage() {
             employees={employees.filter((e) =>
               selectedEmployees.includes(e.id),
             )}
+            totalGatesCount={gates.length}
           />
+        </DialogContent>
+      </Dialog>
+
+      {/* Bulk Status Change Dialog */}
+      <Dialog
+        open={bulkStatusDialogOpen}
+        onOpenChange={setBulkStatusDialogOpen}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Change Employee Status</DialogTitle>
+            <DialogDescription>
+              Update the status for {selectedEmployees.length} selected employee
+              {selectedEmployees.length !== 1 ? "s" : ""}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="bulk-status">New Status</Label>
+              <Select
+                value={bulkStatus}
+                onValueChange={(value) =>
+                  setBulkStatus(value as EmployeeStatus)
+                }
+              >
+                <SelectTrigger id="bulk-status">
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="PENDING">
+                    <div className="flex items-center">
+                      <Clock className="mr-2 h-4 w-4" />
+                      Pending
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="ACTIVE">
+                    <div className="flex items-center">
+                      <CheckCircle className="mr-2 h-4 w-4" />
+                      Active
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="SUSPENDED">
+                    <div className="flex items-center">
+                      <XCircle className="mr-2 h-4 w-4" />
+                      Suspended
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="bg-muted rounded-lg p-3">
+              <p className="text-muted-foreground text-sm">
+                This will update the status for all {selectedEmployees.length}{" "}
+                selected employees to <strong>{bulkStatus}</strong>.
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setBulkStatusDialogOpen(false)}
+              disabled={bulkUpdateStatusMutation.isPending}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleBulkStatusUpdate}
+              disabled={bulkUpdateStatusMutation.isPending}
+            >
+              {bulkUpdateStatusMutation.isPending
+                ? "Updating..."
+                : "Update Status"}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

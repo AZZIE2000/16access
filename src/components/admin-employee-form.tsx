@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { UploadButton, useUploadThing } from "@/utils/uploadthing";
 import Image from "next/image";
 import { ImageCropDialog } from "@/components/image-crop-dialog";
+import { generateAllowedDateOptions } from "@/lib/allowed-dates";
 
 type Zone = {
   id: string;
@@ -62,6 +63,11 @@ type EmployeeZone = {
   zone: Zone;
 };
 
+type AllowedDate = {
+  id: string;
+  date: Date;
+};
+
 type Employee = {
   id: string;
   identifier: string;
@@ -73,6 +79,7 @@ type Employee = {
   gates: EmployeeGate[];
   zones: EmployeeZone[];
   employeeAttachments?: EmployeeAttachment[];
+  allowedDates?: AllowedDate[];
 };
 
 type VendorGate = {
@@ -116,6 +123,9 @@ export function AdminEmployeeForm({
   // Fetch unique job titles
   const { data: jobTitles = [] } = api.employee.getUniqueJobTitles.useQuery();
 
+  // Generate allowed date options
+  const allowedDateOptions = generateAllowedDateOptions();
+
   const [formData, setFormData] = useState({
     name: "",
     job: "",
@@ -124,6 +134,7 @@ export function AdminEmployeeForm({
     zoneIds: [] as string[],
     profilePhotoUrl: "",
     status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
+    allowedDates: [] as string[],
   });
   useEffect(() => {
     console.log("Vendor object:", vendor);
@@ -204,6 +215,11 @@ export function AdminEmployeeForm({
         zoneIds: employee.zones.map((ez) => ez.zoneId),
         profilePhotoUrl: profilePhoto?.attachment.url ?? "",
         status: employee.status,
+        allowedDates:
+          employee.allowedDates?.map((ad) => {
+            const dateStr = new Date(ad.date).toISOString().split("T")[0];
+            return dateStr!;
+          }) ?? [],
       });
 
       setIdCardUrl(idCard?.attachment.url ?? "");
@@ -217,6 +233,7 @@ export function AdminEmployeeForm({
         zoneIds: vendor.zones.map((vz) => vz.zoneId),
         profilePhotoUrl: "",
         status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
+        allowedDates: [],
       });
     }
   }, [employee, isCreate, vendor, vendor.gates, vendor.zones]);
@@ -302,6 +319,8 @@ export function AdminEmployeeForm({
       profilePhotoUrl: formData.profilePhotoUrl,
       idCardUrls: idCardUrl ? [idCardUrl] : undefined,
       status: formData.status,
+      allowedDates:
+        formData.allowedDates.length > 0 ? formData.allowedDates : undefined,
     };
 
     if (isCreate) {
@@ -313,6 +332,8 @@ export function AdminEmployeeForm({
         gateIds: formData.gateIds.length > 0 ? formData.gateIds : null,
         zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : null,
         idCardUrls: idCardUrl ? [idCardUrl] : null,
+        allowedDates:
+          formData.allowedDates.length > 0 ? formData.allowedDates : null,
       });
     }
   };
@@ -347,6 +368,8 @@ export function AdminEmployeeForm({
       profilePhotoUrl: formData.profilePhotoUrl,
       idCardUrls: idCardUrl ? [idCardUrl] : null,
       status: formData.status,
+      allowedDates:
+        formData.allowedDates.length > 0 ? formData.allowedDates : null,
     };
 
     createVersionMutation.mutate(data);
@@ -437,6 +460,22 @@ export function AdminEmployeeForm({
                   National ID must be exactly 10 digits
                 </p>
               )}
+            </div>
+
+            {/* Working Dates */}
+            <div className="grid gap-2">
+              <Label htmlFor="allowed-dates">Working Dates</Label>
+              <MultiSelect
+                options={allowedDateOptions}
+                selected={formData.allowedDates}
+                onChange={(selected) =>
+                  setFormData({ ...formData, allowedDates: selected })
+                }
+                placeholder="Select dates (leave empty for all dates)..."
+              />
+              <p className="text-muted-foreground text-xs">
+                Leave empty to allow access on all dates
+              </p>
             </div>
 
             {/* Zones and Gates */}

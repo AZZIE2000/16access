@@ -290,6 +290,14 @@ exports.Prisma.EmployeeZoneScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.EmployeeAllowedDateScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -359,7 +367,8 @@ exports.Prisma.ModelName = {
   VendorGate: 'VendorGate',
   VendorZone: 'VendorZone',
   EmployeeGate: 'EmployeeGate',
-  EmployeeZone: 'EmployeeZone'
+  EmployeeZone: 'EmployeeZone',
+  EmployeeAllowedDate: 'EmployeeAllowedDate'
 };
 
 /**

@@ -96,18 +96,18 @@ model Permission {
 }
 
 model Employee {
-    id                  String               @id @default(cuid())
-    identifier          String               @default(cuid()) // Unique identifier for QR code (persists across replacements)
+    id                  String                @id @default(cuid())
+    identifier          String                @default(cuid()) // Unique identifier for QR code (persists across replacements)
     name                String
     job                 String // Business name or role
     nationalId          String // National ID (10 digits, required)
-    version             Int                  @default(1) // Version control for employee replacements
-    createdAt           DateTime             @default(now())
-    updatedAt           DateTime             @updatedAt
+    version             Int                   @default(1) // Version control for employee replacements
+    createdAt           DateTime              @default(now())
+    updatedAt           DateTime              @updatedAt
     deletedAt           DateTime?
-    status              EmployeeStatus       @default(PENDING)
+    status              EmployeeStatus        @default(PENDING)
     vendorId            String
-    vendor              Vendor               @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+    vendor              Vendor                @relation(fields: [vendorId], references: [id], onDelete: Cascade)
     gates               EmployeeGate[] // Many-to-many relation with gates
     zones               EmployeeZone[] // Many-to-many relation with zones
     activities          Activity[]
@@ -115,6 +115,7 @@ model Employee {
     employeeAttachments EmployeeAttachment[]
     employeePermissions EmployeePermission[]
     alerts              Alert[]
+    allowedDates        EmployeeAllowedDate[] // Specific dates when employee can access
 
     @@unique([identifier, deletedAt])
     @@index([vendorId])
@@ -324,4 +325,18 @@ model EmployeeZone {
     @@unique([employeeId, zoneId])
     @@index([employeeId])
     @@index([zoneId])
+}
+
+// Allowed dates for employee access (optional - if empty, employee can access anytime)
+model EmployeeAllowedDate {
+    id         String   @id @default(cuid())
+    employeeId String
+    employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+    date       DateTime @db.Date // Specific date when employee is allowed to access
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    @@unique([employeeId, date])
+    @@index([employeeId])
+    @@index([date])
 }

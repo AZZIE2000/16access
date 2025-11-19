@@ -44,13 +44,15 @@ export const authConfig = {
           return null;
         }
 
-        // Find user by username or email
+        // Convert identifier to lowercase for case-insensitive login
+        const identifierLower = (
+          credentials.identifier as string
+        ).toLowerCase();
+
+        // Find user by username or email (case-insensitive)
         const user = await db.user.findFirst({
           where: {
-            OR: [
-              { username: credentials.identifier as string },
-              { email: credentials.identifier as string },
-            ],
+            OR: [{ username: identifierLower }, { email: identifierLower }],
           },
         });
 

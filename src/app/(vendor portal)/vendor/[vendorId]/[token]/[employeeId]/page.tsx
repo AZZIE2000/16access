@@ -26,6 +26,8 @@ import { toast } from "sonner";
 import { UploadButton, useUploadThing } from "@/utils/uploadthing";
 import Image from "next/image";
 import { ImageCropDialog } from "@/components/image-crop-dialog";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { generateAllowedDateOptions } from "@/lib/allowed-dates";
 
 export default function EmployeeFormPage() {
   const params = useParams();
@@ -41,7 +43,11 @@ export default function EmployeeFormPage() {
     job: "",
     nationalId: "",
     profilePhotoUrl: "",
+    allowedDates: [] as string[],
   });
+
+  // Generate allowed date options
+  const allowedDateOptions = generateAllowedDateOptions();
 
   // Single ID card URL (required)
   const [idCardUrl, setIdCardUrl] = useState<string>("");
@@ -128,6 +134,11 @@ export default function EmployeeFormPage() {
         job: employee.job,
         nationalId: employee.nationalId,
         profilePhotoUrl: profilePhoto?.attachment.url ?? "",
+        allowedDates:
+          employee.allowedDates?.map((ad) => {
+            const dateStr = new Date(ad.date).toISOString().split("T")[0];
+            return dateStr!;
+          }) ?? [],
       });
 
       setIdCardUrl(idCards[0] ?? "");
@@ -220,6 +231,8 @@ export default function EmployeeFormPage() {
       zoneIds: zoneIds.length > 0 ? zoneIds : undefined,
       profilePhotoUrl: formData.profilePhotoUrl,
       idCardUrls: idCardUrl ? [idCardUrl] : undefined,
+      allowedDates:
+        formData.allowedDates.length > 0 ? formData.allowedDates : undefined,
     };
 
     if (isCreate) {
@@ -232,6 +245,8 @@ export default function EmployeeFormPage() {
         zoneIds: zoneIds.length > 0 ? zoneIds : null,
         profilePhotoUrl: formData.profilePhotoUrl,
         idCardUrls: idCardUrl ? [idCardUrl] : null,
+        allowedDates:
+          formData.allowedDates.length > 0 ? formData.allowedDates : null,
       });
     }
   };
@@ -383,6 +398,22 @@ export default function EmployeeFormPage() {
                     National ID must be exactly 10 digits
                   </p>
                 )}
+              </div>
+
+              {/* Working Dates */}
+              <div className="grid gap-2">
+                <Label htmlFor="allowed-dates">Working Dates</Label>
+                <MultiSelect
+                  options={allowedDateOptions}
+                  selected={formData.allowedDates}
+                  onChange={(selected) =>
+                    setFormData({ ...formData, allowedDates: selected })
+                  }
+                  placeholder="Select dates (leave empty for all dates)..."
+                />
+                <p className="text-muted-foreground text-xs">
+                  Leave empty to allow access on all dates
+                </p>
               </div>
 
               {/* Profile Photo Upload with Crop */}

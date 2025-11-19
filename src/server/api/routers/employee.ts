@@ -101,6 +101,11 @@ export const employeeRouter = createTRPCRouter({
                   attachment: true,
                 },
               },
+              allowedDates: {
+                orderBy: {
+                  date: "asc",
+                },
+              },
             },
             orderBy: {
               createdAt: "desc",
@@ -162,6 +167,11 @@ export const employeeRouter = createTRPCRouter({
               attachment: true,
             },
           },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
+            },
+          },
         },
       });
 
@@ -197,6 +207,7 @@ export const employeeRouter = createTRPCRouter({
         zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional(),
+        allowedDates: z.array(z.string()).optional(), // Array of date strings (YYYY-MM-DD)
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -286,6 +297,13 @@ export const employeeRouter = createTRPCRouter({
                 })),
               }
             : undefined,
+          allowedDates: input.allowedDates
+            ? {
+                create: input.allowedDates.map((dateStr) => ({
+                  date: new Date(dateStr),
+                })),
+              }
+            : undefined,
         },
         include: {
           gates: {
@@ -361,6 +379,7 @@ export const employeeRouter = createTRPCRouter({
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
+        allowedDates: z.array(z.string()).optional().nullable(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -431,11 +450,14 @@ export const employeeRouter = createTRPCRouter({
         }
       }
 
-      // Delete existing gate and zone relations
+      // Delete existing gate, zone, and allowed dates relations
       await ctx.db.employeeGate.deleteMany({
         where: { employeeId: input.id },
       });
       await ctx.db.employeeZone.deleteMany({
+        where: { employeeId: input.id },
+      });
+      await ctx.db.employeeAllowedDate.deleteMany({
         where: { employeeId: input.id },
       });
 
@@ -456,6 +478,13 @@ export const employeeRouter = createTRPCRouter({
             ? {
                 create: input.zoneIds.map((zoneId) => ({
                   zoneId,
+                })),
+              }
+            : undefined,
+          allowedDates: input.allowedDates
+            ? {
+                create: input.allowedDates.map((dateStr) => ({
+                  date: new Date(dateStr),
                 })),
               }
             : undefined,
@@ -732,6 +761,11 @@ export const employeeRouter = createTRPCRouter({
               attachment: true,
             },
           },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",
@@ -764,6 +798,11 @@ export const employeeRouter = createTRPCRouter({
               attachment: true,
             },
           },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
+            },
+          },
         },
       });
 
@@ -792,6 +831,7 @@ export const employeeRouter = createTRPCRouter({
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]).default("PENDING"),
+        allowedDates: z.array(z.string()).optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -880,6 +920,13 @@ export const employeeRouter = createTRPCRouter({
                 })),
               }
             : undefined,
+          allowedDates: input.allowedDates
+            ? {
+                create: input.allowedDates.map((dateStr) => ({
+                  date: new Date(dateStr),
+                })),
+              }
+            : undefined,
         },
         include: {
           gates: {
@@ -956,6 +1003,7 @@ export const employeeRouter = createTRPCRouter({
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
+        allowedDates: z.array(z.string()).optional().nullable(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1003,11 +1051,14 @@ export const employeeRouter = createTRPCRouter({
         }
       }
 
-      // Delete existing gate and zone relations
+      // Delete existing gate, zone, and allowed dates relations
       await ctx.db.employeeGate.deleteMany({
         where: { employeeId: input.id },
       });
       await ctx.db.employeeZone.deleteMany({
+        where: { employeeId: input.id },
+      });
+      await ctx.db.employeeAllowedDate.deleteMany({
         where: { employeeId: input.id },
       });
 
@@ -1030,6 +1081,13 @@ export const employeeRouter = createTRPCRouter({
             ? {
                 create: input.zoneIds.map((zoneId) => ({
                   zoneId,
+                })),
+              }
+            : undefined,
+          allowedDates: input.allowedDates
+            ? {
+                create: input.allowedDates.map((dateStr) => ({
+                  date: new Date(dateStr),
                 })),
               }
             : undefined,
@@ -1335,6 +1393,50 @@ export const employeeRouter = createTRPCRouter({
         success: true,
         count: result.count,
         message: `Activated ${result.count} pending employee(s)`,
+      };
+    }),
+
+  // Bulk update status for multiple employees (admin only)
+  bulkUpdateStatus: protectedProcedure
+    .input(
+      z.object({
+        employeeIds: z
+          .array(z.string())
+          .min(1, "At least one employee must be selected"),
+        status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Verify all employees exist
+      const employees = await ctx.db.employee.findMany({
+        where: {
+          id: { in: input.employeeIds },
+          deletedAt: null,
+        },
+      });
+
+      if (employees.length !== input.employeeIds.length) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "One or more employees not found",
+        });
+      }
+
+      // Update all employees
+      const result = await ctx.db.employee.updateMany({
+        where: {
+          id: { in: input.employeeIds },
+          deletedAt: null,
+        },
+        data: {
+          status: input.status,
+        },
+      });
+
+      return {
+        success: true,
+        count: result.count,
+        message: `Updated status for ${result.count} employee(s)`,
       };
     }),
 });

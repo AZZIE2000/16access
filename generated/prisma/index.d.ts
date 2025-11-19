@@ -98,6 +98,11 @@ export type EmployeeGate = $Result.DefaultSelection<Prisma.$EmployeeGatePayload>
  * 
  */
 export type EmployeeZone = $Result.DefaultSelection<Prisma.$EmployeeZonePayload>
+/**
+ * Model EmployeeAllowedDate
+ * 
+ */
+export type EmployeeAllowedDate = $Result.DefaultSelection<Prisma.$EmployeeAllowedDatePayload>
 
 /**
  * Enums
@@ -471,6 +476,16 @@ export class PrismaClient<
     * ```
     */
   get employeeZone(): Prisma.EmployeeZoneDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.employeeAllowedDate`: Exposes CRUD operations for the **EmployeeAllowedDate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmployeeAllowedDates
+    * const employeeAllowedDates = await prisma.employeeAllowedDate.findMany()
+    * ```
+    */
+  get employeeAllowedDate(): Prisma.EmployeeAllowedDateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -928,7 +943,8 @@ export namespace Prisma {
     VendorGate: 'VendorGate',
     VendorZone: 'VendorZone',
     EmployeeGate: 'EmployeeGate',
-    EmployeeZone: 'EmployeeZone'
+    EmployeeZone: 'EmployeeZone',
+    EmployeeAllowedDate: 'EmployeeAllowedDate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -947,7 +963,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "vendor" | "zone" | "gate" | "permission" | "employee" | "workingHours" | "alert" | "activity" | "attachment" | "vendorAttachment" | "employeeAttachment" | "employeePermission" | "vendorGate" | "vendorZone" | "employeeGate" | "employeeZone"
+      modelProps: "user" | "vendor" | "zone" | "gate" | "permission" | "employee" | "workingHours" | "alert" | "activity" | "attachment" | "vendorAttachment" | "employeeAttachment" | "employeePermission" | "vendorGate" | "vendorZone" | "employeeGate" | "employeeZone" | "employeeAllowedDate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2209,6 +2225,80 @@ export namespace Prisma {
           }
         }
       }
+      EmployeeAllowedDate: {
+        payload: Prisma.$EmployeeAllowedDatePayload<ExtArgs>
+        fields: Prisma.EmployeeAllowedDateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeAllowedDateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeAllowedDateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeAllowedDateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeAllowedDateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeAllowedDateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeAllowedDateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeAllowedDateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeAllowedDateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeAllowedDateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          update: {
+            args: Prisma.EmployeeAllowedDateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeAllowedDateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeAllowedDateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmployeeAllowedDateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>[]
+          }
+          upsert: {
+            args: Prisma.EmployeeAllowedDateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeAllowedDatePayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeAllowedDateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployeeAllowedDate>
+          }
+          groupBy: {
+            args: Prisma.EmployeeAllowedDateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeAllowedDateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeAllowedDateCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeAllowedDateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2322,6 +2412,7 @@ export namespace Prisma {
     vendorZone?: VendorZoneOmit
     employeeGate?: EmployeeGateOmit
     employeeZone?: EmployeeZoneOmit
+    employeeAllowedDate?: EmployeeAllowedDateOmit
   }
 
   /* Types for Logging */
@@ -2627,6 +2718,7 @@ export namespace Prisma {
     employeeAttachments: number
     employeePermissions: number
     alerts: number
+    allowedDates: number
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2637,6 +2729,7 @@ export namespace Prisma {
     employeeAttachments?: boolean | EmployeeCountOutputTypeCountEmployeeAttachmentsArgs
     employeePermissions?: boolean | EmployeeCountOutputTypeCountEmployeePermissionsArgs
     alerts?: boolean | EmployeeCountOutputTypeCountAlertsArgs
+    allowedDates?: boolean | EmployeeCountOutputTypeCountAllowedDatesArgs
   }
 
   // Custom InputTypes
@@ -2697,6 +2790,13 @@ export namespace Prisma {
    */
   export type EmployeeCountOutputTypeCountAlertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AlertWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountAllowedDatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeAllowedDateWhereInput
   }
 
 
@@ -8752,6 +8852,7 @@ export namespace Prisma {
     employeeAttachments?: boolean | Employee$employeeAttachmentsArgs<ExtArgs>
     employeePermissions?: boolean | Employee$employeePermissionsArgs<ExtArgs>
     alerts?: boolean | Employee$alertsArgs<ExtArgs>
+    allowedDates?: boolean | Employee$allowedDatesArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -8809,6 +8910,7 @@ export namespace Prisma {
     employeeAttachments?: boolean | Employee$employeeAttachmentsArgs<ExtArgs>
     employeePermissions?: boolean | Employee$employeePermissionsArgs<ExtArgs>
     alerts?: boolean | Employee$alertsArgs<ExtArgs>
+    allowedDates?: boolean | Employee$allowedDatesArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8829,6 +8931,7 @@ export namespace Prisma {
       employeeAttachments: Prisma.$EmployeeAttachmentPayload<ExtArgs>[]
       employeePermissions: Prisma.$EmployeePermissionPayload<ExtArgs>[]
       alerts: Prisma.$AlertPayload<ExtArgs>[]
+      allowedDates: Prisma.$EmployeeAllowedDatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9244,6 +9347,7 @@ export namespace Prisma {
     employeeAttachments<T extends Employee$employeeAttachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$employeeAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     employeePermissions<T extends Employee$employeePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$employeePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alerts<T extends Employee$alertsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    allowedDates<T extends Employee$allowedDatesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$allowedDatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9845,6 +9949,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AlertScalarFieldEnum | AlertScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.allowedDates
+   */
+  export type Employee$allowedDatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    where?: EmployeeAllowedDateWhereInput
+    orderBy?: EmployeeAllowedDateOrderByWithRelationInput | EmployeeAllowedDateOrderByWithRelationInput[]
+    cursor?: EmployeeAllowedDateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeAllowedDateScalarFieldEnum | EmployeeAllowedDateScalarFieldEnum[]
   }
 
   /**
@@ -22000,6 +22128,1064 @@ export namespace Prisma {
 
 
   /**
+   * Model EmployeeAllowedDate
+   */
+
+  export type AggregateEmployeeAllowedDate = {
+    _count: EmployeeAllowedDateCountAggregateOutputType | null
+    _min: EmployeeAllowedDateMinAggregateOutputType | null
+    _max: EmployeeAllowedDateMaxAggregateOutputType | null
+  }
+
+  export type EmployeeAllowedDateMinAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeAllowedDateMaxAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeAllowedDateCountAggregateOutputType = {
+    id: number
+    employeeId: number
+    date: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EmployeeAllowedDateMinAggregateInputType = {
+    id?: true
+    employeeId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeAllowedDateMaxAggregateInputType = {
+    id?: true
+    employeeId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeAllowedDateCountAggregateInputType = {
+    id?: true
+    employeeId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EmployeeAllowedDateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeAllowedDate to aggregate.
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeAllowedDates to fetch.
+     */
+    orderBy?: EmployeeAllowedDateOrderByWithRelationInput | EmployeeAllowedDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeAllowedDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeAllowedDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeAllowedDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmployeeAllowedDates
+    **/
+    _count?: true | EmployeeAllowedDateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeAllowedDateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeAllowedDateMaxAggregateInputType
+  }
+
+  export type GetEmployeeAllowedDateAggregateType<T extends EmployeeAllowedDateAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployeeAllowedDate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployeeAllowedDate[P]>
+      : GetScalarType<T[P], AggregateEmployeeAllowedDate[P]>
+  }
+
+
+
+
+  export type EmployeeAllowedDateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeAllowedDateWhereInput
+    orderBy?: EmployeeAllowedDateOrderByWithAggregationInput | EmployeeAllowedDateOrderByWithAggregationInput[]
+    by: EmployeeAllowedDateScalarFieldEnum[] | EmployeeAllowedDateScalarFieldEnum
+    having?: EmployeeAllowedDateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeAllowedDateCountAggregateInputType | true
+    _min?: EmployeeAllowedDateMinAggregateInputType
+    _max?: EmployeeAllowedDateMaxAggregateInputType
+  }
+
+  export type EmployeeAllowedDateGroupByOutputType = {
+    id: string
+    employeeId: string
+    date: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: EmployeeAllowedDateCountAggregateOutputType | null
+    _min: EmployeeAllowedDateMinAggregateOutputType | null
+    _max: EmployeeAllowedDateMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeAllowedDateGroupByPayload<T extends EmployeeAllowedDateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeAllowedDateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeAllowedDateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeAllowedDateGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeAllowedDateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeAllowedDateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeAllowedDate"]>
+
+  export type EmployeeAllowedDateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeAllowedDate"]>
+
+  export type EmployeeAllowedDateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeAllowedDate"]>
+
+  export type EmployeeAllowedDateSelectScalar = {
+    id?: boolean
+    employeeId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EmployeeAllowedDateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employeeId" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["employeeAllowedDate"]>
+  export type EmployeeAllowedDateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+  export type EmployeeAllowedDateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+  export type EmployeeAllowedDateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+
+  export type $EmployeeAllowedDatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmployeeAllowedDate"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employeeId: string
+      date: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["employeeAllowedDate"]>
+    composites: {}
+  }
+
+  type EmployeeAllowedDateGetPayload<S extends boolean | null | undefined | EmployeeAllowedDateDefaultArgs> = $Result.GetResult<Prisma.$EmployeeAllowedDatePayload, S>
+
+  type EmployeeAllowedDateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmployeeAllowedDateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmployeeAllowedDateCountAggregateInputType | true
+    }
+
+  export interface EmployeeAllowedDateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmployeeAllowedDate'], meta: { name: 'EmployeeAllowedDate' } }
+    /**
+     * Find zero or one EmployeeAllowedDate that matches the filter.
+     * @param {EmployeeAllowedDateFindUniqueArgs} args - Arguments to find a EmployeeAllowedDate
+     * @example
+     * // Get one EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeAllowedDateFindUniqueArgs>(args: SelectSubset<T, EmployeeAllowedDateFindUniqueArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmployeeAllowedDate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmployeeAllowedDateFindUniqueOrThrowArgs} args - Arguments to find a EmployeeAllowedDate
+     * @example
+     * // Get one EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeAllowedDateFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeAllowedDateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeAllowedDate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateFindFirstArgs} args - Arguments to find a EmployeeAllowedDate
+     * @example
+     * // Get one EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeAllowedDateFindFirstArgs>(args?: SelectSubset<T, EmployeeAllowedDateFindFirstArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeAllowedDate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateFindFirstOrThrowArgs} args - Arguments to find a EmployeeAllowedDate
+     * @example
+     * // Get one EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeAllowedDateFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeAllowedDateFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmployeeAllowedDates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmployeeAllowedDates
+     * const employeeAllowedDates = await prisma.employeeAllowedDate.findMany()
+     * 
+     * // Get first 10 EmployeeAllowedDates
+     * const employeeAllowedDates = await prisma.employeeAllowedDate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const employeeAllowedDateWithIdOnly = await prisma.employeeAllowedDate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmployeeAllowedDateFindManyArgs>(args?: SelectSubset<T, EmployeeAllowedDateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmployeeAllowedDate.
+     * @param {EmployeeAllowedDateCreateArgs} args - Arguments to create a EmployeeAllowedDate.
+     * @example
+     * // Create one EmployeeAllowedDate
+     * const EmployeeAllowedDate = await prisma.employeeAllowedDate.create({
+     *   data: {
+     *     // ... data to create a EmployeeAllowedDate
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeAllowedDateCreateArgs>(args: SelectSubset<T, EmployeeAllowedDateCreateArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmployeeAllowedDates.
+     * @param {EmployeeAllowedDateCreateManyArgs} args - Arguments to create many EmployeeAllowedDates.
+     * @example
+     * // Create many EmployeeAllowedDates
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeAllowedDateCreateManyArgs>(args?: SelectSubset<T, EmployeeAllowedDateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmployeeAllowedDates and returns the data saved in the database.
+     * @param {EmployeeAllowedDateCreateManyAndReturnArgs} args - Arguments to create many EmployeeAllowedDates.
+     * @example
+     * // Create many EmployeeAllowedDates
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmployeeAllowedDates and only return the `id`
+     * const employeeAllowedDateWithIdOnly = await prisma.employeeAllowedDate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeAllowedDateCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeAllowedDateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmployeeAllowedDate.
+     * @param {EmployeeAllowedDateDeleteArgs} args - Arguments to delete one EmployeeAllowedDate.
+     * @example
+     * // Delete one EmployeeAllowedDate
+     * const EmployeeAllowedDate = await prisma.employeeAllowedDate.delete({
+     *   where: {
+     *     // ... filter to delete one EmployeeAllowedDate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeAllowedDateDeleteArgs>(args: SelectSubset<T, EmployeeAllowedDateDeleteArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmployeeAllowedDate.
+     * @param {EmployeeAllowedDateUpdateArgs} args - Arguments to update one EmployeeAllowedDate.
+     * @example
+     * // Update one EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeAllowedDateUpdateArgs>(args: SelectSubset<T, EmployeeAllowedDateUpdateArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmployeeAllowedDates.
+     * @param {EmployeeAllowedDateDeleteManyArgs} args - Arguments to filter EmployeeAllowedDates to delete.
+     * @example
+     * // Delete a few EmployeeAllowedDates
+     * const { count } = await prisma.employeeAllowedDate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeAllowedDateDeleteManyArgs>(args?: SelectSubset<T, EmployeeAllowedDateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeAllowedDates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmployeeAllowedDates
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeAllowedDateUpdateManyArgs>(args: SelectSubset<T, EmployeeAllowedDateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeAllowedDates and returns the data updated in the database.
+     * @param {EmployeeAllowedDateUpdateManyAndReturnArgs} args - Arguments to update many EmployeeAllowedDates.
+     * @example
+     * // Update many EmployeeAllowedDates
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmployeeAllowedDates and only return the `id`
+     * const employeeAllowedDateWithIdOnly = await prisma.employeeAllowedDate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmployeeAllowedDateUpdateManyAndReturnArgs>(args: SelectSubset<T, EmployeeAllowedDateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmployeeAllowedDate.
+     * @param {EmployeeAllowedDateUpsertArgs} args - Arguments to update or create a EmployeeAllowedDate.
+     * @example
+     * // Update or create a EmployeeAllowedDate
+     * const employeeAllowedDate = await prisma.employeeAllowedDate.upsert({
+     *   create: {
+     *     // ... data to create a EmployeeAllowedDate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmployeeAllowedDate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeAllowedDateUpsertArgs>(args: SelectSubset<T, EmployeeAllowedDateUpsertArgs<ExtArgs>>): Prisma__EmployeeAllowedDateClient<$Result.GetResult<Prisma.$EmployeeAllowedDatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmployeeAllowedDates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateCountArgs} args - Arguments to filter EmployeeAllowedDates to count.
+     * @example
+     * // Count the number of EmployeeAllowedDates
+     * const count = await prisma.employeeAllowedDate.count({
+     *   where: {
+     *     // ... the filter for the EmployeeAllowedDates we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeAllowedDateCountArgs>(
+      args?: Subset<T, EmployeeAllowedDateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeAllowedDateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmployeeAllowedDate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeAllowedDateAggregateArgs>(args: Subset<T, EmployeeAllowedDateAggregateArgs>): Prisma.PrismaPromise<GetEmployeeAllowedDateAggregateType<T>>
+
+    /**
+     * Group by EmployeeAllowedDate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAllowedDateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeAllowedDateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeAllowedDateGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeAllowedDateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeAllowedDateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeAllowedDateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmployeeAllowedDate model
+   */
+  readonly fields: EmployeeAllowedDateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmployeeAllowedDate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeAllowedDateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmployeeAllowedDate model
+   */
+  interface EmployeeAllowedDateFieldRefs {
+    readonly id: FieldRef<"EmployeeAllowedDate", 'String'>
+    readonly employeeId: FieldRef<"EmployeeAllowedDate", 'String'>
+    readonly date: FieldRef<"EmployeeAllowedDate", 'DateTime'>
+    readonly createdAt: FieldRef<"EmployeeAllowedDate", 'DateTime'>
+    readonly updatedAt: FieldRef<"EmployeeAllowedDate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmployeeAllowedDate findUnique
+   */
+  export type EmployeeAllowedDateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeAllowedDate to fetch.
+     */
+    where: EmployeeAllowedDateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeAllowedDate findUniqueOrThrow
+   */
+  export type EmployeeAllowedDateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeAllowedDate to fetch.
+     */
+    where: EmployeeAllowedDateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeAllowedDate findFirst
+   */
+  export type EmployeeAllowedDateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeAllowedDate to fetch.
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeAllowedDates to fetch.
+     */
+    orderBy?: EmployeeAllowedDateOrderByWithRelationInput | EmployeeAllowedDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeAllowedDates.
+     */
+    cursor?: EmployeeAllowedDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeAllowedDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeAllowedDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeAllowedDates.
+     */
+    distinct?: EmployeeAllowedDateScalarFieldEnum | EmployeeAllowedDateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeAllowedDate findFirstOrThrow
+   */
+  export type EmployeeAllowedDateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeAllowedDate to fetch.
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeAllowedDates to fetch.
+     */
+    orderBy?: EmployeeAllowedDateOrderByWithRelationInput | EmployeeAllowedDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeAllowedDates.
+     */
+    cursor?: EmployeeAllowedDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeAllowedDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeAllowedDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeAllowedDates.
+     */
+    distinct?: EmployeeAllowedDateScalarFieldEnum | EmployeeAllowedDateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeAllowedDate findMany
+   */
+  export type EmployeeAllowedDateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeAllowedDates to fetch.
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeAllowedDates to fetch.
+     */
+    orderBy?: EmployeeAllowedDateOrderByWithRelationInput | EmployeeAllowedDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmployeeAllowedDates.
+     */
+    cursor?: EmployeeAllowedDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeAllowedDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeAllowedDates.
+     */
+    skip?: number
+    distinct?: EmployeeAllowedDateScalarFieldEnum | EmployeeAllowedDateScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeAllowedDate create
+   */
+  export type EmployeeAllowedDateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmployeeAllowedDate.
+     */
+    data: XOR<EmployeeAllowedDateCreateInput, EmployeeAllowedDateUncheckedCreateInput>
+  }
+
+  /**
+   * EmployeeAllowedDate createMany
+   */
+  export type EmployeeAllowedDateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmployeeAllowedDates.
+     */
+    data: EmployeeAllowedDateCreateManyInput | EmployeeAllowedDateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmployeeAllowedDate createManyAndReturn
+   */
+  export type EmployeeAllowedDateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmployeeAllowedDates.
+     */
+    data: EmployeeAllowedDateCreateManyInput | EmployeeAllowedDateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeAllowedDate update
+   */
+  export type EmployeeAllowedDateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmployeeAllowedDate.
+     */
+    data: XOR<EmployeeAllowedDateUpdateInput, EmployeeAllowedDateUncheckedUpdateInput>
+    /**
+     * Choose, which EmployeeAllowedDate to update.
+     */
+    where: EmployeeAllowedDateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeAllowedDate updateMany
+   */
+  export type EmployeeAllowedDateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmployeeAllowedDates.
+     */
+    data: XOR<EmployeeAllowedDateUpdateManyMutationInput, EmployeeAllowedDateUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeAllowedDates to update
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * Limit how many EmployeeAllowedDates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeAllowedDate updateManyAndReturn
+   */
+  export type EmployeeAllowedDateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * The data used to update EmployeeAllowedDates.
+     */
+    data: XOR<EmployeeAllowedDateUpdateManyMutationInput, EmployeeAllowedDateUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeAllowedDates to update
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * Limit how many EmployeeAllowedDates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeAllowedDate upsert
+   */
+  export type EmployeeAllowedDateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmployeeAllowedDate to update in case it exists.
+     */
+    where: EmployeeAllowedDateWhereUniqueInput
+    /**
+     * In case the EmployeeAllowedDate found by the `where` argument doesn't exist, create a new EmployeeAllowedDate with this data.
+     */
+    create: XOR<EmployeeAllowedDateCreateInput, EmployeeAllowedDateUncheckedCreateInput>
+    /**
+     * In case the EmployeeAllowedDate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeAllowedDateUpdateInput, EmployeeAllowedDateUncheckedUpdateInput>
+  }
+
+  /**
+   * EmployeeAllowedDate delete
+   */
+  export type EmployeeAllowedDateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+    /**
+     * Filter which EmployeeAllowedDate to delete.
+     */
+    where: EmployeeAllowedDateWhereUniqueInput
+  }
+
+  /**
+   * EmployeeAllowedDate deleteMany
+   */
+  export type EmployeeAllowedDateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeAllowedDates to delete
+     */
+    where?: EmployeeAllowedDateWhereInput
+    /**
+     * Limit how many EmployeeAllowedDates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeAllowedDate without action
+   */
+  export type EmployeeAllowedDateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeAllowedDate
+     */
+    select?: EmployeeAllowedDateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeAllowedDate
+     */
+    omit?: EmployeeAllowedDateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeAllowedDateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22231,6 +23417,17 @@ export namespace Prisma {
   };
 
   export type EmployeeZoneScalarFieldEnum = (typeof EmployeeZoneScalarFieldEnum)[keyof typeof EmployeeZoneScalarFieldEnum]
+
+
+  export const EmployeeAllowedDateScalarFieldEnum: {
+    id: 'id',
+    employeeId: 'employeeId',
+    date: 'date',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EmployeeAllowedDateScalarFieldEnum = (typeof EmployeeAllowedDateScalarFieldEnum)[keyof typeof EmployeeAllowedDateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -22788,6 +23985,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentListRelationFilter
     employeePermissions?: EmployeePermissionListRelationFilter
     alerts?: AlertListRelationFilter
+    allowedDates?: EmployeeAllowedDateListRelationFilter
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -22810,6 +24008,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentOrderByRelationAggregateInput
     employeePermissions?: EmployeePermissionOrderByRelationAggregateInput
     alerts?: AlertOrderByRelationAggregateInput
+    allowedDates?: EmployeeAllowedDateOrderByRelationAggregateInput
   }
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -22836,6 +24035,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentListRelationFilter
     employeePermissions?: EmployeePermissionListRelationFilter
     alerts?: AlertListRelationFilter
+    allowedDates?: EmployeeAllowedDateListRelationFilter
   }, "id" | "identifier_deletedAt">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -23608,6 +24808,62 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"EmployeeZone"> | Date | string
   }
 
+  export type EmployeeAllowedDateWhereInput = {
+    AND?: EmployeeAllowedDateWhereInput | EmployeeAllowedDateWhereInput[]
+    OR?: EmployeeAllowedDateWhereInput[]
+    NOT?: EmployeeAllowedDateWhereInput | EmployeeAllowedDateWhereInput[]
+    id?: StringFilter<"EmployeeAllowedDate"> | string
+    employeeId?: StringFilter<"EmployeeAllowedDate"> | string
+    date?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    createdAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+  }
+
+  export type EmployeeAllowedDateOrderByWithRelationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+  }
+
+  export type EmployeeAllowedDateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    employeeId_date?: EmployeeAllowedDateEmployeeIdDateCompoundUniqueInput
+    AND?: EmployeeAllowedDateWhereInput | EmployeeAllowedDateWhereInput[]
+    OR?: EmployeeAllowedDateWhereInput[]
+    NOT?: EmployeeAllowedDateWhereInput | EmployeeAllowedDateWhereInput[]
+    employeeId?: StringFilter<"EmployeeAllowedDate"> | string
+    date?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    createdAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+  }, "id" | "employeeId_date">
+
+  export type EmployeeAllowedDateOrderByWithAggregationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EmployeeAllowedDateCountOrderByAggregateInput
+    _max?: EmployeeAllowedDateMaxOrderByAggregateInput
+    _min?: EmployeeAllowedDateMinOrderByAggregateInput
+  }
+
+  export type EmployeeAllowedDateScalarWhereWithAggregatesInput = {
+    AND?: EmployeeAllowedDateScalarWhereWithAggregatesInput | EmployeeAllowedDateScalarWhereWithAggregatesInput[]
+    OR?: EmployeeAllowedDateScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeAllowedDateScalarWhereWithAggregatesInput | EmployeeAllowedDateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmployeeAllowedDate"> | string
+    employeeId?: StringWithAggregatesFilter<"EmployeeAllowedDate"> | string
+    date?: DateTimeWithAggregatesFilter<"EmployeeAllowedDate"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"EmployeeAllowedDate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EmployeeAllowedDate"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -24032,6 +25288,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -24053,6 +25310,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -24074,6 +25332,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -24095,6 +25354,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -24857,6 +26117,61 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EmployeeAllowedDateCreateInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutAllowedDatesInput
+  }
+
+  export type EmployeeAllowedDateUncheckedCreateInput = {
+    id?: string
+    employeeId: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeAllowedDateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutAllowedDatesNestedInput
+  }
+
+  export type EmployeeAllowedDateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeAllowedDateCreateManyInput = {
+    id?: string
+    employeeId: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeAllowedDateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeAllowedDateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25310,11 +26625,21 @@ export namespace Prisma {
     none?: EmployeeAttachmentWhereInput
   }
 
+  export type EmployeeAllowedDateListRelationFilter = {
+    every?: EmployeeAllowedDateWhereInput
+    some?: EmployeeAllowedDateWhereInput
+    none?: EmployeeAllowedDateWhereInput
+  }
+
   export type WorkingHoursOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type EmployeeAttachmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmployeeAllowedDateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25881,6 +27206,35 @@ export namespace Prisma {
     employeeId?: SortOrder
     zoneId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EmployeeAllowedDateEmployeeIdDateCompoundUniqueInput = {
+    employeeId: string
+    date: Date | string
+  }
+
+  export type EmployeeAllowedDateCountOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeAllowedDateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeAllowedDateMinOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ActivityCreateNestedManyWithoutScannerInput = {
@@ -26474,6 +27828,13 @@ export namespace Prisma {
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
   }
 
+  export type EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput> | EmployeeAllowedDateCreateWithoutEmployeeInput[] | EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput | EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeAllowedDateCreateManyEmployeeInputEnvelope
+    connect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+  }
+
   export type EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput = {
     create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
     connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
@@ -26521,6 +27882,13 @@ export namespace Prisma {
     connectOrCreate?: AlertCreateOrConnectWithoutEmployeeInput | AlertCreateOrConnectWithoutEmployeeInput[]
     createMany?: AlertCreateManyEmployeeInputEnvelope
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
+  }
+
+  export type EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput> | EmployeeAllowedDateCreateWithoutEmployeeInput[] | EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput | EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeAllowedDateCreateManyEmployeeInputEnvelope
+    connect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
   }
 
   export type EnumEmployeeStatusFieldUpdateOperationsInput = {
@@ -26633,6 +28001,20 @@ export namespace Prisma {
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
   }
 
+  export type EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput> | EmployeeAllowedDateCreateWithoutEmployeeInput[] | EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput | EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeAllowedDateUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeAllowedDateUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeAllowedDateCreateManyEmployeeInputEnvelope
+    set?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    disconnect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    delete?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    connect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    update?: EmployeeAllowedDateUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeAllowedDateUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeAllowedDateUpdateManyWithWhereWithoutEmployeeInput | EmployeeAllowedDateUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeAllowedDateScalarWhereInput | EmployeeAllowedDateScalarWhereInput[]
+  }
+
   export type EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput = {
     create?: XOR<EmployeeGateCreateWithoutEmployeeInput, EmployeeGateUncheckedCreateWithoutEmployeeInput> | EmployeeGateCreateWithoutEmployeeInput[] | EmployeeGateUncheckedCreateWithoutEmployeeInput[]
     connectOrCreate?: EmployeeGateCreateOrConnectWithoutEmployeeInput | EmployeeGateCreateOrConnectWithoutEmployeeInput[]
@@ -26729,6 +28111,20 @@ export namespace Prisma {
     update?: AlertUpdateWithWhereUniqueWithoutEmployeeInput | AlertUpdateWithWhereUniqueWithoutEmployeeInput[]
     updateMany?: AlertUpdateManyWithWhereWithoutEmployeeInput | AlertUpdateManyWithWhereWithoutEmployeeInput[]
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
+  }
+
+  export type EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput> | EmployeeAllowedDateCreateWithoutEmployeeInput[] | EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput | EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeAllowedDateUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeAllowedDateUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeAllowedDateCreateManyEmployeeInputEnvelope
+    set?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    disconnect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    delete?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    connect?: EmployeeAllowedDateWhereUniqueInput | EmployeeAllowedDateWhereUniqueInput[]
+    update?: EmployeeAllowedDateUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeAllowedDateUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeAllowedDateUpdateManyWithWhereWithoutEmployeeInput | EmployeeAllowedDateUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeAllowedDateScalarWhereInput | EmployeeAllowedDateScalarWhereInput[]
   }
 
   export type EmployeeCreateNestedOneWithoutWorkingHoursInput = {
@@ -27183,6 +28579,20 @@ export namespace Prisma {
     upsert?: ZoneUpsertWithoutEmployeesInput
     connect?: ZoneWhereUniqueInput
     update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutEmployeesInput, ZoneUpdateWithoutEmployeesInput>, ZoneUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type EmployeeCreateNestedOneWithoutAllowedDatesInput = {
+    create?: XOR<EmployeeCreateWithoutAllowedDatesInput, EmployeeUncheckedCreateWithoutAllowedDatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAllowedDatesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutAllowedDatesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutAllowedDatesInput, EmployeeUncheckedCreateWithoutAllowedDatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAllowedDatesInput
+    upsert?: EmployeeUpsertWithoutAllowedDatesInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAllowedDatesInput, EmployeeUpdateWithoutAllowedDatesInput>, EmployeeUncheckedUpdateWithoutAllowedDatesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -27640,6 +29050,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutVendorInput = {
@@ -27660,6 +29071,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutVendorInput = {
@@ -28366,6 +29778,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EmployeeAllowedDateCreateWithoutEmployeeInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeAllowedDateCreateOrConnectWithoutEmployeeInput = {
+    where: EmployeeAllowedDateWhereUniqueInput
+    create: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeAllowedDateCreateManyEmployeeInputEnvelope = {
+    data: EmployeeAllowedDateCreateManyEmployeeInput | EmployeeAllowedDateCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type VendorUpsertWithoutEmployeesInput = {
     update: XOR<VendorUpdateWithoutEmployeesInput, VendorUncheckedUpdateWithoutEmployeesInput>
     create: XOR<VendorCreateWithoutEmployeesInput, VendorUncheckedCreateWithoutEmployeesInput>
@@ -28545,6 +29981,33 @@ export namespace Prisma {
     data: XOR<AlertUpdateManyMutationInput, AlertUncheckedUpdateManyWithoutEmployeeInput>
   }
 
+  export type EmployeeAllowedDateUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeAllowedDateWhereUniqueInput
+    update: XOR<EmployeeAllowedDateUpdateWithoutEmployeeInput, EmployeeAllowedDateUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<EmployeeAllowedDateCreateWithoutEmployeeInput, EmployeeAllowedDateUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeAllowedDateUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeAllowedDateWhereUniqueInput
+    data: XOR<EmployeeAllowedDateUpdateWithoutEmployeeInput, EmployeeAllowedDateUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type EmployeeAllowedDateUpdateManyWithWhereWithoutEmployeeInput = {
+    where: EmployeeAllowedDateScalarWhereInput
+    data: XOR<EmployeeAllowedDateUpdateManyMutationInput, EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeInput>
+  }
+
+  export type EmployeeAllowedDateScalarWhereInput = {
+    AND?: EmployeeAllowedDateScalarWhereInput | EmployeeAllowedDateScalarWhereInput[]
+    OR?: EmployeeAllowedDateScalarWhereInput[]
+    NOT?: EmployeeAllowedDateScalarWhereInput | EmployeeAllowedDateScalarWhereInput[]
+    id?: StringFilter<"EmployeeAllowedDate"> | string
+    employeeId?: StringFilter<"EmployeeAllowedDate"> | string
+    date?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    createdAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeAllowedDate"> | Date | string
+  }
+
   export type EmployeeCreateWithoutWorkingHoursInput = {
     id?: string
     identifier?: string
@@ -28563,6 +30026,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutWorkingHoursInput = {
@@ -28583,6 +30047,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutWorkingHoursInput = {
@@ -28619,6 +30084,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutWorkingHoursInput = {
@@ -28639,6 +30105,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateWithoutAlertsInput = {
@@ -28659,6 +30126,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutAlertsInput = {
@@ -28679,6 +30147,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutAlertsInput = {
@@ -28777,6 +30246,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutAlertsInput = {
@@ -28797,6 +30267,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type UserUpsertWithoutAlertsInput = {
@@ -28891,6 +30362,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutActivitiesInput = {
@@ -28911,6 +30383,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutActivitiesInput = {
@@ -29039,6 +30512,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutActivitiesInput = {
@@ -29059,6 +30533,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type UserUpsertWithoutActivitiesInput = {
@@ -29391,6 +30866,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutEmployeeAttachmentsInput = {
@@ -29411,6 +30887,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutEmployeeAttachmentsInput = {
@@ -29478,6 +30955,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutEmployeeAttachmentsInput = {
@@ -29498,6 +30976,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type AttachmentUpsertWithoutEmployeeAttachmentsInput = {
@@ -29555,6 +31034,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutEmployeePermissionsInput = {
@@ -29575,6 +31055,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutEmployeePermissionsInput = {
@@ -29634,6 +31115,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutEmployeePermissionsInput = {
@@ -29654,6 +31136,7 @@ export namespace Prisma {
     workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type PermissionUpsertWithoutEmployeePermissionsInput = {
@@ -29971,6 +31454,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutGatesInput = {
@@ -29991,6 +31475,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutGatesInput = {
@@ -30054,6 +31539,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutGatesInput = {
@@ -30074,6 +31560,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type GateUpsertWithoutEmployeesInput = {
@@ -30127,6 +31614,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
     alerts?: AlertCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutZonesInput = {
@@ -30147,6 +31635,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
     employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
     alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+    allowedDates?: EmployeeAllowedDateUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutZonesInput = {
@@ -30208,6 +31697,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutZonesInput = {
@@ -30228,6 +31718,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type ZoneUpsertWithoutEmployeesInput = {
@@ -30259,6 +31750,106 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendors?: VendorZoneUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
+  export type EmployeeCreateWithoutAllowedDatesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendor: VendorCreateNestedOneWithoutEmployeesInput
+    gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutAllowedDatesInput = {
+    id?: string
+    identifier?: string
+    name: string
+    job: string
+    nationalId: string
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    status?: $Enums.EmployeeStatus
+    vendorId: string
+    gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
+    zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
+    workingHours?: WorkingHoursUncheckedCreateNestedManyWithoutEmployeeInput
+    employeeAttachments?: EmployeeAttachmentUncheckedCreateNestedManyWithoutEmployeeInput
+    employeePermissions?: EmployeePermissionUncheckedCreateNestedManyWithoutEmployeeInput
+    alerts?: AlertUncheckedCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutAllowedDatesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutAllowedDatesInput, EmployeeUncheckedCreateWithoutAllowedDatesInput>
+  }
+
+  export type EmployeeUpsertWithoutAllowedDatesInput = {
+    update: XOR<EmployeeUpdateWithoutAllowedDatesInput, EmployeeUncheckedUpdateWithoutAllowedDatesInput>
+    create: XOR<EmployeeCreateWithoutAllowedDatesInput, EmployeeUncheckedCreateWithoutAllowedDatesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutAllowedDatesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutAllowedDatesInput, EmployeeUncheckedUpdateWithoutAllowedDatesInput>
+  }
+
+  export type EmployeeUpdateWithoutAllowedDatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
+    gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutAllowedDatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identifier?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    job?: StringFieldUpdateOperationsInput | string
+    nationalId?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    vendorId?: StringFieldUpdateOperationsInput | string
+    gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
+    zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
+    workingHours?: WorkingHoursUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
+    alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type ActivityCreateManyScannerInput = {
@@ -30409,6 +32000,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutVendorInput = {
@@ -30429,6 +32021,7 @@ export namespace Prisma {
     employeeAttachments?: EmployeeAttachmentUncheckedUpdateManyWithoutEmployeeNestedInput
     employeePermissions?: EmployeePermissionUncheckedUpdateManyWithoutEmployeeNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutEmployeeNestedInput
+    allowedDates?: EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutVendorInput = {
@@ -30746,6 +32339,13 @@ export namespace Prisma {
     activityId?: string | null
   }
 
+  export type EmployeeAllowedDateCreateManyEmployeeInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EmployeeGateUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30935,6 +32535,27 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     activityId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmployeeAllowedDateUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeAllowedDateUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeAllowedDateUncheckedUpdateManyWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertCreateManyActivityInput = {

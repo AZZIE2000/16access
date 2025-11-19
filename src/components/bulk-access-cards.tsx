@@ -11,7 +11,7 @@ interface Employee {
   identifier: string;
   name: string;
   job: string;
-  gates: Array<{ gate: { name: string } }>;
+  gates: Array<{ gate: { name: string; id: string } }>;
   zones: Array<{ zone: { name: string } }>;
   vendor: { name: string } | null;
   employeeAttachments?: Array<{
@@ -24,9 +24,13 @@ interface Employee {
 
 interface BulkAccessCardsProps {
   employees: Employee[];
+  totalGatesCount?: number;
 }
 
-export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
+export function BulkAccessCards({
+  employees,
+  totalGatesCount,
+}: BulkAccessCardsProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [qrCodes, setQrCodes] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -293,15 +297,15 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                           }}
                         >
                           <img
-                            src="/amman-christmas-market.png"
-                            alt="Christmas Market"
-                            style={{ height: "6rem" }}
+                            src="/16thofmay.png"
+                            alt="16th of May"
+                            style={{ height: "6rem", marginLeft: "-20px" }}
                             crossOrigin="anonymous"
                           />
                           <img
-                            src="/16thofmay.png"
-                            alt="16th of May"
-                            style={{ height: "6rem" }}
+                            src="/amman-christmas-market.png"
+                            alt="Christmas Market"
+                            style={{ height: "6rem", marginRight:"-10px" }}
                             crossOrigin="anonymous"
                           />
                         </div>
@@ -311,7 +315,7 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                           style={{
                             position: "absolute",
                             top: "6rem",
-                            left: "1rem",
+                            left: "1.3rem",
                             zIndex: 10,
                             backgroundColor: "#ffffff",
                             width: "8cm",
@@ -320,11 +324,15 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                         >
                           {/* Employee Info Section */}
                           <div
-                            dir="rtl"
+                            dir={
+                              /[\u0600-\u06FF]/.test(employee.name)
+                                ? "rtl"
+                                : "ltr"
+                            }
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: "1.5rem",
+                              gap: "1rem",
                               padding: "0.5rem",
                             }}
                           >
@@ -335,7 +343,8 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                                 alt={employee.name}
                                 style={{
                                   height: "8rem",
-                                  objectFit: "cover",
+                                  objectFit: "contain",
+                                  flexShrink: 0,
                                 }}
                                 crossOrigin="anonymous"
                               />
@@ -369,32 +378,55 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                             )}
 
                             {/* Employee Details */}
-                            <div className="tajawal-bold">
+                            <div
+                              className="tajawal-bold"
+                              style={{
+                                flex: 1,
+                                minWidth: 0,
+                                textAlign: /[\u0600-\u06FF]/.test(employee.name)
+                                  ? "right"
+                                  : "left",
+                              }}
+                            >
                               <h2
                                 style={{
-                                  fontSize: "1.25rem",
+                                  fontSize:
+                                    employee.name.length > 25
+                                      ? "0.9rem"
+                                      : employee.name.length > 20
+                                        ? "1rem"
+                                        : employee.name.length > 15
+                                          ? "1.1rem"
+                                          : "1.25rem",
                                   fontWeight: "bold",
                                   fontFamily: "Tajawal, sans-serif",
+                                  lineHeight: "1.2",
+                                  marginBottom: "0.25rem",
+                                  wordWrap: "break-word",
+                                  overflowWrap: "break-word",
                                 }}
                               >
                                 {employee.name}
                               </h2>
                               <p
                                 style={{
-                                  fontSize: "1.125rem",
+                                  fontSize: "1rem",
                                   fontWeight: "500",
                                   color: "#4b5563",
                                   fontFamily: "Tajawal, sans-serif",
+                                  lineHeight: "1.3",
+                                  marginBottom: "0.15rem",
                                 }}
                               >
                                 {employee.vendor?.name}
                               </p>
                               <p
                                 style={{
-                                  fontSize: "1.125rem",
+                                  fontSize: "1rem",
                                   fontWeight: "500",
                                   color: "#4b5563",
                                   fontFamily: "Tajawal, sans-serif",
+                                  lineHeight: "1.3",
                                 }}
                               >
                                 {employee.job}
@@ -403,37 +435,85 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                           </div>
 
                           {/* Gate and Zone Section */}
-                          <div style={{ padding: "0.5rem" }}>
+                          <div
+                            style={{
+                              paddingRight: "0.5rem",
+                              paddingLeft: "0.5rem",
+                              paddingTop: "0rem",
+                            }}
+                          >
                             <div
                               style={{
                                 width: "100%",
+                                height: "2.7cm",
                                 backgroundColor: "#445940",
-                                paddingTop: "0.5rem",
+                                paddingTop: "0rem",
                                 paddingBottom: "0.5rem",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
                               }}
                             >
                               <p
                                 className="montserrat"
                                 style={{
                                   textAlign: "center",
-                                  fontSize: "1.5rem",
+                                  fontSize: (() => {
+                                    const hasAllGates =
+                                      totalGatesCount &&
+                                      employee.gates &&
+                                      employee.gates.length === totalGatesCount;
+                                    const gateText = hasAllGates
+                                      ? "All Gates Access"
+                                      : employee.gates &&
+                                          employee.gates.length > 0
+                                        ? employee.gates
+                                            .map((eg) => eg.gate.name)
+                                            .join(", ")
+                                        : "Main Gate Access";
+                                    if (gateText.length > 30) return "1.1rem";
+                                    if (gateText.length > 20) return "1.3rem";
+                                    return "1.5rem";
+                                  })(),
                                   color: "#ffffff",
                                   fontFamily: "Montserrat, sans-serif",
+                                  lineHeight: "1.2",
                                 }}
                               >
-                                {employee.gates && employee.gates.length > 0
-                                  ? employee.gates
-                                      .map((eg) => eg.gate.name)
-                                      .join(", ")
-                                  : "Main Gate Access"}
+                                {(() => {
+                                  const hasAllGates =
+                                    totalGatesCount &&
+                                    employee.gates &&
+                                    employee.gates.length === totalGatesCount;
+                                  return hasAllGates
+                                    ? "All Gates Access"
+                                    : employee.gates &&
+                                        employee.gates.length > 0
+                                      ? employee.gates
+                                          .map((eg) => eg.gate.name)
+                                          .join(", ")
+                                      : "Main Gate Access";
+                                })()}
                               </p>
                               <p
                                 className="montserrat"
                                 style={{
                                   textAlign: "center",
-                                  fontSize: "1.125rem",
+                                  fontSize: (() => {
+                                    const zoneText =
+                                      employee.zones &&
+                                      employee.zones.length > 0
+                                        ? employee.zones
+                                            .map((ez) => ez.zone.name)
+                                            .join(", ")
+                                        : "Parking Only (ZONE)";
+                                    if (zoneText.length > 30) return "0.9rem";
+                                    if (zoneText.length > 20) return "1rem";
+                                    return "1.125rem";
+                                  })(),
                                   color: "#c2a067",
                                   fontFamily: "Montserrat, sans-serif",
+                                  lineHeight: "1.2",
                                 }}
                               >
                                 {employee.zones && employee.zones.length > 0
@@ -449,7 +529,8 @@ export function BulkAccessCards({ employees }: BulkAccessCardsProps) {
                           <div
                             style={{
                               display: "flex",
-                              justifyContent: "center",
+                              justifyContent: "flex-end",
+                              paddingRight: "0.5rem",
                             }}
                           >
                             {qrCodeUrl ? (
