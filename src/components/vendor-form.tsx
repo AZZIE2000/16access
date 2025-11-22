@@ -41,6 +41,7 @@ type Vendor = {
   description: string | null;
   phoneNumber: string | null;
   allowedStaffCount: number;
+  allowedInCount: number;
   accessToken: string;
   gates: VendorGate[];
   zones: VendorZone[];
@@ -66,6 +67,7 @@ export function VendorForm({
     description: vendor?.description ?? "",
     phoneNumber: vendor?.phoneNumber ?? "",
     allowedStaffCount: vendor?.allowedStaffCount ?? 1,
+    allowedInCount: vendor?.allowedInCount ?? 0,
     gateIds: vendor?.gates.map((vg) => vg.gateId) ?? [],
     zoneIds: vendor?.zones.map((vz) => vz.zoneId) ?? [],
   });
@@ -137,6 +139,7 @@ export function VendorForm({
       description: formData.description || undefined,
       phoneNumber: formData.phoneNumber || undefined,
       allowedStaffCount: formData.allowedStaffCount,
+      allowedInCount: formData.allowedInCount,
       gateIds: formData.gateIds.length > 0 ? formData.gateIds : undefined,
       zoneIds: formData.zoneIds.length > 0 ? formData.zoneIds : undefined,
     };
@@ -234,6 +237,32 @@ export function VendorForm({
               placeholder="Enter allowed staff count"
               required
             />
+            <p className="text-muted-foreground text-sm">
+              Maximum number of employees this vendor can register
+            </p>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="allowedInCount">
+              Allowed In Count (0 = Unlimited)
+            </Label>
+            <Input
+              id="allowedInCount"
+              type="number"
+              min="0"
+              value={formData.allowedInCount}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  allowedInCount: parseInt(e.target.value) || 0,
+                })
+              }
+              placeholder="Enter allowed in count (0 for unlimited)"
+            />
+            <p className="text-muted-foreground text-sm">
+              Maximum number of employees allowed in at the same time. Set to 0
+              for unlimited access.
+            </p>
           </div>
         </CardContent>
       </Card>

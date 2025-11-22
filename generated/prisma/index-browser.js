@@ -139,6 +139,7 @@ exports.Prisma.VendorScalarFieldEnum = {
   description: 'description',
   phoneNumber: 'phoneNumber',
   allowedStaffCount: 'allowedStaffCount',
+  allowedInCount: 'allowedInCount',
   accessToken: 'accessToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

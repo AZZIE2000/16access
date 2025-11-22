@@ -184,7 +184,7 @@ export function EmployeeManagement({
     }
   };
 
-  const currentEmployeeCount = vendorData?.employees?.length ?? 0;
+  const currentEmployeeCount = vendorData?.employees.filter((e) => !e.deletedAt)?.length ?? 0;
 
   return (
     <div className="space-y-6">
@@ -396,8 +396,10 @@ export function EmployeeManagement({
                           <Badge variant="outline">v{employee.version}</Badge>
                         </TableCell>
                         <TableCell>
-                          {employee.status === "ACTIVE" ? (
-                            <Badge variant="default">Active</Badge>
+                          {employee.deletedAt ? (
+                            <Badge>Deleted</Badge>
+                          ) : employee.status === "ACTIVE" ? (
+                            <Badge variant="success">Active</Badge>
                           ) : employee.status === "SUSPENDED" ? (
                             <Badge variant="destructive">Suspended</Badge>
                           ) : (

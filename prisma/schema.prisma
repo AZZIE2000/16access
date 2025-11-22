@@ -50,6 +50,7 @@ model Vendor {
     description       String?
     phoneNumber       String?
     allowedStaffCount Int // Maximum number of employees allowed
+    allowedInCount    Int                @default(0) // Maximum number of employees allowed in at the same time (0 = unlimited)
     accessToken       String             @unique @default(cuid()) // Secure link token for employee registration
     createdAt         DateTime           @default(now())
     updatedAt         DateTime           @updatedAt

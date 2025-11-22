@@ -4039,10 +4039,12 @@ export namespace Prisma {
 
   export type VendorAvgAggregateOutputType = {
     allowedStaffCount: number | null
+    allowedInCount: number | null
   }
 
   export type VendorSumAggregateOutputType = {
     allowedStaffCount: number | null
+    allowedInCount: number | null
   }
 
   export type VendorMinAggregateOutputType = {
@@ -4051,6 +4053,7 @@ export namespace Prisma {
     description: string | null
     phoneNumber: string | null
     allowedStaffCount: number | null
+    allowedInCount: number | null
     accessToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4063,6 +4066,7 @@ export namespace Prisma {
     description: string | null
     phoneNumber: string | null
     allowedStaffCount: number | null
+    allowedInCount: number | null
     accessToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4075,6 +4079,7 @@ export namespace Prisma {
     description: number
     phoneNumber: number
     allowedStaffCount: number
+    allowedInCount: number
     accessToken: number
     createdAt: number
     updatedAt: number
@@ -4085,10 +4090,12 @@ export namespace Prisma {
 
   export type VendorAvgAggregateInputType = {
     allowedStaffCount?: true
+    allowedInCount?: true
   }
 
   export type VendorSumAggregateInputType = {
     allowedStaffCount?: true
+    allowedInCount?: true
   }
 
   export type VendorMinAggregateInputType = {
@@ -4097,6 +4104,7 @@ export namespace Prisma {
     description?: true
     phoneNumber?: true
     allowedStaffCount?: true
+    allowedInCount?: true
     accessToken?: true
     createdAt?: true
     updatedAt?: true
@@ -4109,6 +4117,7 @@ export namespace Prisma {
     description?: true
     phoneNumber?: true
     allowedStaffCount?: true
+    allowedInCount?: true
     accessToken?: true
     createdAt?: true
     updatedAt?: true
@@ -4121,6 +4130,7 @@ export namespace Prisma {
     description?: true
     phoneNumber?: true
     allowedStaffCount?: true
+    allowedInCount?: true
     accessToken?: true
     createdAt?: true
     updatedAt?: true
@@ -4220,6 +4230,7 @@ export namespace Prisma {
     description: string | null
     phoneNumber: string | null
     allowedStaffCount: number
+    allowedInCount: number
     accessToken: string
     createdAt: Date
     updatedAt: Date
@@ -4251,6 +4262,7 @@ export namespace Prisma {
     description?: boolean
     phoneNumber?: boolean
     allowedStaffCount?: boolean
+    allowedInCount?: boolean
     accessToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4268,6 +4280,7 @@ export namespace Prisma {
     description?: boolean
     phoneNumber?: boolean
     allowedStaffCount?: boolean
+    allowedInCount?: boolean
     accessToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4280,6 +4293,7 @@ export namespace Prisma {
     description?: boolean
     phoneNumber?: boolean
     allowedStaffCount?: boolean
+    allowedInCount?: boolean
     accessToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4292,13 +4306,14 @@ export namespace Prisma {
     description?: boolean
     phoneNumber?: boolean
     allowedStaffCount?: boolean
+    allowedInCount?: boolean
     accessToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "phoneNumber" | "allowedStaffCount" | "accessToken" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["vendor"]>
+  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "phoneNumber" | "allowedStaffCount" | "allowedInCount" | "accessToken" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["vendor"]>
   export type VendorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | Vendor$employeesArgs<ExtArgs>
     vendorAttachments?: boolean | Vendor$vendorAttachmentsArgs<ExtArgs>
@@ -4323,6 +4338,7 @@ export namespace Prisma {
       description: string | null
       phoneNumber: string | null
       allowedStaffCount: number
+      allowedInCount: number
       accessToken: string
       createdAt: Date
       updatedAt: Date
@@ -4759,6 +4775,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Vendor", 'String'>
     readonly phoneNumber: FieldRef<"Vendor", 'String'>
     readonly allowedStaffCount: FieldRef<"Vendor", 'Int'>
+    readonly allowedInCount: FieldRef<"Vendor", 'Int'>
     readonly accessToken: FieldRef<"Vendor", 'String'>
     readonly createdAt: FieldRef<"Vendor", 'DateTime'>
     readonly updatedAt: FieldRef<"Vendor", 'DateTime'>
@@ -23220,6 +23237,7 @@ export namespace Prisma {
     description: 'description',
     phoneNumber: 'phoneNumber',
     allowedStaffCount: 'allowedStaffCount',
+    allowedInCount: 'allowedInCount',
     accessToken: 'accessToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -23696,6 +23714,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Vendor"> | string | null
     phoneNumber?: StringNullableFilter<"Vendor"> | string | null
     allowedStaffCount?: IntFilter<"Vendor"> | number
+    allowedInCount?: IntFilter<"Vendor"> | number
     accessToken?: StringFilter<"Vendor"> | string
     createdAt?: DateTimeFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeFilter<"Vendor"> | Date | string
@@ -23712,6 +23731,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23732,6 +23752,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Vendor"> | string | null
     phoneNumber?: StringNullableFilter<"Vendor"> | string | null
     allowedStaffCount?: IntFilter<"Vendor"> | number
+    allowedInCount?: IntFilter<"Vendor"> | number
     createdAt?: DateTimeFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeFilter<"Vendor"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Vendor"> | Date | string | null
@@ -23747,6 +23768,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23767,6 +23789,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     phoneNumber?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     allowedStaffCount?: IntWithAggregatesFilter<"Vendor"> | number
+    allowedInCount?: IntWithAggregatesFilter<"Vendor"> | number
     accessToken?: StringWithAggregatesFilter<"Vendor"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
@@ -24962,6 +24985,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24978,6 +25002,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24994,6 +25019,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25010,6 +25036,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25026,6 +25053,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25038,6 +25066,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25050,6 +25079,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26422,6 +26452,7 @@ export namespace Prisma {
     description?: SortOrder
     phoneNumber?: SortOrder
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26430,6 +26461,7 @@ export namespace Prisma {
 
   export type VendorAvgOrderByAggregateInput = {
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
   }
 
   export type VendorMaxOrderByAggregateInput = {
@@ -26438,6 +26470,7 @@ export namespace Prisma {
     description?: SortOrder
     phoneNumber?: SortOrder
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26450,6 +26483,7 @@ export namespace Prisma {
     description?: SortOrder
     phoneNumber?: SortOrder
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26458,6 +26492,7 @@ export namespace Prisma {
 
   export type VendorSumOrderByAggregateInput = {
     allowedStaffCount?: SortOrder
+    allowedInCount?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -29551,6 +29586,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29566,6 +29602,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29819,6 +29856,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29834,6 +29872,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30710,6 +30749,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30725,6 +30765,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30787,6 +30828,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30802,6 +30844,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31174,6 +31217,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31189,6 +31233,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31247,6 +31292,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31262,6 +31308,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31310,6 +31357,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31325,6 +31373,7 @@ export namespace Prisma {
     description?: string | null
     phoneNumber?: string | null
     allowedStaffCount: number
+    allowedInCount?: number
     accessToken?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31381,6 +31430,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31396,6 +31446,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     allowedStaffCount?: IntFieldUpdateOperationsInput | number
+    allowedInCount?: IntFieldUpdateOperationsInput | number
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

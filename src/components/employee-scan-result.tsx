@@ -5,6 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Building2,
   MapPin,
   DoorOpen,
@@ -16,8 +22,13 @@ import {
   Edit,
   IdCard,
   AlertCircle,
+  Users,
+  LogOut,
+  LogIn,
 } from "lucide-react";
 import Link from "next/link";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
 
 interface WorkingHours {
   dayOfWeek: string;
@@ -70,6 +81,15 @@ interface AllowedDate {
   date: Date;
 }
 
+interface Coworker {
+  id: string;
+  name: string;
+  job: string;
+  status: "PENDING" | "ACTIVE" | "SUSPENDED";
+  profilePhoto?: string;
+  lastActivity: Activity | null;
+}
+
 interface EmployeeData {
   id: string;
   identifier: string;
@@ -79,6 +99,7 @@ interface EmployeeData {
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
   vendor: {
     name: string;
+    allowedInCount: number;
   };
   gates: EmployeeGate[];
   zones: EmployeeZone[];
@@ -87,6 +108,8 @@ interface EmployeeData {
   employeeAttachments?: EmployeeAttachment[];
   allowedDates?: AllowedDate[];
   profilePhoto?: string;
+  lastActivity?: Activity | null;
+  coworkers?: Coworker[];
 }
 
 interface EmployeeScanResultProps {
@@ -114,6 +137,9 @@ export function EmployeeScanResult({
   // Check if employee is active
   const isActive = employee.status === "ACTIVE";
 
+  // Check if last activity was ENTRY (employee is currently inside)
+  const isCurrentlyInside = employee.lastActivity?.type === "ENTRY";
+
   // Check if employee is allowed on current date
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
   const hasDateRestriction =
@@ -124,12 +150,42 @@ export function EmployeeScanResult({
       (ad) => new Date(ad.date).toISOString().split("T")[0] === today,
     );
 
+  // Check if vendor has reached maximum allowed employees in at the same time
+  const hasAllowedInLimit = employee.vendor.allowedInCount > 0;
+  const currentlyInCount = employee.coworkers
+    ? employee.coworkers.filter((c) => c.lastActivity?.type === "ENTRY")
+        .length + (isCurrentlyInside ? 0 : 1) // Add 1 if current employee is trying to enter
+    : 0;
+  const isAtMaxCapacity =
+    hasAllowedInLimit && currentlyInCount > employee.vendor.allowedInCount;
+
   // Determine if access should be granted
-  const shouldGrantAccess = isActive && hasGateAccess && isAllowedToday;
+  const shouldGrantAccess =
+    isActive && hasGateAccess && isAllowedToday && !isAtMaxCapacity;
 
   // Get all ID card attachments
   const idCards =
     employee.employeeAttachments?.filter((att) => att.type === "ID_CARD") ?? [];
+
+  // Record exit mutation
+  const recordExitMutation = api.activity.recordActivity.useMutation({
+    onSuccess: () => {
+      toast.success("Exit recorded successfully!");
+      window.location.reload();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleExit = (employeeId: string) => {
+    recordExitMutation.mutate({
+      employeeId,
+      gateId: currentGateId,
+      type: "EXIT",
+      status: "GRANTED",
+    });
+  };
 
   return (
     <Card>
@@ -397,26 +453,134 @@ export function EmployeeScanResult({
                       <span>Not scheduled to work today</span>
                     </li>
                   )}
+                  {isAtMaxCapacity && (
+                    <li className="flex items-start gap-1.5">
+                      <span className="mt-0.5">•</span>
+                      <span>
+                        Maximum capacity reached (
+                        {employee.vendor.allowedInCount} employees allowed in at
+                        the same time)
+                      </span>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
           </div>
         )}
 
+        {/* Coworkers Section */}
+        {employee.coworkers && employee.coworkers.length > 0 && (
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="coworkers" className="border-none">
+              <AccordionTrigger className="bg-muted/50 rounded-lg border px-3 py-2 hover:no-underline">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  <span className="text-sm font-semibold">
+                    Coworkers ({employee.coworkers.length})
+                  </span>
+                  {employee.vendor.allowedInCount > 0 && (
+                    <Badge variant="outline" className="text-xs">
+                      Max: {employee.vendor.allowedInCount}
+                    </Badge>
+                  )}
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2">
+                <div className="space-y-2">
+                  {employee.coworkers.map((coworker) => {
+                    const coworkerIsIn =
+                      coworker.lastActivity?.type === "ENTRY";
+                    return (
+                      <div
+                        key={coworker.id}
+                        className="bg-background flex items-center gap-2 rounded-lg border p-2"
+                      >
+                        <Avatar className="h-10 w-10 shrink-0">
+                          <AvatarImage
+                            src={coworker.profilePhoto}
+                            alt={coworker.name}
+                          />
+                          <AvatarFallback className="text-xs">
+                            {coworker.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")
+                              .toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium">
+                            {coworker.name}
+                          </p>
+                          <p className="text-muted-foreground truncate text-xs">
+                            {coworker.job}
+                          </p>
+                        </div>
+
+                        <div className="flex shrink-0 items-center gap-2">
+                          <Badge
+                            variant={coworkerIsIn ? "success" : "secondary"}
+                            className="text-xs"
+                          >
+                            {coworkerIsIn ? "IN" : "OUT"}
+                          </Badge>
+
+                          {coworkerIsIn && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="h-7 gap-1 px-2"
+                              onClick={() => handleExit(coworker.id)}
+                              disabled={recordExitMutation.isPending}
+                            >
+                              <LogOut className="h-3 w-3" />
+                              <span className="text-xs">Exit</span>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
+
         {/* Action Buttons */}
         <div className="space-y-2">
-          {shouldGrantAccess ? (
+          {/* Always show Entry button */}
+          <Button
+            onClick={onGrantAccess}
+            disabled={isProcessing || !shouldGrantAccess}
+            className="h-auto w-full flex-col gap-1 py-3"
+            size="lg"
+            variant={shouldGrantAccess ? "success" : "secondary"}
+          >
+            <LogIn className="h-6 w-6" />
+            <span className="text-sm font-medium">
+              {shouldGrantAccess ? "Grant Entry" : "Entry (Not Allowed)"}
+            </span>
+          </Button>
+
+          {/* Show Leave button only if last transaction is ENTRY */}
+          {isCurrentlyInside && (
             <Button
-              onClick={onGrantAccess}
-              disabled={isProcessing}
+              onClick={() => handleExit(employee.id)}
+              disabled={recordExitMutation.isPending}
               className="h-auto w-full flex-col gap-1 py-3"
               size="lg"
-              variant={"success"}
+              variant="outline"
             >
-              <CheckCircle2 className="h-6 w-6" />
-              <span className="text-sm font-medium">Grant Entry</span>
+              <LogOut className="h-6 w-6" />
+              <span className="text-sm font-medium">Record Exit</span>
             </Button>
-          ) : (
+          )}
+
+          {/* Deny button for admin */}
+          {!shouldGrantAccess && isAdmin && (
             <Button
               onClick={onDenyAccess}
               disabled={isProcessing}

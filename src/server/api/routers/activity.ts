@@ -73,11 +73,57 @@ export const activityRouter = createTRPCRouter({
         });
       }
 
+      // Get the last activity for this employee
+      const lastActivity = await ctx.db.activity.findFirst({
+        where: {
+          employeeId: employee.id,
+        },
+        orderBy: {
+          scannedAt: "desc",
+        },
+      });
+
+      // Get all coworkers (employees from the same vendor, excluding deleted)
+      const coworkers = await ctx.db.employee.findMany({
+        where: {
+          vendorId: employee.vendorId,
+          deletedAt: null,
+          id: {
+            not: employee.id, // Exclude the current employee
+          },
+        },
+        include: {
+          activities: {
+            take: 1,
+            orderBy: {
+              scannedAt: "desc",
+            },
+          },
+          employeeAttachments: {
+            where: {
+              type: "PROFILE_PHOTO",
+            },
+            include: {
+              attachment: true,
+            },
+          },
+        },
+      });
+
       return {
         ...employee,
         profilePhoto: employee.employeeAttachments?.find(
           (att) => att.type === "PROFILE_PHOTO",
         )?.attachment.url,
+        lastActivity,
+        coworkers: coworkers.map((coworker) => ({
+          id: coworker.id,
+          name: coworker.name,
+          job: coworker.job,
+          status: coworker.status,
+          profilePhoto: coworker.employeeAttachments[0]?.attachment.url,
+          lastActivity: coworker.activities[0] ?? null,
+        })),
       };
     }),
 
@@ -97,6 +143,60 @@ export const activityRouter = createTRPCRouter({
       const scanner = await ctx.db.user.findUnique({
         where: { id: ctx.session.user.id },
       });
+
+      // If this is an ENTRY with GRANTED status, check vendor's allowedInCount
+      if (input.type === "ENTRY" && input.status === "GRANTED") {
+        const employee = await ctx.db.employee.findUnique({
+          where: { id: input.employeeId },
+          include: {
+            vendor: true,
+          },
+        });
+
+        if (
+          employee?.vendor.allowedInCount &&
+          employee.vendor.allowedInCount > 0
+        ) {
+          // Get all employees from the same vendor
+          const vendorEmployees = await ctx.db.employee.findMany({
+            where: {
+              vendorId: employee.vendorId,
+              deletedAt: null,
+            },
+            select: {
+              id: true,
+            },
+          });
+
+          const employeeIds = vendorEmployees.map((e) => e.id);
+
+          // Get the last activity for each employee
+          const lastActivities = await ctx.db.activity.findMany({
+            where: {
+              employeeId: {
+                in: employeeIds,
+              },
+            },
+            orderBy: {
+              scannedAt: "desc",
+            },
+            distinct: ["employeeId"],
+          });
+
+          // Count how many employees currently have ENTRY as their last activity
+          const currentlyInCount = lastActivities.filter(
+            (activity) => activity.type === "ENTRY",
+          ).length;
+
+          // Check if adding this employee would exceed the limit
+          if (currentlyInCount >= employee.vendor.allowedInCount) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Vendor has reached maximum allowed employees in (${employee.vendor.allowedInCount}). Please ask someone to exit first.`,
+            });
+          }
+        }
+      }
 
       const activity = await ctx.db.activity.create({
         data: {
