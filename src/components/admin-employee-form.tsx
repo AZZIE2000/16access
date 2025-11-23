@@ -297,11 +297,6 @@ export function AdminEmployeeForm({
       return;
     }
 
-    // Validate national ID
-    if (formData.nationalId.length !== 10) {
-      toast.error("National ID must be exactly 10 digits");
-      return;
-    }
 
     // Validate ID card is uploaded
     if (!idCardUrl) {
@@ -343,12 +338,6 @@ export function AdminEmployeeForm({
 
     if (!formData.profilePhotoUrl) {
       toast.error("Please upload a profile photo");
-      return;
-    }
-
-    // Validate national ID
-    if (formData.nationalId.length !== 10) {
-      toast.error("National ID must be exactly 10 digits");
       return;
     }
 
@@ -448,18 +437,12 @@ export function AdminEmployeeForm({
                 id="nationalId"
                 value={formData.nationalId}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  const value = e.target.value;
                   setFormData({ ...formData, nationalId: value });
                 }}
-                placeholder="10-digit National ID"
-                maxLength={10}
+                placeholder="National ID"
                 required
               />
-              {formData.nationalId && formData.nationalId.length !== 10 && (
-                <p className="text-destructive text-sm">
-                  National ID must be exactly 10 digits
-                </p>
-              )}
             </div>
 
             {/* Working Dates */}
