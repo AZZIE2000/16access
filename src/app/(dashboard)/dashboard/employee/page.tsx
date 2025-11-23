@@ -563,7 +563,7 @@ export default function EmployeeManagementPage() {
                                 variant="outline"
                                 className="border-purple-200 bg-purple-50 text-purple-700"
                               >
-                                Manager
+                                Owner
                               </Badge>
                             ) : (
                               <span className="text-muted-foreground">-</span>
@@ -731,7 +731,7 @@ export default function EmployeeManagementPage() {
                                 variant="outline"
                                 className="border-purple-200 bg-purple-50 text-purple-700"
                               >
-                                Manager
+                                Owner
                               </Badge>
                             )}
                           </div>
