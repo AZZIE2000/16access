@@ -121,6 +121,7 @@ export const activityRouter = createTRPCRouter({
           name: coworker.name,
           job: coworker.job,
           status: coworker.status,
+          bypassConcurrentLimit: coworker.bypassConcurrentLimit,
           profilePhoto: coworker.employeeAttachments[0]?.attachment.url,
           lastActivity: coworker.activities[0] ?? null,
         })),
@@ -155,13 +156,15 @@ export const activityRouter = createTRPCRouter({
 
         if (
           employee?.vendor.allowedInCount &&
-          employee.vendor.allowedInCount > 0
+          employee.vendor.allowedInCount > 0 &&
+          !employee.bypassConcurrentLimit // Skip check if employee has bypass flag
         ) {
-          // Get all employees from the same vendor
+          // Get all employees from the same vendor (excluding those with bypass flag)
           const vendorEmployees = await ctx.db.employee.findMany({
             where: {
               vendorId: employee.vendorId,
               deletedAt: null,
+              bypassConcurrentLimit: false, // Only count employees without bypass flag
             },
             select: {
               id: true,

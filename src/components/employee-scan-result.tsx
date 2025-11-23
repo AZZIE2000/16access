@@ -88,6 +88,23 @@ interface Coworker {
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
   profilePhoto?: string;
   lastActivity: Activity | null;
+  bypassConcurrentLimit?: boolean;
+}
+
+interface VendorGate {
+  id: string;
+  gate: {
+    id: string;
+    name: string;
+  };
+}
+
+interface VendorZone {
+  id: string;
+  zone: {
+    id: string;
+    name: string;
+  };
 }
 
 interface EmployeeData {
@@ -97,9 +114,12 @@ interface EmployeeData {
   job: string;
   nationalId: string;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
+  bypassConcurrentLimit?: boolean;
   vendor: {
     name: string;
     allowedInCount: number;
+    gates?: VendorGate[];
+    zones?: VendorZone[];
   };
   gates: EmployeeGate[];
   zones: EmployeeZone[];
@@ -129,8 +149,14 @@ export function EmployeeScanResult({
   isProcessing = false,
   isAdmin = false,
 }: EmployeeScanResultProps) {
+  // Get effective gates and zones (employee's or vendor's if employee has none)
+  const effectiveGates =
+    employee.gates.length > 0 ? employee.gates : (employee.vendor.gates ?? []);
+  const effectiveZones =
+    employee.zones.length > 0 ? employee.zones : (employee.vendor.zones ?? []);
+
   // Check if employee has access to the current gate
-  const hasGateAccess = employee.gates.some(
+  const hasGateAccess = effectiveGates.some(
     (eg) => eg.gate.id === currentGateId,
   );
 
@@ -152,12 +178,16 @@ export function EmployeeScanResult({
 
   // Check if vendor has reached maximum allowed employees in at the same time
   const hasAllowedInLimit = employee.vendor.allowedInCount > 0;
+  // Only count employees without bypass flag when calculating concurrent count
   const currentlyInCount = employee.coworkers
-    ? employee.coworkers.filter((c) => c.lastActivity?.type === "ENTRY")
-        .length + (isCurrentlyInside ? 0 : 1) // Add 1 if current employee is trying to enter
+    ? employee.coworkers.filter(
+        (c) => c.lastActivity?.type === "ENTRY" && !c.bypassConcurrentLimit,
+      ).length + (isCurrentlyInside || employee.bypassConcurrentLimit ? 0 : 1) // Add 1 if current employee is trying to enter and doesn't have bypass
     : 0;
   const isAtMaxCapacity =
-    hasAllowedInLimit && currentlyInCount > employee.vendor.allowedInCount;
+    hasAllowedInLimit &&
+    !employee.bypassConcurrentLimit && // Skip capacity check if employee has bypass flag
+    currentlyInCount > employee.vendor.allowedInCount;
 
   // Determine if access should be granted
   const shouldGrantAccess =
@@ -213,18 +243,28 @@ export function EmployeeScanResult({
               <Briefcase className="h-3 w-3 shrink-0" />
               <span className="truncate">{employee.job}</span>
             </div>
-            <Badge
-              variant={
-                employee.status === "ACTIVE"
-                  ? "success"
-                  : employee.status === "PENDING"
-                    ? "secondary"
-                    : "destructive"
-              }
-              className="text-xs"
-            >
-              {employee.status}
-            </Badge>
+            <div className="flex items-center gap-1.5">
+              <Badge
+                variant={
+                  employee.status === "ACTIVE"
+                    ? "success"
+                    : employee.status === "PENDING"
+                      ? "secondary"
+                      : "destructive"
+                }
+                className="text-xs"
+              >
+                {employee.status}
+              </Badge>
+              {employee.bypassConcurrentLimit && (
+                <Badge
+                  variant="outline"
+                  className="border-purple-200 bg-purple-50 text-xs text-purple-700"
+                >
+                  Manager
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
 
@@ -245,13 +285,18 @@ export function EmployeeScanResult({
               <span className="font-mono">{employee.nationalId}</span>
             </div>
 
-            {employee.gates.length > 0 && (
+            {effectiveGates.length > 0 && (
               <div className="flex items-start gap-1.5 text-xs">
                 <DoorOpen className="text-muted-foreground mt-0.5 h-3 w-3 shrink-0" />
                 <div className="flex-1">
                   <span className="font-medium">Gates:</span>
+                  {employee.gates.length === 0 && (
+                    <span className="text-muted-foreground ml-1 text-[10px]">
+                      (from vendor)
+                    </span>
+                  )}
                   <div className="mt-1 flex flex-wrap gap-1">
-                    {employee.gates.map((eg) => (
+                    {effectiveGates.map((eg) => (
                       <Badge
                         key={eg.id}
                         variant={
@@ -267,13 +312,18 @@ export function EmployeeScanResult({
               </div>
             )}
 
-            {employee.zones.length > 0 && (
+            {effectiveZones.length > 0 && (
               <div className="flex items-start gap-1.5 text-xs">
                 <MapPin className="text-muted-foreground mt-0.5 h-3 w-3 shrink-0" />
                 <div className="flex-1">
                   <span className="font-medium">Zones:</span>
+                  {employee.zones.length === 0 && (
+                    <span className="text-muted-foreground ml-1 text-[10px]">
+                      (from vendor)
+                    </span>
+                  )}
                   <div className="mt-1 flex flex-wrap gap-1">
-                    {employee.zones.map((ez) => (
+                    {effectiveZones.map((ez) => (
                       <Badge
                         key={ez.id}
                         variant="secondary"

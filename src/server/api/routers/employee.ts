@@ -200,8 +200,7 @@ export const employeeRouter = createTRPCRouter({
         token: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        nationalId: z
-          .string(),
+        nationalId: z.string(),
         gateIds: z.array(z.string()).optional(),
         zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -371,8 +370,7 @@ export const employeeRouter = createTRPCRouter({
         token: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        nationalId: z
-          .string(),
+        nationalId: z.string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -821,14 +819,14 @@ export const employeeRouter = createTRPCRouter({
         vendorId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        nationalId: z
-          .string(),
+        nationalId: z.string(),
         gateIds: z.array(z.string()).optional(),
         zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]).default("PENDING"),
         allowedDates: z.array(z.string()).optional(),
+        bypassConcurrentLimit: z.boolean().optional().default(false),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -903,6 +901,7 @@ export const employeeRouter = createTRPCRouter({
           nationalId: input.nationalId,
           vendorId: input.vendorId,
           status: input.status,
+          bypassConcurrentLimit: input.bypassConcurrentLimit,
           gates: input.gateIds
             ? {
                 create: input.gateIds.map((gateId) => ({
@@ -992,14 +991,14 @@ export const employeeRouter = createTRPCRouter({
         vendorId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        nationalId: z
-          .string(),
+        nationalId: z.string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
         idCardUrls: z.array(z.string()).optional().nullable(),
         status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
         allowedDates: z.array(z.string()).optional().nullable(),
+        bypassConcurrentLimit: z.boolean().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1066,6 +1065,7 @@ export const employeeRouter = createTRPCRouter({
           job: input.job,
           nationalId: input.nationalId,
           status: input.status,
+          bypassConcurrentLimit: input.bypassConcurrentLimit,
           gates: input.gateIds
             ? {
                 create: input.gateIds.map((gateId) => ({
@@ -1159,8 +1159,7 @@ export const employeeRouter = createTRPCRouter({
         oldEmployeeId: z.string(),
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
-        nationalId: z
-          .string(),
+        nationalId: z.string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),

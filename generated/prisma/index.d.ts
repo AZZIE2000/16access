@@ -8646,6 +8646,7 @@ export namespace Prisma {
     updatedAt: Date | null
     deletedAt: Date | null
     status: $Enums.EmployeeStatus | null
+    bypassConcurrentLimit: boolean | null
     vendorId: string | null
   }
 
@@ -8660,6 +8661,7 @@ export namespace Prisma {
     updatedAt: Date | null
     deletedAt: Date | null
     status: $Enums.EmployeeStatus | null
+    bypassConcurrentLimit: boolean | null
     vendorId: string | null
   }
 
@@ -8674,6 +8676,7 @@ export namespace Prisma {
     updatedAt: number
     deletedAt: number
     status: number
+    bypassConcurrentLimit: number
     vendorId: number
     _all: number
   }
@@ -8698,6 +8701,7 @@ export namespace Prisma {
     updatedAt?: true
     deletedAt?: true
     status?: true
+    bypassConcurrentLimit?: true
     vendorId?: true
   }
 
@@ -8712,6 +8716,7 @@ export namespace Prisma {
     updatedAt?: true
     deletedAt?: true
     status?: true
+    bypassConcurrentLimit?: true
     vendorId?: true
   }
 
@@ -8726,6 +8731,7 @@ export namespace Prisma {
     updatedAt?: true
     deletedAt?: true
     status?: true
+    bypassConcurrentLimit?: true
     vendorId?: true
     _all?: true
   }
@@ -8827,6 +8833,7 @@ export namespace Prisma {
     updatedAt: Date
     deletedAt: Date | null
     status: $Enums.EmployeeStatus
+    bypassConcurrentLimit: boolean
     vendorId: string
     _count: EmployeeCountAggregateOutputType | null
     _avg: EmployeeAvgAggregateOutputType | null
@@ -8860,6 +8867,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
+    bypassConcurrentLimit?: boolean
     vendorId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     gates?: boolean | Employee$gatesArgs<ExtArgs>
@@ -8884,6 +8892,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
+    bypassConcurrentLimit?: boolean
     vendorId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
@@ -8899,6 +8908,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
+    bypassConcurrentLimit?: boolean
     vendorId?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
@@ -8914,10 +8924,11 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     status?: boolean
+    bypassConcurrentLimit?: boolean
     vendorId?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "identifier" | "name" | "job" | "nationalId" | "version" | "createdAt" | "updatedAt" | "deletedAt" | "status" | "vendorId", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "identifier" | "name" | "job" | "nationalId" | "version" | "createdAt" | "updatedAt" | "deletedAt" | "status" | "bypassConcurrentLimit" | "vendorId", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     gates?: boolean | Employee$gatesArgs<ExtArgs>
@@ -8961,6 +8972,7 @@ export namespace Prisma {
       updatedAt: Date
       deletedAt: Date | null
       status: $Enums.EmployeeStatus
+      bypassConcurrentLimit: boolean
       vendorId: string
     }, ExtArgs["result"]["employee"]>
     composites: {}
@@ -9404,6 +9416,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Employee", 'DateTime'>
     readonly deletedAt: FieldRef<"Employee", 'DateTime'>
     readonly status: FieldRef<"Employee", 'EmployeeStatus'>
+    readonly bypassConcurrentLimit: FieldRef<"Employee", 'Boolean'>
     readonly vendorId: FieldRef<"Employee", 'String'>
   }
     
@@ -23294,6 +23307,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
     status: 'status',
+    bypassConcurrentLimit: 'bypassConcurrentLimit',
     vendorId: 'vendorId'
   };
 
@@ -23999,6 +24013,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFilter<"Employee"> | boolean
     vendorId?: StringFilter<"Employee"> | string
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     gates?: EmployeeGateListRelationFilter
@@ -24022,6 +24037,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     status?: SortOrder
+    bypassConcurrentLimit?: SortOrder
     vendorId?: SortOrder
     vendor?: VendorOrderByWithRelationInput
     gates?: EmployeeGateOrderByRelationAggregateInput
@@ -24049,6 +24065,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFilter<"Employee"> | boolean
     vendorId?: StringFilter<"Employee"> | string
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     gates?: EmployeeGateListRelationFilter
@@ -24072,6 +24089,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     status?: SortOrder
+    bypassConcurrentLimit?: SortOrder
     vendorId?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _avg?: EmployeeAvgOrderByAggregateInput
@@ -24094,6 +24112,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusWithAggregatesFilter<"Employee"> | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolWithAggregatesFilter<"Employee"> | boolean
     vendorId?: StringWithAggregatesFilter<"Employee"> | string
   }
 
@@ -25310,6 +25329,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -25332,6 +25352,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -25354,6 +25375,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -25376,6 +25398,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -25398,6 +25421,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
   }
 
@@ -25412,6 +25436,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type EmployeeUncheckedUpdateManyInput = {
@@ -25425,6 +25450,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -26694,6 +26720,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
+    bypassConcurrentLimit?: SortOrder
     vendorId?: SortOrder
   }
 
@@ -26712,6 +26739,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
+    bypassConcurrentLimit?: SortOrder
     vendorId?: SortOrder
   }
 
@@ -26726,6 +26754,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     status?: SortOrder
+    bypassConcurrentLimit?: SortOrder
     vendorId?: SortOrder
   }
 
@@ -29078,6 +29107,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
@@ -29099,6 +29129,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
@@ -29217,6 +29248,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
     status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFilter<"Employee"> | boolean
     vendorId?: StringFilter<"Employee"> | string
   }
 
@@ -30058,6 +30090,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -30079,6 +30112,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -30116,6 +30150,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -30137,6 +30172,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30158,6 +30194,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -30179,6 +30216,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -30278,6 +30316,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -30299,6 +30338,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30394,6 +30434,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -30415,6 +30456,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -30544,6 +30586,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -30565,6 +30608,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30902,6 +30946,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -30923,6 +30968,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -30991,6 +31037,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -31012,6 +31059,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31070,6 +31118,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -31091,6 +31140,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -31151,6 +31201,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -31172,6 +31223,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31498,6 +31550,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
@@ -31519,6 +31572,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
@@ -31583,6 +31637,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
@@ -31604,6 +31659,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31658,6 +31714,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     activities?: ActivityCreateNestedManyWithoutEmployeeInput
@@ -31679,6 +31736,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     activities?: ActivityUncheckedCreateNestedManyWithoutEmployeeInput
@@ -31741,6 +31799,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
@@ -31762,6 +31821,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31814,6 +31874,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendor: VendorCreateNestedOneWithoutEmployeesInput
     gates?: EmployeeGateCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneCreateNestedManyWithoutEmployeeInput
@@ -31835,6 +31896,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
     vendorId: string
     gates?: EmployeeGateUncheckedCreateNestedManyWithoutEmployeeInput
     zones?: EmployeeZoneUncheckedCreateNestedManyWithoutEmployeeInput
@@ -31872,6 +31934,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneRequiredWithoutEmployeesNestedInput
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
@@ -31893,6 +31956,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     vendorId?: StringFieldUpdateOperationsInput | string
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -32012,6 +32076,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     status?: $Enums.EmployeeStatus
+    bypassConcurrentLimit?: boolean
   }
 
   export type VendorAttachmentCreateManyVendorInput = {
@@ -32044,6 +32109,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     gates?: EmployeeGateUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUpdateManyWithoutEmployeeNestedInput
@@ -32065,6 +32131,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
     gates?: EmployeeGateUncheckedUpdateManyWithoutEmployeeNestedInput
     zones?: EmployeeZoneUncheckedUpdateManyWithoutEmployeeNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -32086,6 +32153,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+    bypassConcurrentLimit?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VendorAttachmentUpdateWithoutVendorInput = {

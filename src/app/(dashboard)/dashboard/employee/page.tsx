@@ -100,6 +100,10 @@ export default function EmployeeManagementPage() {
   // Generate allowed date options
   const allowedDateOptions = generateAllowedDateOptions();
 
+  // Get current user to check if admin
+  const { data: currentUser } = api.user.getCurrentUser.useQuery();
+  const isAdmin = currentUser?.role === "admin";
+
   // Fetch all employees with filters
   const { data: employees = [], refetch } = api.employee.getAllAdmin.useQuery({
     search: search || undefined,
@@ -478,6 +482,7 @@ export default function EmployeeManagementPage() {
                   <TableHead>Gate</TableHead>
                   <TableHead>Zone</TableHead>
                   <TableHead>Status</TableHead>
+                  {isAdmin && <TableHead>Role</TableHead>}
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -551,6 +556,20 @@ export default function EmployeeManagementPage() {
                           )}
                         </TableCell>
                         <TableCell>{getStatusBadge(employee.status)}</TableCell>
+                        {isAdmin && (
+                          <TableCell>
+                            {employee.bypassConcurrentLimit ? (
+                              <Badge
+                                variant="outline"
+                                className="border-purple-200 bg-purple-50 text-purple-700"
+                              >
+                                Manager
+                              </Badge>
+                            ) : (
+                              <span className="text-muted-foreground">-</span>
+                            )}
+                          </TableCell>
+                        )}
                         <TableCell className="text-right">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -705,7 +724,17 @@ export default function EmployeeManagementPage() {
                           <span className="text-muted-foreground text-xs">
                             ID: {employee.identifier.slice(0, 8)}...
                           </span>
-                          {getStatusBadge(employee.status)}
+                          <div className="flex gap-2">
+                            {getStatusBadge(employee.status)}
+                            {isAdmin && employee.bypassConcurrentLimit && (
+                              <Badge
+                                variant="outline"
+                                className="border-purple-200 bg-purple-50 text-purple-700"
+                              >
+                                Manager
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </CardContent>
