@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { api } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Save, User, CreditCard, X, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { UploadButton, useUploadThing } from "@/utils/uploadthing";
@@ -76,6 +77,7 @@ type Employee = {
   nationalId: string;
   version: number;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
+  bypassConcurrentLimit?: boolean;
   gates: EmployeeGate[];
   zones: EmployeeZone[];
   employeeAttachments?: EmployeeAttachment[];
@@ -126,23 +128,51 @@ export function AdminEmployeeForm({
   // Generate allowed date options
   const allowedDateOptions = generateAllowedDateOptions();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    job: "",
-    nationalId: "",
-    gateIds: [] as string[],
-    zoneIds: [] as string[],
-    profilePhotoUrl: "",
-    status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
-    allowedDates: [] as string[],
+  const [formData, setFormData] = useState(() => {
+    // Initialize with employee data if editing, otherwise use defaults
+    if (employee && !isCreate) {
+      const profilePhoto = employee.employeeAttachments?.find(
+        (att) => att.type === "PROFILE_PHOTO",
+      );
+      return {
+        name: employee.name,
+        job: employee.job,
+        nationalId: employee.nationalId,
+        gateIds: employee.gates.map((eg) => eg.gateId),
+        zoneIds: employee.zones.map((ez) => ez.zoneId),
+        profilePhotoUrl: profilePhoto?.attachment.url ?? "",
+        status: employee.status,
+        allowedDates:
+          employee.allowedDates?.map((ad) => {
+            const dateStr = new Date(ad.date).toISOString().split("T")[0];
+            return dateStr!;
+          }) ?? [],
+        bypassConcurrentLimit: employee.bypassConcurrentLimit ?? false,
+      };
+    }
+    // Default for new employee
+    return {
+      name: "",
+      job: "",
+      nationalId: "",
+      gateIds: vendor.gates.map((vg) => vg.gateId),
+      zoneIds: vendor.zones.map((vz) => vz.zoneId),
+      profilePhotoUrl: "",
+      status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
+      allowedDates: [],
+      bypassConcurrentLimit: false,
+    };
   });
-  useEffect(() => {
-    console.log("Vendor object:", vendor);
-    console.log("Vendor gates:", vendor.gates);
-    console.log("Vendor zones:", vendor.zones);
-    console.log("Form data:", formData);
-  }, [vendor, formData]);
-  const [idCardUrl, setIdCardUrl] = useState<string>("");
+
+  const [idCardUrl, setIdCardUrl] = useState<string>(() => {
+    if (employee && !isCreate) {
+      const idCard = employee.employeeAttachments?.find(
+        (att) => att.type === "ID_CARD",
+      );
+      return idCard?.attachment.url ?? "";
+    }
+    return "";
+  });
 
   // Image crop dialog state
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
@@ -195,48 +225,6 @@ export function AdminEmployeeForm({
       console.error(error);
     },
   });
-
-  // Populate form data when employee is loaded or when creating
-  useEffect(() => {
-    if (employee && !isCreate) {
-      // Editing existing employee
-      const profilePhoto = employee.employeeAttachments?.find(
-        (att) => att.type === "PROFILE_PHOTO",
-      );
-      const idCard = employee.employeeAttachments?.find(
-        (att) => att.type === "ID_CARD",
-      );
-
-      setFormData({
-        name: employee.name,
-        job: employee.job,
-        nationalId: employee.nationalId,
-        gateIds: employee.gates.map((eg) => eg.gateId),
-        zoneIds: employee.zones.map((ez) => ez.zoneId),
-        profilePhotoUrl: profilePhoto?.attachment.url ?? "",
-        status: employee.status,
-        allowedDates:
-          employee.allowedDates?.map((ad) => {
-            const dateStr = new Date(ad.date).toISOString().split("T")[0];
-            return dateStr!;
-          }) ?? [],
-      });
-
-      setIdCardUrl(idCard?.attachment.url ?? "");
-    } else {
-      // Creating new employee - set vendor's gates and zones as default
-      setFormData({
-        gateIds: vendor.gates.map((vg) => vg.gateId),
-        name: "",
-        job: "",
-        nationalId: "",
-        zoneIds: vendor.zones.map((vz) => vz.zoneId),
-        profilePhotoUrl: "",
-        status: "ACTIVE" as "PENDING" | "ACTIVE" | "SUSPENDED",
-        allowedDates: [],
-      });
-    }
-  }, [employee, isCreate, vendor, vendor.gates, vendor.zones]);
 
   // Handle profile photo file selection (before upload)
   const handleProfilePhotoSelect = (file: File) => {
@@ -297,7 +285,6 @@ export function AdminEmployeeForm({
       return;
     }
 
-
     // Validate ID card is uploaded
     if (!idCardUrl) {
       toast.error("Please upload the National ID card");
@@ -316,6 +303,7 @@ export function AdminEmployeeForm({
       status: formData.status,
       allowedDates:
         formData.allowedDates.length > 0 ? formData.allowedDates : undefined,
+      bypassConcurrentLimit: formData.bypassConcurrentLimit,
     };
 
     if (isCreate) {
@@ -359,6 +347,7 @@ export function AdminEmployeeForm({
       status: formData.status,
       allowedDates:
         formData.allowedDates.length > 0 ? formData.allowedDates : null,
+      bypassConcurrentLimit: formData.bypassConcurrentLimit,
     };
 
     createVersionMutation.mutate(data);
@@ -508,6 +497,7 @@ export function AdminEmployeeForm({
             <div className="grid gap-2">
               <Label htmlFor="status">Employee Status</Label>
               <Select
+                key={employee?.id ?? "new"}
                 value={formData.status}
                 onValueChange={(value: "PENDING" | "ACTIVE" | "SUSPENDED") =>
                   setFormData({ ...formData, status: value })
@@ -522,6 +512,33 @@ export function AdminEmployeeForm({
                   <SelectItem value="SUSPENDED">Suspended</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            {/* Bypass Concurrent Limit */}
+            <div className="flex items-center space-x-2 rounded-lg border p-4">
+              <Checkbox
+                id="bypassConcurrentLimit"
+                checked={formData.bypassConcurrentLimit}
+                onCheckedChange={(checked) =>
+                  setFormData({
+                    ...formData,
+                    bypassConcurrentLimit: checked === true,
+                  })
+                }
+              />
+              <div className="grid gap-1.5 leading-none">
+                <Label
+                  htmlFor="bypassConcurrentLimit"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Bypass Concurrent Access Limit
+                </Label>
+                <p className="text-muted-foreground text-xs">
+                  Allow this employee to access even when the vendor&apos;s
+                  concurrent limit is reached. They will not be counted towards
+                  the limit.
+                </p>
+              </div>
             </div>
 
             {/* Profile Photo Upload with Crop */}

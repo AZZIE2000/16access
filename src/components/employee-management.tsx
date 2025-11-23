@@ -74,6 +74,7 @@ type Employee = {
   nationalId: string;
   version: number;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
+  bypassConcurrentLimit?: boolean;
   gates: EmployeeGate[];
   zones: EmployeeZone[];
   createdAt: Date;
@@ -184,7 +185,8 @@ export function EmployeeManagement({
     }
   };
 
-  const currentEmployeeCount = vendorData?.employees.filter((e) => !e.deletedAt)?.length ?? 0;
+  const currentEmployeeCount =
+    vendorData?.employees.filter((e) => !e.deletedAt)?.length ?? 0;
 
   return (
     <div className="space-y-6">

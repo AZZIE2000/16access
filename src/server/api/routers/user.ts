@@ -10,6 +10,16 @@ import {
 import { Role } from "../../../../generated/prisma";
 
 export const userRouter = createTRPCRouter({
+  // Get current user session info
+  getCurrentUser: protectedProcedure.query(async ({ ctx }) => {
+    return {
+      id: ctx.session.user.id,
+      name: ctx.session.user.name,
+      email: ctx.session.user.email,
+      role: ctx.session.user.role,
+    };
+  }),
+
   signup: publicProcedure
     .input(
       z.object({

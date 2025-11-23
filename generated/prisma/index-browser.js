@@ -184,6 +184,7 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   status: 'status',
+  bypassConcurrentLimit: 'bypassConcurrentLimit',
   vendorId: 'vendorId'
 };
 
