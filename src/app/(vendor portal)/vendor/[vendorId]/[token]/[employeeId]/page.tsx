@@ -378,7 +378,7 @@ export default function EmployeeFormPage() {
                   id="nationalId"
                   value={formData.nationalId}
                   onChange={(e) => {
-                    const value = e.target.value
+                    const value = e.target.value;
                     setFormData({ ...formData, nationalId: value });
                   }}
                   placeholder="National ID"
@@ -559,8 +559,7 @@ export default function EmployeeFormPage() {
                     createMutation.isPending ||
                     updateMutation.isPending ||
                     !formData.profilePhotoUrl ||
-                    !idCardUrl ||
-                    formData.nationalId.length !== 10
+                    !idCardUrl
                   }
                   className="flex-1"
                 >
