@@ -261,7 +261,7 @@ export function EmployeeScanResult({
                   variant="outline"
                   className="border-purple-200 bg-purple-50 text-xs text-purple-700"
                 >
-                  Manager
+                  Owner
                 </Badge>
               )}
             </div>
