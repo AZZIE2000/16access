@@ -755,22 +755,15 @@ export default function EmployeeManagementPage() {
                 id="edit-nationalId"
                 value={editFormData.nationalId}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  const value = e.target.value;
                   setEditFormData({
                     ...editFormData,
                     nationalId: value,
                   });
                 }}
-                placeholder="10-digit National ID"
-                maxLength={10}
+                placeholder="National ID"
                 required
               />
-              {editFormData.nationalId &&
-                editFormData.nationalId.length !== 10 && (
-                  <p className="text-destructive text-sm">
-                    National ID must be exactly 10 digits
-                  </p>
-                )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="edit-gates">Gates</Label>

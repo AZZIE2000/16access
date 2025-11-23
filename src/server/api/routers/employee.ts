@@ -201,8 +201,7 @@ export const employeeRouter = createTRPCRouter({
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
         nationalId: z
-          .string()
-          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+          .string(),
         gateIds: z.array(z.string()).optional(),
         zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -373,8 +372,7 @@ export const employeeRouter = createTRPCRouter({
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
         nationalId: z
-          .string()
-          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+          .string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -824,8 +822,7 @@ export const employeeRouter = createTRPCRouter({
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
         nationalId: z
-          .string()
-          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+          .string(),
         gateIds: z.array(z.string()).optional(),
         zoneIds: z.array(z.string()).optional(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -996,8 +993,7 @@ export const employeeRouter = createTRPCRouter({
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
         nationalId: z
-          .string()
-          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+          .string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),
@@ -1164,8 +1160,7 @@ export const employeeRouter = createTRPCRouter({
         name: z.string().min(1, "Name is required"),
         job: z.string().min(1, "Job/Role is required"),
         nationalId: z
-          .string()
-          .regex(/^\d{10}$/, "National ID must be exactly 10 digits"),
+          .string(),
         gateIds: z.array(z.string()).optional().nullable(),
         zoneIds: z.array(z.string()).optional().nullable(),
         profilePhotoUrl: z.string().min(1, "Profile photo is required"),

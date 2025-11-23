@@ -212,12 +212,6 @@ export default function EmployeeFormPage() {
       return;
     }
 
-    // Validate national ID is exactly 10 digits
-    if (formData.nationalId.length !== 10) {
-      toast.error("National ID must be exactly 10 digits");
-      return;
-    }
-
     // Use vendor's gates and zones
     const gateIds = vendor?.gates?.map((vg) => vg.gateId) ?? [];
     const zoneIds = vendor?.zones?.map((vz) => vz.zoneId) ?? [];
@@ -384,20 +378,12 @@ export default function EmployeeFormPage() {
                   id="nationalId"
                   value={formData.nationalId}
                   onChange={(e) => {
-                    const value = e.target.value
-                      .replace(/\D/g, "")
-                      .slice(0, 10);
+                    const value = e.target.value;
                     setFormData({ ...formData, nationalId: value });
                   }}
-                  placeholder="10-digit National ID"
-                  maxLength={10}
+                  placeholder="National ID"
                   required
                 />
-                {formData.nationalId && formData.nationalId.length !== 10 && (
-                  <p className="text-destructive text-sm">
-                    National ID must be exactly 10 digits
-                  </p>
-                )}
               </div>
 
               {/* Working Dates */}
@@ -573,8 +559,7 @@ export default function EmployeeFormPage() {
                     createMutation.isPending ||
                     updateMutation.isPending ||
                     !formData.profilePhotoUrl ||
-                    !idCardUrl ||
-                    formData.nationalId.length !== 10
+                    !idCardUrl
                   }
                   className="flex-1"
                 >
