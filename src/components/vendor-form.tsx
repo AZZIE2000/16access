@@ -9,7 +9,15 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { toast } from "sonner";
-import { Copy, RefreshCw } from "lucide-react";
+import { Copy, RefreshCw, RefreshCcw } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type Zone = {
   id: string;
@@ -73,6 +81,7 @@ export function VendorForm({
   });
 
   const [accessToken, setAccessToken] = useState(vendor?.accessToken ?? "");
+  const [showSyncDialog, setShowSyncDialog] = useState(false);
 
   // If not in create mode and no vendor, show error message
   if (!isCreate && !vendor) {
@@ -131,6 +140,19 @@ export function VendorForm({
     },
   });
 
+  // Sync employee access mutation
+  const syncEmployeeAccessMutation = api.vendor.syncEmployeeAccess.useMutation({
+    onSuccess: (data) => {
+      setShowSyncDialog(false);
+      toast.success(data.message);
+      router.refresh();
+    },
+    onError: (error) => {
+      setShowSyncDialog(false);
+      toast.error(error.message);
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -171,6 +193,16 @@ export function VendorForm({
       const portalUrl = `${window.location.origin}/vendor/${vendor.id}/${accessToken}`;
       void navigator.clipboard.writeText(portalUrl);
       toast.success("Vendor portal link copied to clipboard");
+    }
+  };
+
+  const handleSyncEmployeeAccess = () => {
+    if (vendor) {
+      syncEmployeeAccessMutation.mutate({
+        id: vendor.id,
+        gateIds: formData.gateIds,
+        zoneIds: formData.zoneIds,
+      });
     }
   };
 
@@ -301,6 +333,33 @@ export function VendorForm({
               placeholder="Select gates (optional)"
             />
           </div>
+
+          {!isCreate && vendor && (
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="mb-1 font-semibold text-blue-900 dark:text-blue-100">
+                    Sync Employee Access
+                  </h3>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    Apply the vendor&apos;s gates and zones to all employees.
+                    This will override each employee&apos;s current access
+                    settings.
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowSyncDialog(true)}
+                  disabled={syncEmployeeAccessMutation.isPending}
+                  className="shrink-0"
+                >
+                  <RefreshCcw className="mr-2 h-4 w-4" />
+                  Sync All Employees
+                </Button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -314,7 +373,11 @@ export function VendorForm({
               <Label>Portal Link</Label>
               <div className="flex gap-2">
                 <Input
-                  value={`${window.location.origin}/vendor/${vendor.id}/${accessToken}`}
+                  value={
+                    typeof window !== "undefined"
+                      ? `${window.location.origin}/vendor/${vendor.id}/${accessToken}`
+                      : ""
+                  }
                   readOnly
                   className="font-mono text-sm"
                 />
@@ -365,6 +428,74 @@ export function VendorForm({
               : "Update Vendor"}
         </Button>
       </div>
+
+      {/* Sync Employee Access Confirmation Dialog */}
+      <Dialog open={showSyncDialog} onOpenChange={setShowSyncDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sync Employee Access</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to sync all employees&apos; access with this
+              vendor&apos;s gates and zones?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-4">
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
+              <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
+                ⚠️ Warning
+              </p>
+              <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+                This will disregard and lose any employee-specific gate and zone
+                assignments, replacing them all with the vendor&apos;s current
+                access settings.
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-medium">
+                Gates to be applied:{" "}
+                <span className="text-muted-foreground">
+                  {formData.gateIds.length > 0
+                    ? gates
+                        .filter((g) => formData.gateIds.includes(g.id))
+                        .map((g) => g.name)
+                        .join(", ")
+                    : "None"}
+                </span>
+              </p>
+              <p className="text-sm font-medium">
+                Zones to be applied:{" "}
+                <span className="text-muted-foreground">
+                  {formData.zoneIds.length > 0
+                    ? zones
+                        .filter((z) => formData.zoneIds.includes(z.id))
+                        .map((z) => z.name)
+                        .join(", ")
+                    : "None"}
+                </span>
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowSyncDialog(false)}
+              disabled={syncEmployeeAccessMutation.isPending}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              onClick={handleSyncEmployeeAccess}
+              disabled={syncEmployeeAccessMutation.isPending}
+            >
+              {syncEmployeeAccessMutation.isPending
+                ? "Syncing..."
+                : "Confirm Sync"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </form>
   );
 }
