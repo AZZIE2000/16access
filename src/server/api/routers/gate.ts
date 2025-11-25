@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 
 export const gateRouter = createTRPCRouter({
   // Get all gates (excluding soft-deleted)
@@ -20,6 +24,18 @@ export const gateRouter = createTRPCRouter({
             activities: true,
           },
         },
+      },
+    });
+  }),
+
+  // Get all gates (public - no authentication required)
+  getAllPublic: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.gate.findMany({
+      where: {
+        deletedAt: null,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
   }),

@@ -343,4 +343,92 @@ export const vendorRouter = createTRPCRouter({
         message: "Vendor deleted successfully",
       };
     }),
+
+  // Sync all employees' gates and zones with vendor's gates and zones
+  syncEmployeeAccess: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        gateIds: z.array(z.string()),
+        zoneIds: z.array(z.string()),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Fetch vendor with employees
+      const vendor = await ctx.db.vendor.findUnique({
+        where: { id: input.id },
+        include: {
+          employees: {
+            where: {
+              deletedAt: null,
+            },
+          },
+        },
+      });
+
+      if (!vendor || vendor.deletedAt) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Vendor not found",
+        });
+      }
+
+      // Get all employee IDs for this vendor
+      const employeeIds = vendor.employees.map((emp) => emp.id);
+
+      if (employeeIds.length === 0) {
+        return {
+          success: true,
+          count: 0,
+          message: "No employees to sync",
+        };
+      }
+
+      // Delete all existing gate and zone assignments for these employees
+      await ctx.db.employeeGate.deleteMany({
+        where: {
+          employeeId: { in: employeeIds },
+        },
+      });
+
+      await ctx.db.employeeZone.deleteMany({
+        where: {
+          employeeId: { in: employeeIds },
+        },
+      });
+
+      // Create new gate assignments for all employees based on provided gates
+      if (input.gateIds.length > 0) {
+        const gateAssignments = employeeIds.flatMap((employeeId) =>
+          input.gateIds.map((gateId) => ({
+            employeeId,
+            gateId,
+          })),
+        );
+
+        await ctx.db.employeeGate.createMany({
+          data: gateAssignments,
+        });
+      }
+
+      // Create new zone assignments for all employees based on provided zones
+      if (input.zoneIds.length > 0) {
+        const zoneAssignments = employeeIds.flatMap((employeeId) =>
+          input.zoneIds.map((zoneId) => ({
+            employeeId,
+            zoneId,
+          })),
+        );
+
+        await ctx.db.employeeZone.createMany({
+          data: zoneAssignments,
+        });
+      }
+
+      return {
+        success: true,
+        count: employeeIds.length,
+        message: `Successfully synced access for ${employeeIds.length} employee(s)`,
+      };
+    }),
 });
