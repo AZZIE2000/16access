@@ -693,10 +693,16 @@ export const employeeRouter = createTRPCRouter({
           gateId: z.string().optional(),
           zoneId: z.string().optional(),
           status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]).optional(),
+          page: z.number().min(1).default(1),
+          pageSize: z.number().min(1).max(100).default(20),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
+      const page = input?.page ?? 1;
+      const pageSize = 100;
+      const skip = (page - 1) * pageSize;
+
       const where: {
         deletedAt: null;
         vendorId?: string;
@@ -738,6 +744,10 @@ export const employeeRouter = createTRPCRouter({
         ];
       }
 
+      // Get total count for pagination
+      const totalCount = await ctx.db.employee.count({ where });
+
+      // Get paginated employees
       const employees = await ctx.db.employee.findMany({
         where,
         include: {
@@ -766,9 +776,19 @@ export const employeeRouter = createTRPCRouter({
         orderBy: {
           createdAt: "desc",
         },
+        skip,
+        take: pageSize,
       });
 
-      return employees;
+      return {
+        employees,
+        pagination: {
+          page,
+          pageSize,
+          totalCount,
+          totalPages: Math.ceil(totalCount / pageSize),
+        },
+      };
     }),
 
   // Get employee by ID (admin only)

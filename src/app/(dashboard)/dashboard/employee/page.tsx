@@ -61,6 +61,8 @@ import {
   CreditCard,
   Printer,
   Download,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -79,6 +81,8 @@ export default function EmployeeManagementPage() {
   const [vendorFilter, setVendorFilter] = useState<string>("ALL");
   const [gateFilter, setGateFilter] = useState<string>("ALL");
   const [zoneFilter, setZoneFilter] = useState<string>("ALL");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   const [selectedEmployee, setSelectedEmployee] = useState<string | null>(null);
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -104,14 +108,19 @@ export default function EmployeeManagementPage() {
   const { data: currentUser } = api.user.getCurrentUser.useQuery();
   const isAdmin = currentUser?.role === "admin";
 
-  // Fetch all employees with filters
-  const { data: employees = [], refetch } = api.employee.getAllAdmin.useQuery({
+  // Fetch all employees with filters and pagination
+  const { data, refetch } = api.employee.getAllAdmin.useQuery({
     search: search || undefined,
     status: statusFilter === "ALL" ? undefined : statusFilter,
     vendorId: vendorFilter === "ALL" ? undefined : vendorFilter,
     gateId: gateFilter === "ALL" ? undefined : gateFilter,
     zoneId: zoneFilter === "ALL" ? undefined : zoneFilter,
+    page: currentPage,
+    pageSize: pageSize,
   });
+
+  const employees = data?.employees ?? [];
+  const pagination = data?.pagination;
 
   // Fetch all vendors, gates, and zones for filters
   const { data: vendors = [] } = api.vendor.getAll.useQuery();
@@ -306,6 +315,16 @@ export default function EmployeeManagementPage() {
     );
   };
 
+  // Reset to page 1 when filters change
+  const handleFilterChange = (
+    filterSetter: (value: any) => void,
+    value: any,
+  ) => {
+    filterSetter(value);
+    setCurrentPage(1);
+    setSelectedEmployees([]);
+  };
+
   const isAllSelected =
     employees.length > 0 && selectedEmployees.length === employees.length;
 
@@ -366,7 +385,7 @@ export default function EmployeeManagementPage() {
               id="search"
               placeholder="Search by name, job, or vendor..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleFilterChange(setSearch, e.target.value)}
               className="pl-9"
             />
           </div>
@@ -374,7 +393,10 @@ export default function EmployeeManagementPage() {
           <Select
             value={statusFilter}
             onValueChange={(value) =>
-              setStatusFilter(value as EmployeeStatus | "ALL")
+              handleFilterChange(
+                setStatusFilter,
+                value as EmployeeStatus | "ALL",
+              )
             }
           >
             <SelectTrigger className="w-full md:w-40">
@@ -390,7 +412,9 @@ export default function EmployeeManagementPage() {
 
           <Select
             value={vendorFilter}
-            onValueChange={(value) => setVendorFilter(value)}
+            onValueChange={(value) =>
+              handleFilterChange(setVendorFilter, value)
+            }
           >
             <SelectTrigger className="w-full md:w-40">
               <SelectValue placeholder="Vendor" />
@@ -407,7 +431,7 @@ export default function EmployeeManagementPage() {
 
           <Select
             value={gateFilter}
-            onValueChange={(value) => setGateFilter(value)}
+            onValueChange={(value) => handleFilterChange(setGateFilter, value)}
           >
             <SelectTrigger className="w-full md:w-40">
               <SelectValue placeholder="Gate" />
@@ -424,7 +448,7 @@ export default function EmployeeManagementPage() {
 
           <Select
             value={zoneFilter}
-            onValueChange={(value) => setZoneFilter(value)}
+            onValueChange={(value) => handleFilterChange(setZoneFilter, value)}
           >
             <SelectTrigger className="w-full md:w-40">
               <SelectValue placeholder="Zone" />
@@ -461,8 +485,52 @@ export default function EmployeeManagementPage() {
       {/* Results */}
       <Card>
         <CardHeader>
-          <CardTitle>Employees ({employees.length})</CardTitle>
-          <CardDescription>All employees from all vendors</CardDescription>
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div>
+              <CardTitle>Employees ({pagination?.totalCount ?? 0})</CardTitle>
+              <CardDescription>
+                {pagination && (
+                  <>
+                    Showing {(pagination.page - 1) * pagination.pageSize + 1} to{" "}
+                    {Math.min(
+                      pagination.page * pagination.pageSize,
+                      pagination.totalCount,
+                    )}{" "}
+                    of {pagination.totalCount} employees
+                  </>
+                )}
+              </CardDescription>
+            </div>
+            {pagination && pagination.totalPages > 1 && (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </Button>
+                <span className="text-sm">
+                  Page {pagination.page} of {pagination.totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    setCurrentPage((p) =>
+                      Math.min(pagination.totalPages, p + 1),
+                    )
+                  }
+                  disabled={currentPage === pagination.totalPages}
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           <div className="hidden md:block">
