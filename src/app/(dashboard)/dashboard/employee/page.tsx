@@ -65,6 +65,7 @@ import {
   ChevronRight,
   Link2,
   Copy,
+  Check,
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -93,6 +94,10 @@ export default function EmployeeManagementPage() {
   const [bulkPrintDialogOpen, setBulkPrintDialogOpen] = useState(false);
   const [bulkStatusDialogOpen, setBulkStatusDialogOpen] = useState(false);
   const [badgeLinksDialogOpen, setBadgeLinksDialogOpen] = useState(false);
+  const [copyingAll, setCopyingAll] = useState(false);
+  const [copiedButtons, setCopiedButtons] = useState<Record<string, boolean>>(
+    {},
+  );
   const [bulkStatus, setBulkStatus] = useState<EmployeeStatus>("ACTIVE");
   const [editFormData, setEditFormData] = useState({
     name: "",
@@ -1132,7 +1137,8 @@ export default function EmployeeManagementPage() {
                   </div>
                   <Button
                     size="sm"
-                    onClick={() => {
+                    onClick={async () => {
+                      setCopyingAll(true);
                       const selectedEmployeesList = employees.filter((e) =>
                         selectedEmployees.includes(e.id),
                       );
@@ -1142,14 +1148,31 @@ export default function EmployeeManagementPage() {
                             `${emp.name}: ${typeof window !== "undefined" ? window.location.origin : ""}/employee/${emp.id}`,
                         )
                         .join("\n");
-                      navigator.clipboard.writeText(allLinks);
+                      await navigator.clipboard.writeText(allLinks);
                       toast.success(
-                        `Copied ${selectedEmployeesList.length} employee links`,
+                        `Copied ${selectedEmployeesList.length} employee link${selectedEmployeesList.length !== 1 ? "s" : ""}!`,
                       );
+                      // Keep the checkmark visible for 2 seconds
+                      setTimeout(() => {
+                        setCopyingAll(false);
+                      }, 2000);
                     }}
+                    disabled={copyingAll}
+                    className={
+                      copyingAll ? "bg-green-600 hover:bg-green-600" : ""
+                    }
                   >
-                    <Copy className="mr-2 h-4 w-4" />
-                    Copy All
+                    {copyingAll ? (
+                      <>
+                        <Check className="mr-2 h-4 w-4" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="mr-2 h-4 w-4" />
+                        Copy All
+                      </>
+                    )}
                   </Button>
                 </div>
               </CardContent>
@@ -1160,16 +1183,38 @@ export default function EmployeeManagementPage() {
               .filter((e) => selectedEmployees.includes(e.id))
               .map((employee) => {
                 const badgeUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/employee/${employee.id}`;
+                const copyLinkKey = `link-${employee.id}`;
+                const copyNameKey = `name-${employee.id}`;
 
-                const handleCopyLink = () => {
-                  navigator.clipboard.writeText(badgeUrl);
+                const handleCopyLink = async () => {
+                  setCopiedButtons((prev) => ({
+                    ...prev,
+                    [copyLinkKey]: true,
+                  }));
+                  await navigator.clipboard.writeText(badgeUrl);
                   toast.success(`Link copied for ${employee.name}`);
+                  setTimeout(() => {
+                    setCopiedButtons((prev) => ({
+                      ...prev,
+                      [copyLinkKey]: false,
+                    }));
+                  }, 2000);
                 };
 
-                const handleCopyNameWithLink = () => {
+                const handleCopyNameWithLink = async () => {
+                  setCopiedButtons((prev) => ({
+                    ...prev,
+                    [copyNameKey]: true,
+                  }));
                   const textToCopy = `${employee.name}: ${badgeUrl}`;
-                  navigator.clipboard.writeText(textToCopy);
+                  await navigator.clipboard.writeText(textToCopy);
                   toast.success(`Copied name and link for ${employee.name}`);
+                  setTimeout(() => {
+                    setCopiedButtons((prev) => ({
+                      ...prev,
+                      [copyNameKey]: false,
+                    }));
+                  }, 2000);
                 };
 
                 return (
@@ -1192,20 +1237,49 @@ export default function EmployeeManagementPage() {
                           />
                           <Button
                             size="sm"
-                            variant="outline"
+                            variant={
+                              copiedButtons[copyLinkKey] ? "default" : "outline"
+                            }
                             onClick={handleCopyLink}
                             title="Copy link only"
+                            disabled={copiedButtons[copyLinkKey]}
+                            className={
+                              copiedButtons[copyLinkKey]
+                                ? "bg-green-600 hover:bg-green-600"
+                                : ""
+                            }
                           >
-                            <Copy className="h-4 w-4" />
+                            {copiedButtons[copyLinkKey] ? (
+                              <Check className="h-4 w-4" />
+                            ) : (
+                              <Copy className="h-4 w-4" />
+                            )}
                           </Button>
                           <Button
                             size="sm"
-                            variant="outline"
+                            variant={
+                              copiedButtons[copyNameKey] ? "default" : "outline"
+                            }
                             onClick={handleCopyNameWithLink}
                             title="Copy name with link"
+                            disabled={copiedButtons[copyNameKey]}
+                            className={
+                              copiedButtons[copyNameKey]
+                                ? "bg-green-600 hover:bg-green-600"
+                                : ""
+                            }
                           >
-                            <Copy className="mr-1 h-4 w-4" />
-                            Name
+                            {copiedButtons[copyNameKey] ? (
+                              <>
+                                <Check className="mr-1 h-4 w-4" />
+                                Copied
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="mr-1 h-4 w-4" />
+                                Name
+                              </>
+                            )}
                           </Button>
                           <Button
                             size="sm"
