@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Download, LogOut, User, Mail, Shield, Calendar } from "lucide-react";
 import { format } from "date-fns";
@@ -25,17 +31,27 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [isPWAInstalled, setIsPWAInstalled] = useState(false);
   const [canInstallPWA, setCanInstallPWA] = useState(false);
 
   useEffect(() => {
-    // Check if already installed
-    const isInstalled = window.matchMedia("(display-mode: standalone)").matches ||
-                       (window.navigator as any).standalone === true;
+    // Check if already installed (works for both Android and iOS)
+    const isInstalled =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as any).standalone === true ||
+      document.referrer.includes("android-app://");
+
     setIsPWAInstalled(isInstalled);
 
-    // Listen for install prompt
+    // Don't show install prompt if already installed
+    if (isInstalled) {
+      setCanInstallPWA(false);
+      return;
+    }
+
+    // Listen for install prompt (Android/Chrome)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -44,8 +60,21 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
+    // For iOS, check if we should show manual install instructions
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isInStandaloneMode = (window.navigator as any).standalone;
+
+    if (isIOS && !isInStandaloneMode) {
+      // On iOS, we can't programmatically trigger install, but we can show instructions
+      // For now, we won't show the card on iOS since it requires manual Safari steps
+      setCanInstallPWA(false);
+    }
+
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
     };
   }, []);
 
@@ -95,7 +124,11 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
       <div className="mx-auto max-w-2xl space-y-6">
         {/* Header */}
         <div>
-          <h1 className={isMobile ? "text-2xl font-bold" : "text-3xl font-bold"}>Profile</h1>
+          <h1
+            className={isMobile ? "text-2xl font-bold" : "text-3xl font-bold"}
+          >
+            Profile
+          </h1>
           <p className={`text-muted-foreground ${isMobile ? "text-sm" : ""}`}>
             Manage your account settings
           </p>
@@ -104,7 +137,9 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
         {/* User Info Card */}
         <Card>
           <CardHeader>
-            <CardTitle className={isMobile ? "text-lg" : ""}>Account Information</CardTitle>
+            <CardTitle className={isMobile ? "text-lg" : ""}>
+              Account Information
+            </CardTitle>
             <CardDescription className={isMobile ? "text-xs" : ""}>
               Your personal details and role
             </CardDescription>
@@ -119,7 +154,9 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <h2 className={`font-semibold ${isMobile ? "text-lg" : "text-xl"}`}>
+                <h2
+                  className={`font-semibold ${isMobile ? "text-lg" : "text-xl"}`}
+                >
                   {user.name ?? "User"}
                 </h2>
                 <div className="mt-1">
@@ -136,30 +173,48 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
             <div className="space-y-3">
               {user.email && (
                 <div className="flex items-center gap-3">
-                  <Mail className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`} />
+                  <Mail
+                    className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`}
+                  />
                   <div>
-                    <p className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}>
+                    <p
+                      className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}
+                    >
                       Email
                     </p>
-                    <p className={`font-medium ${isMobile ? "text-sm" : ""}`}>{user.email}</p>
+                    <p className={`font-medium ${isMobile ? "text-sm" : ""}`}>
+                      {user.email}
+                    </p>
                   </div>
                 </div>
               )}
 
               <div className="flex items-center gap-3">
-                <User className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`} />
+                <User
+                  className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`}
+                />
                 <div>
-                  <p className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}>
+                  <p
+                    className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}
+                  >
                     User ID
                   </p>
-                  <p className={`font-mono ${isMobile ? "text-xs" : "text-sm"}`}>{user.id}</p>
+                  <p
+                    className={`font-mono ${isMobile ? "text-xs" : "text-sm"}`}
+                  >
+                    {user.id}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <Shield className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`} />
+                <Shield
+                  className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`}
+                />
                 <div>
-                  <p className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}>
+                  <p
+                    className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}
+                  >
                     Role
                   </p>
                   <p className={`font-medium ${isMobile ? "text-sm" : ""}`}>
@@ -170,9 +225,13 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
 
               {user.createdAt && (
                 <div className="flex items-center gap-3">
-                  <Calendar className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`} />
+                  <Calendar
+                    className={`text-muted-foreground ${isMobile ? "h-4 w-4" : "h-5 w-5"}`}
+                  />
                   <div>
-                    <p className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}>
+                    <p
+                      className={`text-muted-foreground ${isMobile ? "text-xs" : "text-sm"}`}
+                    >
                       Member Since
                     </p>
                     <p className={`font-medium ${isMobile ? "text-sm" : ""}`}>
@@ -189,7 +248,9 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
         {!isPWAInstalled && canInstallPWA && (
           <Card>
             <CardHeader>
-              <CardTitle className={isMobile ? "text-lg" : ""}>Install App</CardTitle>
+              <CardTitle className={isMobile ? "text-lg" : ""}>
+                Install App
+              </CardTitle>
               <CardDescription className={isMobile ? "text-xs" : ""}>
                 Install this app on your device for a better experience
               </CardDescription>
@@ -200,7 +261,9 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
                 className="w-full"
                 size={isMobile ? "sm" : "default"}
               >
-                <Download className={`mr-2 ${isMobile ? "h-4 w-4" : "h-5 w-5"}`} />
+                <Download
+                  className={`mr-2 ${isMobile ? "h-4 w-4" : "h-5 w-5"}`}
+                />
                 Install App
               </Button>
             </CardContent>
@@ -210,7 +273,9 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
         {isPWAInstalled && (
           <Card>
             <CardHeader>
-              <CardTitle className={isMobile ? "text-lg" : ""}>App Status</CardTitle>
+              <CardTitle className={isMobile ? "text-lg" : ""}>
+                App Status
+              </CardTitle>
               <CardDescription className={isMobile ? "text-xs" : ""}>
                 This app is installed on your device
               </CardDescription>
@@ -250,4 +315,3 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
     </div>
   );
 }
-

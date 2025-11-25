@@ -128,3 +128,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom styles for html5-qrcode scanner */
+#qr-reader {
+  border: none !important;
+}
+
+#qr-reader video {
+  border-radius: 0 !important;
+  object-fit: cover !important;
+}
+
+#qr-reader__dashboard {
+  display: none !important;
+}
+
+#qr-reader__scan_region {
+  border: none !important;
+}
+
+#qr-reader__camera_selection {
+  display: none !important;
+}
