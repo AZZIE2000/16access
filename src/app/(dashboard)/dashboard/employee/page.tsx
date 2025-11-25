@@ -63,6 +63,8 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
+  Link2,
+  Copy,
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -90,6 +92,7 @@ export default function EmployeeManagementPage() {
   const [accessCardDialogOpen, setAccessCardDialogOpen] = useState(false);
   const [bulkPrintDialogOpen, setBulkPrintDialogOpen] = useState(false);
   const [bulkStatusDialogOpen, setBulkStatusDialogOpen] = useState(false);
+  const [badgeLinksDialogOpen, setBadgeLinksDialogOpen] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<EmployeeStatus>("ACTIVE");
   const [editFormData, setEditFormData] = useState({
     name: "",
@@ -366,6 +369,14 @@ export default function EmployeeManagementPage() {
               >
                 <CheckCircle className="mr-2 h-4 w-4" />
                 Change Status
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setBadgeLinksDialogOpen(true)}
+              >
+                <Link2 className="mr-2 h-4 w-4" />
+                Badge Links
               </Button>
               <Button size="sm" onClick={() => setBulkPrintDialogOpen(true)}>
                 <Printer className="mr-2 h-4 w-4" />
@@ -1090,6 +1101,133 @@ export default function EmployeeManagementPage() {
               {bulkUpdateStatusMutation.isPending
                 ? "Updating..."
                 : "Update Status"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Badge Links Dialog */}
+      <Dialog
+        open={badgeLinksDialogOpen}
+        onOpenChange={setBadgeLinksDialogOpen}
+      >
+        <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Employee Badge Links</DialogTitle>
+            <DialogDescription>
+              Share these public links to display employee badges. Each link
+              shows the employee's badge without requiring authentication.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            {/* Copy All Button */}
+            <Card className="border-primary bg-primary/5">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Copy All Links</p>
+                    <p className="text-muted-foreground text-sm">
+                      Copy all employee names with their badge links
+                    </p>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      const selectedEmployeesList = employees.filter((e) =>
+                        selectedEmployees.includes(e.id),
+                      );
+                      const allLinks = selectedEmployeesList
+                        .map(
+                          (emp) =>
+                            `${emp.name}: ${typeof window !== "undefined" ? window.location.origin : ""}/employee/${emp.id}`,
+                        )
+                        .join("\n");
+                      navigator.clipboard.writeText(allLinks);
+                      toast.success(
+                        `Copied ${selectedEmployeesList.length} employee links`,
+                      );
+                    }}
+                  >
+                    <Copy className="mr-2 h-4 w-4" />
+                    Copy All
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Individual Employee Links */}
+            {employees
+              .filter((e) => selectedEmployees.includes(e.id))
+              .map((employee) => {
+                const badgeUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/employee/${employee.id}`;
+
+                const handleCopyLink = () => {
+                  navigator.clipboard.writeText(badgeUrl);
+                  toast.success(`Link copied for ${employee.name}`);
+                };
+
+                const handleCopyNameWithLink = () => {
+                  const textToCopy = `${employee.name}: ${badgeUrl}`;
+                  navigator.clipboard.writeText(textToCopy);
+                  toast.success(`Copied name and link for ${employee.name}`);
+                };
+
+                return (
+                  <Card key={employee.id}>
+                    <CardContent className="p-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium">{employee.name}</p>
+                            <p className="text-muted-foreground text-sm">
+                              {employee.job} • {employee.vendor.name}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Input
+                            value={badgeUrl}
+                            readOnly
+                            className="flex-1 text-sm"
+                          />
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={handleCopyLink}
+                            title="Copy link only"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={handleCopyNameWithLink}
+                            title="Copy name with link"
+                          >
+                            <Copy className="mr-1 h-4 w-4" />
+                            Name
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => window.open(badgeUrl, "_blank")}
+                            title="Open in new tab"
+                          >
+                            <Link2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+          </div>
+          <div className="flex justify-end">
+            <Button
+              variant="outline"
+              onClick={() => setBadgeLinksDialogOpen(false)}
+            >
+              Close
             </Button>
           </div>
         </DialogContent>

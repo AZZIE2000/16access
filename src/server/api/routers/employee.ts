@@ -832,6 +832,47 @@ export const employeeRouter = createTRPCRouter({
       return employee;
     }),
 
+  // Get employee by ID (public - no authentication required)
+  getByIdPublic: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const employee = await ctx.db.employee.findUnique({
+        where: { id: input.id },
+        include: {
+          gates: {
+            include: {
+              gate: true,
+            },
+          },
+          zones: {
+            include: {
+              zone: true,
+            },
+          },
+          vendor: true,
+          employeeAttachments: {
+            include: {
+              attachment: true,
+            },
+          },
+          allowedDates: {
+            orderBy: {
+              date: "asc",
+            },
+          },
+        },
+      });
+
+      if (!employee || employee.deletedAt) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Employee not found",
+        });
+      }
+
+      return employee;
+    }),
+
   // Create employee (admin only - bypasses staff limit)
   createByAdmin: protectedProcedure
     .input(

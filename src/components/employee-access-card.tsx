@@ -23,11 +23,13 @@ interface EmployeeAccessCardProps {
     }>;
   };
   totalGatesCount?: number;
+  hideActions?: boolean;
 }
 
 export function EmployeeAccessCard({
   employee,
   totalGatesCount,
+  hideActions = false,
 }: EmployeeAccessCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
@@ -262,17 +264,19 @@ export function EmployeeAccessCard({
 
       <div className="space-y-4">
         {/* Action Buttons */}
-        <div className="flex gap-2">
-          <Button
-            onClick={handlePrint}
-            variant="success"
-            disabled={!qrCodeUrl}
-            className="flex-1"
-          >
-            <Printer className="mr-2 h-4 w-4" />
-            Print
-          </Button>
-        </div>
+        {!hideActions && (
+          <div className="flex gap-2">
+            <Button
+              onClick={handlePrint}
+              variant="success"
+              disabled={!qrCodeUrl}
+              className="flex-1"
+            >
+              <Printer className="mr-2 h-4 w-4" />
+              Print
+            </Button>
+          </div>
+        )}
 
         {/* Access Card Preview */}
         <div className="flex justify-center">
