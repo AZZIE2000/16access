@@ -5,12 +5,15 @@ import { EmployeeAccessCard } from "@/components/employee-access-card";
 export default async function PublicEmployeeBadgePage({
   params,
 }: {
-  params: { employeeId: string };
+  params: Promise<{ employeeId: string }>;
 }) {
   try {
+    // Await params in Next.js 15+
+    const { employeeId } = await params;
+
     // Fetch employee data without authentication
     const employee = await api.employee.getByIdPublic({
-      id: params.employeeId,
+      id: employeeId,
     });
 
     // Fetch all gates to determine if employee has access to all gates
