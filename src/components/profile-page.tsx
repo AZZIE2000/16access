@@ -11,7 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Download, LogOut, User, Mail, Shield, Calendar } from "lucide-react";
+import { Download, LogOut, User, Mail, Shield, Calendar, Share, PlusSquare } from "lucide-react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { format } from "date-fns";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -35,6 +44,8 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
     useState<BeforeInstallPromptEvent | null>(null);
   const [isPWAInstalled, setIsPWAInstalled] = useState(false);
   const [canInstallPWA, setCanInstallPWA] = useState(false);
+  const [showIOSInstructions, setShowIOSInstructions] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
     // Check if already installed (works for both Android and iOS)
@@ -61,13 +72,13 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
     // For iOS, check if we should show manual install instructions
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isInStandaloneMode = (window.navigator as any).standalone;
 
-    if (isIOS && !isInStandaloneMode) {
-      // On iOS, we can't programmatically trigger install, but we can show instructions
-      // For now, we won't show the card on iOS since it requires manual Safari steps
-      setCanInstallPWA(false);
+    setIsIOS(isIOSDevice);
+
+    if (isIOSDevice && !isInStandaloneMode) {
+      setCanInstallPWA(true);
     }
 
     return () => {
@@ -79,6 +90,11 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
   }, []);
 
   const handleInstallPWA = async () => {
+    if (isIOS) {
+      setShowIOSInstructions(true);
+      return;
+    }
+
     if (!deferredPrompt) return;
 
     await deferredPrompt.prompt();
@@ -312,6 +328,36 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
           </CardContent>
         </Card>
       </div>
+
+      <Drawer open={showIOSInstructions} onOpenChange={setShowIOSInstructions}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Install App</DrawerTitle>
+            <DrawerDescription>
+              Install this application on your home screen for quick access and a better experience.
+            </DrawerDescription>
+          </DrawerHeader>
+          <div className="p-4 flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <Share className="h-6 w-6 text-blue-500" />
+              <p className="text-sm">
+                1. Tap the <strong>Share</strong> button in the menu bar.
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <PlusSquare className="h-6 w-6 text-gray-600" />
+              <p className="text-sm">
+                2. Scroll down and tap <strong>Add to Home Screen</strong>.
+              </p>
+            </div>
+          </div>
+          <DrawerFooter>
+            <DrawerClose asChild>
+              <Button variant="outline">Close</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 }
