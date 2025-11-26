@@ -196,8 +196,8 @@ Thank you!`;
         </Button>
       </div>
 
-      <Card>
-        <CardHeader>
+      <Card className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <CardHeader className="shrink-0">
           <div className="flex items-center justify-between">
             <CardTitle>All Vendors</CardTitle>
             <div className="w-full max-w-sm">
@@ -212,7 +212,7 @@ Thank you!`;
         </CardHeader>
         <CardContent className="flex-1 min-h-0 overflow-x-hidden p-0">
           {/* Mobile Card View */}
-          <div className="space-y-3 md:hidden">
+          <div className="space-y-3 md:hidden p-6 overflow-auto h-full">
             {filteredVendors?.map((vendor) => (
               <Card key={vendor.id} className="p-4">
                 <div className="space-y-3">
@@ -311,22 +311,22 @@ Thank you!`;
           {/* Desktop Table View */}
           <div className="hidden md:block relative max-h-[calc(100vh-20rem)] overflow-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-0 z-30 bg-background">
                 <TableRow>
-                  <TableHead>Name</TableHead>
+                  <TableHead className="sticky left-0 z-20 bg-background">Name</TableHead>
                   <TableHead>Description</TableHead>
                   <TableHead>Phone</TableHead>
                   <TableHead>Zone</TableHead>
                   <TableHead>Gate</TableHead>
                   <TableHead>Allowed Staff</TableHead>
                   <TableHead>Employees</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredVendors?.map((vendor) => (
                   <TableRow key={vendor.id}>
-                    <TableCell className="font-medium">{vendor.name}</TableCell>
+                    <TableCell className="font-medium sticky left-0 z-20 bg-background">{vendor.name}</TableCell>
                     <TableCell>{vendor.description ?? "-"}</TableCell>
                     <TableCell>{vendor.phoneNumber ?? "-"}</TableCell>
                     <TableCell>
@@ -341,7 +341,7 @@ Thank you!`;
                     </TableCell>
                     <TableCell>{vendor.allowedStaffCount}</TableCell>
                     <TableCell>{vendor._count.employees}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="outline"
@@ -448,9 +448,9 @@ Thank you!`;
                   value={
                     selectedVendor
                       ? getWhatsAppMessage(
-                          selectedVendor.name,
-                          `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`,
-                        )
+                        selectedVendor.name,
+                        `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`,
+                      )
                       : ""
                   }
                   readOnly
