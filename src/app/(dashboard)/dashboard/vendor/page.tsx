@@ -182,8 +182,8 @@ Thank you!`;
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6 h-full overflow-hidden">
+      <div className="flex items-center justify-between shrink-0">
         <div>
           <h1 className="text-3xl font-bold">Vendors</h1>
           <p className="text-muted-foreground">
@@ -196,8 +196,8 @@ Thank you!`;
         </Button>
       </div>
 
-      <Card>
-        <CardHeader>
+      <Card className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <CardHeader className="shrink-0">
           <div className="flex items-center justify-between">
             <CardTitle>All Vendors</CardTitle>
             <div className="w-full max-w-sm">
@@ -210,9 +210,9 @@ Thank you!`;
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1 min-h-0 overflow-hidden p-0">
           {/* Mobile Card View */}
-          <div className="space-y-3 md:hidden">
+          <div className="space-y-3 md:hidden p-6 overflow-auto h-full">
             {filteredVendors?.map((vendor) => (
               <Card key={vendor.id} className="p-4">
                 <div className="space-y-3">
@@ -309,11 +309,11 @@ Thank you!`;
           </div>
 
           {/* Desktop Table View */}
-          <div className="hidden md:block">
+          <div className="hidden md:block relative h-full overflow-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-0 z-30 bg-background">
                 <TableRow>
-                  <TableHead>Name</TableHead>
+                  <TableHead className="sticky left-0 z-20 bg-background">Name</TableHead>
                   <TableHead>Description</TableHead>
                   <TableHead>Phone</TableHead>
                   <TableHead>Zone</TableHead>
@@ -326,7 +326,7 @@ Thank you!`;
               <TableBody>
                 {filteredVendors?.map((vendor) => (
                   <TableRow key={vendor.id}>
-                    <TableCell className="font-medium">{vendor.name}</TableCell>
+                    <TableCell className="font-medium sticky left-0 z-20 bg-background">{vendor.name}</TableCell>
                     <TableCell>{vendor.description ?? "-"}</TableCell>
                     <TableCell>{vendor.phoneNumber ?? "-"}</TableCell>
                     <TableCell>
@@ -448,9 +448,9 @@ Thank you!`;
                   value={
                     selectedVendor
                       ? getWhatsAppMessage(
-                          selectedVendor.name,
-                          `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`,
-                        )
+                        selectedVendor.name,
+                        `${window.location.origin}/vendor/${selectedVendor.id}/${selectedVendor.accessToken}`,
+                      )
                       : ""
                   }
                   readOnly

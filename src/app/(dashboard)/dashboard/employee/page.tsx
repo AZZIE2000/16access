@@ -337,8 +337,8 @@ export default function EmployeeManagementPage() {
     employees.length > 0 && selectedEmployees.length === employees.length;
 
   return (
-    <div className="space-y-6 p-3 md:p-6">
-      <div>
+    <div className="space-y-6 p-3 md:p-6 h-full flex flex-col overflow-hidden">
+      <div className="shrink-0">
         <h1 className="text-3xl font-bold">Employee Management</h1>
         <p className="text-muted-foreground">
           View and manage all employees across all vendors
@@ -347,7 +347,7 @@ export default function EmployeeManagementPage() {
 
       {/* Selection Actions */}
       {selectedEmployees.length > 0 && (
-        <Card className="border-primary bg-primary/5">
+        <Card className="border-primary bg-primary/5 shrink-0">
           <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2">
               <Checkbox
@@ -393,7 +393,7 @@ export default function EmployeeManagementPage() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 shrink-0">
         <div className="flex flex-col gap-3 md:flex-row">
           <div className="relative flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
@@ -499,8 +499,8 @@ export default function EmployeeManagementPage() {
       </div>
 
       {/* Results */}
-      <Card>
-        <CardHeader>
+      <Card className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <CardHeader className="shrink-0">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle>Employees ({pagination?.totalCount ?? 0})</CardTitle>
@@ -548,19 +548,19 @@ export default function EmployeeManagementPage() {
             )}
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="hidden md:block">
+        <CardContent className="flex-1 min-h-0 overflow-hidden p-0">
+          <div className="hidden md:block relative h-full overflow-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-0 z-30 bg-background">
                 <TableRow>
-                  <TableHead className="w-12">
+                  <TableHead className="w-12 sticky left-0 z-20 bg-background">
                     <Checkbox
                       checked={isAllSelected}
                       onCheckedChange={handleSelectAll}
                       aria-label="Select all employees"
                     />
                   </TableHead>
-                  <TableHead>Employee</TableHead>
+                  <TableHead className="sticky left-12 z-20 bg-background">Employee</TableHead>
                   <TableHead>Job Title</TableHead>
                   <TableHead>Vendor</TableHead>
                   <TableHead>Gate</TableHead>
@@ -585,7 +585,7 @@ export default function EmployeeManagementPage() {
                     const isSelected = selectedEmployees.includes(employee.id);
                     return (
                       <TableRow key={employee.id}>
-                        <TableCell>
+                        <TableCell className="sticky left-0 z-20 bg-background">
                           <Checkbox
                             checked={isSelected}
                             onCheckedChange={(checked) =>
@@ -597,7 +597,7 @@ export default function EmployeeManagementPage() {
                             aria-label={`Select ${employee.name}`}
                           />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="sticky left-12 z-20 bg-background">
                           <div className="flex items-center gap-3">
                             <Avatar>
                               <AvatarImage
@@ -698,7 +698,7 @@ export default function EmployeeManagementPage() {
           </div>
 
           {/* Mobile Card View */}
-          <div className="space-y-4 md:hidden">
+          <div className="space-y-4 md:hidden p-4 overflow-auto h-full">
             {employees.length === 0 ? (
               <div className="text-muted-foreground text-center">
                 No employees found
