@@ -19,7 +19,7 @@ export default async function RootLayout({
   }
 
   return (
-    <div className="h-full ">
+    <div className="h-svh overflow-hidden">
       <SidebarProvider
         style={
           {
@@ -29,10 +29,11 @@ export default async function RootLayout({
         }
       >
         <AppSidebar variant="inset" />
-        <SidebarInset>
+        <SidebarInset className="h-full overflow-hidden flex flex-col">
           <SiteHeader />
-
-          {children}
+          <div className="flex-1 overflow-hidden">
+            {children}
+          </div>
         </SidebarInset>
       </SidebarProvider>
       <AdminNavigation />
