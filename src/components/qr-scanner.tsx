@@ -6,6 +6,8 @@ import { Camera, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Html5Qrcode } from "html5-qrcode";
 
+import { Button } from "@/components/ui/button";
+
 interface QRScannerProps {
   onScan: (data: string) => void;
   onError?: (error: Error) => void;
@@ -42,6 +44,7 @@ export function QRScanner({
 
     setIsLoading(true);
 
+
     try {
       // Initialize scanner
       const scanner = new Html5Qrcode("qr-reader");
@@ -52,7 +55,6 @@ export function QRScanner({
         { facingMode: "environment" }, // Use back camera on mobile
         {
           fps: 10, // Frames per second to scan
-          qrbox: { width: 250, height: 250 }, // Scanning box size
           aspectRatio: 1.0,
         },
         (decodedText) => {
@@ -112,16 +114,12 @@ export function QRScanner({
         <div
           id="qr-reader"
           className="h-full w-full"
-          style={{ display: isScanning ? "block" : "none" }}
         />
 
         {!isScanning && !isLoading && (
           <div className="flex h-full w-full items-center justify-center">
             <div className="text-center">
               <Camera className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
-              <p className="text-muted-foreground text-sm">
-                Camera is not active
-              </p>
             </div>
           </div>
         )}
