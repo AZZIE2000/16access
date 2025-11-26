@@ -345,7 +345,7 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <PlusSquare className="h-6 w-6 text-gray-600" />
+              <PlusSquare className="h-6 w-6 text-gray-600 s" />
               <p className="text-sm">
                 2. Scroll down and tap <strong>Add to Home Screen</strong>.
               </p>
