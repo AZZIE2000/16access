@@ -29,7 +29,7 @@ export default async function RootLayout({
         }
       >
         <AppSidebar variant="inset" />
-        <SidebarInset>
+        <SidebarInset className="h-full overflow-hidden flex flex-col">
           <SiteHeader />
           <div className="flex-1 overflow-x-hidden">
             {children}
