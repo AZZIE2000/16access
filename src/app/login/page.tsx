@@ -212,7 +212,7 @@ function LoginForm() {
   // Step 1: Username input
   if (step === "username") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c]">
         <div className="w-full max-w-md space-y-8 rounded-xl bg-white/10 p-8 shadow-2xl backdrop-blur-sm">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
@@ -285,7 +285,7 @@ function LoginForm() {
   // Step 2: Password input
   if (step === "password") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c]">
         <div className="w-full max-w-md space-y-8 rounded-xl bg-white/10 p-8 shadow-2xl backdrop-blur-sm">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
@@ -350,7 +350,7 @@ function LoginForm() {
 
   // Step 3: Password setup
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c]">
       <div className="w-full max-w-md space-y-8 rounded-xl bg-white/10 p-8 shadow-2xl backdrop-blur-sm">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
@@ -426,7 +426,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c]">
           <div className="text-white">Loading...</div>
         </div>
       }
