@@ -567,7 +567,7 @@ export default function EmployeeManagementPage() {
                   <TableHead>Zone</TableHead>
                   <TableHead>Status</TableHead>
                   {isAdmin && <TableHead>Role</TableHead>}
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -654,7 +654,7 @@ export default function EmployeeManagementPage() {
                             )}
                           </TableCell>
                         )}
-                        <TableCell className="text-right">
+                        <TableCell className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="sm">

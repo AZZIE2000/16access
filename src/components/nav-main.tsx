@@ -45,10 +45,18 @@ export function NavMain({
         </SidebarMenu>
         <SidebarMenu>
           {items.map((item) => {
-            const isActive = pathname === item.url || pathname.startsWith(`${item.url}/`);
+            const isActive =
+              item.url === "/dashboard"
+                ? pathname === "/dashboard"
+                : pathname.startsWith(item.url);
             return (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild tooltip={item.title} isActive={isActive}>
+                <SidebarMenuButton
+                  asChild
+                  tooltip={item.title}
+                  isActive={isActive}
+                  className="data-[active=true]:bg-zinc-200 dark:data-[active=true]:bg-zinc-700"
+                >
                   <Link href={item.url}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>

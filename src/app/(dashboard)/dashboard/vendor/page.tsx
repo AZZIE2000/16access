@@ -320,7 +320,7 @@ Thank you!`;
                   <TableHead>Gate</TableHead>
                   <TableHead>Allowed Staff</TableHead>
                   <TableHead>Employees</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -341,7 +341,7 @@ Thank you!`;
                     </TableCell>
                     <TableCell>{vendor.allowedStaffCount}</TableCell>
                     <TableCell>{vendor._count.employees}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="outline"
