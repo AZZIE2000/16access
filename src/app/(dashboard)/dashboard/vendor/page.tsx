@@ -182,8 +182,8 @@ Thank you!`;
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6 h-full overflow-x-hidden">
+      <div className="flex items-center justify-between shrink-0">
         <div>
           <h1 className="text-3xl font-bold">Vendors</h1>
           <p className="text-muted-foreground">
@@ -210,7 +210,7 @@ Thank you!`;
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1 min-h-0 overflow-x-hidden p-0">
           {/* Mobile Card View */}
           <div className="space-y-3 md:hidden">
             {filteredVendors?.map((vendor) => (
@@ -309,7 +309,7 @@ Thank you!`;
           </div>
 
           {/* Desktop Table View */}
-          <div className="hidden md:block">
+          <div className="hidden md:block relative max-h-[calc(100vh-20rem)] overflow-auto">
             <Table>
               <TableHeader>
                 <TableRow>

@@ -548,8 +548,8 @@ export default function EmployeeManagementPage() {
             )}
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="hidden md:block">
+        <CardContent className="flex-1 min-h-0 overflow-x-hidden p-0">
+          <div className="hidden md:block relative max-h-[calc(100vh-30rem)] overflow-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -560,7 +560,7 @@ export default function EmployeeManagementPage() {
                       aria-label="Select all employees"
                     />
                   </TableHead>
-                  <TableHead>Employee</TableHead>
+                  <TableHead className="sticky left-1 z-20 bg-background">Employee</TableHead>
                   <TableHead>Job Title</TableHead>
                   <TableHead>Vendor</TableHead>
                   <TableHead>Gate</TableHead>
@@ -597,7 +597,7 @@ export default function EmployeeManagementPage() {
                             aria-label={`Select ${employee.name}`}
                           />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="sticky left-1 z-20 bg-background">
                           <div className="flex items-center gap-3">
                             <Avatar>
                               <AvatarImage
