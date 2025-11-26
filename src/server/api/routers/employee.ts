@@ -684,6 +684,42 @@ export const employeeRouter = createTRPCRouter({
   // ==================== ADMIN PROCEDURES ====================
 
   // Get all employees (admin only)
+  getStatistics: protectedProcedure.query(async ({ ctx }) => {
+    // Count active employees (not deleted)
+    const activeCount = await ctx.db.employee.count({
+      where: {
+        deletedAt: null,
+        status: "ACTIVE",
+      },
+    });
+
+    // Count pending employees (not deleted)
+    const pendingCount = await ctx.db.employee.count({
+      where: {
+        deletedAt: null,
+        status: "PENDING",
+      },
+    });
+
+    // Count suspended employees (not deleted)
+    const suspendedCount = await ctx.db.employee.count({
+      where: {
+        deletedAt: null,
+        status: "SUSPENDED",
+      },
+    });
+
+    // Total non-deleted employees
+    const totalCount = activeCount + pendingCount + suspendedCount;
+
+    return {
+      active: activeCount,
+      pending: pendingCount,
+      suspended: suspendedCount,
+      total: totalCount,
+    };
+  }),
+
   getAllAdmin: protectedProcedure
     .input(
       z

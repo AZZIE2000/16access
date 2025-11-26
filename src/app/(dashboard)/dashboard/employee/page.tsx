@@ -130,6 +130,9 @@ export default function EmployeeManagementPage() {
   const employees = data?.employees ?? [];
   const pagination = data?.pagination;
 
+  // Fetch employee statistics
+  const { data: statistics } = api.employee.getStatistics.useQuery();
+
   // Fetch all vendors, gates, and zones for filters
   const { data: vendors = [] } = api.vendor.getAll.useQuery();
   const { data: gates = [] } = api.gate.getAll.useQuery();
@@ -337,7 +340,7 @@ export default function EmployeeManagementPage() {
     employees.length > 0 && selectedEmployees.length === employees.length;
 
   return (
-    <div className="space-y-6 p-3 md:p-6 h-full flex flex-col overflow-hidden">
+    <div className="flex h-full flex-col space-y-6 overflow-hidden p-3 md:p-6">
       <div className="shrink-0">
         <h1 className="text-3xl font-bold">Employee Management</h1>
         <p className="text-muted-foreground">
@@ -393,7 +396,7 @@ export default function EmployeeManagementPage() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col gap-3 shrink-0">
+      <div className="flex shrink-0 flex-col gap-3">
         <div className="flex flex-col gap-3 md:flex-row">
           <div className="relative flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
@@ -498,8 +501,39 @@ export default function EmployeeManagementPage() {
         </div>
       </div>
 
+      {/* Statistics */}
+      {statistics && (
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground">Total:</span>
+            <span className="font-medium">{statistics.total}</span>
+          </div>
+          <div className="bg-border h-4 w-px" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground">Active:</span>
+            <span className="font-medium text-green-600">
+              {statistics.active}
+            </span>
+          </div>
+          <div className="bg-border h-4 w-px" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground">Pending:</span>
+            <span className="font-medium text-yellow-600">
+              {statistics.pending}
+            </span>
+          </div>
+          <div className="bg-border h-4 w-px" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground">Suspended:</span>
+            <span className="font-medium text-orange-600">
+              {statistics.suspended}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Results */}
-      <Card className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <Card className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <CardHeader className="shrink-0">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div>
@@ -548,26 +582,30 @@ export default function EmployeeManagementPage() {
             )}
           </div>
         </CardHeader>
-        <CardContent className="flex-1 min-h-0 overflow-x-hidden p-0">
-          <div className="hidden md:block relative max-h-[calc(100vh-30rem)] overflow-auto">
+        <CardContent className="min-h-0 flex-1 overflow-x-hidden p-0">
+          <div className="relative hidden max-h-[calc(100vh-30rem)] overflow-auto md:block">
             <Table>
-              <TableHeader className="sticky top-0 z-30 bg-background">
+              <TableHeader className="bg-background sticky top-0 z-30">
                 <TableRow>
-                  <TableHead className="w-12 sticky left-0 z-20 bg-background">
+                  <TableHead className="bg-background sticky left-0 z-20 w-12">
                     <Checkbox
                       checked={isAllSelected}
                       onCheckedChange={handleSelectAll}
                       aria-label="Select all employees"
                     />
                   </TableHead>
-                  <TableHead className="sticky left-1 z-20 bg-background">Employee</TableHead>
+                  <TableHead className="bg-background sticky left-1 z-20">
+                    Employee
+                  </TableHead>
                   <TableHead>Job Title</TableHead>
                   <TableHead>Vendor</TableHead>
                   <TableHead>Gate</TableHead>
                   <TableHead>Zone</TableHead>
                   <TableHead>Status</TableHead>
                   {isAdmin && <TableHead>Role</TableHead>}
-                  <TableHead className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">Actions</TableHead>
+                  <TableHead className="bg-background sticky right-0 z-20 text-right shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
+                    Actions
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -585,7 +623,7 @@ export default function EmployeeManagementPage() {
                     const isSelected = selectedEmployees.includes(employee.id);
                     return (
                       <TableRow key={employee.id}>
-                        <TableCell className="sticky left-0 z-20 bg-background">
+                        <TableCell className="bg-background sticky left-0 z-20">
                           <Checkbox
                             checked={isSelected}
                             onCheckedChange={(checked) =>
@@ -597,7 +635,7 @@ export default function EmployeeManagementPage() {
                             aria-label={`Select ${employee.name}`}
                           />
                         </TableCell>
-                        <TableCell className="sticky left-1 z-20 bg-background">
+                        <TableCell className="bg-background sticky left-1 z-20">
                           <div className="flex items-center gap-3">
                             <Avatar>
                               <AvatarImage
@@ -654,7 +692,7 @@ export default function EmployeeManagementPage() {
                             )}
                           </TableCell>
                         )}
-                        <TableCell className="text-right sticky right-0 z-20 bg-background shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
+                        <TableCell className="bg-background sticky right-0 z-20 text-right shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="sm">
@@ -698,7 +736,7 @@ export default function EmployeeManagementPage() {
           </div>
 
           {/* Mobile Card View */}
-          <div className="space-y-4 md:hidden p-4 overflow-auto h-full">
+          <div className="h-full space-y-4 overflow-auto p-4 md:hidden">
             {employees.length === 0 ? (
               <div className="text-muted-foreground text-center">
                 No employees found
