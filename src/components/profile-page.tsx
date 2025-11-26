@@ -48,10 +48,16 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // For iOS, check first before other detection
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isInStandaloneMode = (window.navigator as any).standalone;
+
+    setIsIOS(isIOSDevice);
+
     // Check if already installed (works for both Android and iOS)
     const isInstalled =
       window.matchMedia("(display-mode: standalone)").matches ||
-      (window.navigator as any).standalone === true ||
+      isInStandaloneMode === true ||
       document.referrer.includes("android-app://");
 
     setIsPWAInstalled(isInstalled);
@@ -71,12 +77,7 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
-    // For iOS, check if we should show manual install instructions
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isInStandaloneMode = (window.navigator as any).standalone;
-
-    setIsIOS(isIOSDevice);
-
+    // For iOS, show install button if not in standalone mode
     if (isIOSDevice && !isInStandaloneMode) {
       setCanInstallPWA(true);
     }
@@ -345,7 +346,7 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <PlusSquare className="h-6 w-6 text-gray-600 s" />
+              <PlusSquare className="h-6 w-6 text-gray-600" />
               <p className="text-sm">
                 2. Scroll down and tap <strong>Add to Home Screen</strong>.
               </p>
