@@ -22,8 +22,14 @@ export function QRScanner({
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const scannedCodesRef = useRef<Set<string>>(new Set());
   const lastScanTimeRef = useRef<number>(0);
+  const onScanRef = useRef<((data: string) => void) | null>(null);
+
+  // Always keep a ref to the latest onScan callback so the scanner
+  // doesn't hold on to a stale version between renders
+  useEffect(() => {
+    onScanRef.current = onScan;
+  }, [onScan]);
 
   // Auto-start camera if autoStart is true
   useEffect(() => {
@@ -44,7 +50,6 @@ export function QRScanner({
 
     setIsLoading(true);
 
-
     try {
       // Initialize scanner
       const scanner = new Html5Qrcode("qr-reader");
@@ -64,7 +69,9 @@ export function QRScanner({
           // Debounce: only process if 1 second has passed since last scan
           if (now - lastScanTimeRef.current > 1000) {
             lastScanTimeRef.current = now;
-            onScan(decodedText);
+            if (onScanRef.current) {
+              onScanRef.current(decodedText);
+            }
           }
         },
         (errorMessage) => {
@@ -111,10 +118,7 @@ export function QRScanner({
     <Card className="overflow-hidden">
       <div className="relative w-full bg-black" style={{ height: "300px" }}>
         {/* QR Reader container - html5-qrcode will render the video here */}
-        <div
-          id="qr-reader"
-          className="h-full w-full"
-        />
+        <div id="qr-reader" className="h-full w-full" />
 
         {!isScanning && !isLoading && (
           <div className="flex h-full w-full items-center justify-center">
