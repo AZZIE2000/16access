@@ -36,6 +36,7 @@ export function ScanInterface({
 }: ScanInterfaceProps) {
   const [selectedGateId, setSelectedGateId] = useState<string>("");
   const [scannedEmployee, setScannedEmployee] = useState<any>(null);
+  const [shouldShowScanner, setShouldShowScanner] = useState(true);
 
   // Fetch gates
   const { data: gates, isLoading: gatesLoading } = api.gate.getAll.useQuery();
@@ -44,6 +45,8 @@ export function ScanInterface({
   const getEmployeeMutation = api.activity.getEmployeeByQRCode.useMutation({
     onSuccess: (data) => {
       setScannedEmployee(data);
+      // Hide scanner when employee is scanned to prevent camera from running in background
+      setShouldShowScanner(false);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -54,8 +57,12 @@ export function ScanInterface({
   const recordActivityMutation = api.activity.recordActivity.useMutation({
     onSuccess: () => {
       toast.success("Activity recorded successfully!");
-      // Auto-reset to allow scanning another employee
+      // Reset employee and show scanner again
       setScannedEmployee(null);
+      // Small delay before showing scanner to prevent immediate camera restart on mobile
+      setTimeout(() => {
+        setShouldShowScanner(true);
+      }, 300);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -136,7 +143,7 @@ export function ScanInterface({
       </div>
 
       {/* QR Scanner - Auto-start when gate is selected and no employee is scanned */}
-      {!scannedEmployee && selectedGateId && (
+      {!scannedEmployee && selectedGateId && shouldShowScanner && (
         <div>
           <QRScanner onScan={handleScan} autoStart={true} />
         </div>
