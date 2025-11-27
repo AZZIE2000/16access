@@ -339,8 +339,10 @@ export function EmployeeManagement({
 
                       <div className="flex flex-wrap gap-2">
                         <Badge variant="outline">v{employee.version}</Badge>
-                        {employee.status === "ACTIVE" ? (
-                          <Badge variant="default">Active</Badge>
+                        {employee.deletedAt ? (
+                          <Badge>Deleted</Badge>
+                        ) : employee.status === "ACTIVE" ? (
+                          <Badge variant="success">Active</Badge>
                         ) : employee.status === "SUSPENDED" ? (
                           <Badge variant="destructive">Suspended</Badge>
                         ) : (
