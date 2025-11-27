@@ -115,6 +115,7 @@ interface EmployeeData {
   nationalId: string;
   status: "PENDING" | "ACTIVE" | "SUSPENDED";
   bypassConcurrentLimit?: boolean;
+  vendorId: string;
   vendor: {
     name: string;
     allowedInCount: number;
@@ -644,7 +645,9 @@ export function EmployeeScanResult({
           )}
 
           {isAdmin && (
-            <Link href={`/dashboard/employee`}>
+            <Link
+              href={`/dashboard/vendor/${employee.vendorId}/employees/${employee.id}`}
+            >
               <Button variant="outline" className="w-full gap-2" size="sm">
                 <Edit className="h-4 w-4" />
                 Edit Employee
