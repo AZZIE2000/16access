@@ -32,7 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Plus, Pencil, Trash2, Users, MoreVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, Users, MoreVertical, Undo2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -153,6 +153,17 @@ export function EmployeeManagement({
     },
   });
 
+  // Undelete mutation
+  const undeleteMutation = api.employee.undeleteByAdmin.useMutation({
+    onSuccess: () => {
+      toast.success("Employee restored successfully");
+      void refetch();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   // Bulk activate mutation
   const bulkActivateMutation = api.employee.bulkActivatePending.useMutation({
     onSuccess: (data) => {
@@ -172,6 +183,12 @@ export function EmployeeManagement({
     ) {
       setDeletingId(id);
       deleteMutation.mutate({ id });
+    }
+  };
+
+  const handleUndelete = (id: string, name: string) => {
+    if (confirm(`Are you sure you want to restore ${name}?`)) {
+      undeleteMutation.mutate({ id });
     }
   };
 
@@ -283,24 +300,39 @@ export function EmployeeManagement({
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem asChild>
-                              <Link
-                                href={`/dashboard/vendor/${vendorData.id}/employees/${employee.id}`}
+                            {!employee.deletedAt && (
+                              <>
+                                <DropdownMenuItem asChild>
+                                  <Link
+                                    href={`/dashboard/vendor/${vendorData.id}/employees/${employee.id}`}
+                                  >
+                                    <Pencil className="mr-2 h-4 w-4" />
+                                    Edit
+                                  </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() =>
+                                    handleDelete(employee.id, employee.name)
+                                  }
+                                  disabled={deletingId === employee.id}
+                                  className="text-destructive"
+                                >
+                                  <Trash2 className="mr-2 h-4 w-4" />
+                                  Delete
+                                </DropdownMenuItem>
+                              </>
+                            )}
+                            {employee.deletedAt && (
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleUndelete(employee.id, employee.name)
+                                }
+                                className="text-green-600"
                               >
-                                <Pencil className="mr-2 h-4 w-4" />
-                                Edit
-                              </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleDelete(employee.id, employee.name)
-                              }
-                              disabled={deletingId === employee.id}
-                              className="text-destructive"
-                            >
-                              <Trash2 className="mr-2 h-4 w-4" />
-                              Delete
-                            </DropdownMenuItem>
+                                <Undo2 className="mr-2 h-4 w-4" />
+                                Restore
+                              </DropdownMenuItem>
+                            )}
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
@@ -410,23 +442,39 @@ export function EmployeeManagement({
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
-                            <Link
-                              href={`/dashboard/vendor/${vendorData.id}/employees/${employee.id}`}
-                            >
-                              <Button variant="ghost" size="sm">
-                                <Pencil className="h-4 w-4" />
+                            {!employee.deletedAt && (
+                              <>
+                                <Link
+                                  href={`/dashboard/vendor/${vendorData.id}/employees/${employee.id}`}
+                                >
+                                  <Button variant="ghost" size="sm">
+                                    <Pencil className="h-4 w-4" />
+                                  </Button>
+                                </Link>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() =>
+                                    handleDelete(employee.id, employee.name)
+                                  }
+                                  disabled={deletingId === employee.id}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </>
+                            )}
+                            {employee.deletedAt && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() =>
+                                  handleUndelete(employee.id, employee.name)
+                                }
+                                className="text-green-600 hover:text-green-700"
+                              >
+                                <Undo2 className="h-4 w-4" />
                               </Button>
-                            </Link>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() =>
-                                handleDelete(employee.id, employee.name)
-                              }
-                              disabled={deletingId === employee.id}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>

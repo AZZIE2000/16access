@@ -1428,6 +1428,41 @@ export const employeeRouter = createTRPCRouter({
       };
     }),
 
+  // Undelete employee (admin only)
+  undeleteByAdmin: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const employee = await ctx.db.employee.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!employee) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Employee not found",
+        });
+      }
+
+      if (!employee.deletedAt) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Employee is not deleted",
+        });
+      }
+
+      await ctx.db.employee.update({
+        where: { id: input.id },
+        data: {
+          deletedAt: null,
+        },
+      });
+
+      return {
+        success: true,
+        message: "Employee restored successfully",
+      };
+    }),
+
   // Update employee status (admin only)
   updateStatus: protectedProcedure
     .input(
