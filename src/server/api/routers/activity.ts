@@ -500,4 +500,62 @@ export const activityRouter = createTRPCRouter({
       employeesOnSite: onSiteCount,
     };
   }),
+
+  // Sign out everyone who has their last activity as ENTRY from before today
+  signOutAll: protectedProcedure.mutation(async ({ ctx }) => {
+    // Get start of today (midnight)
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
+    // Get all non-deleted employees
+    const allEmployees = await ctx.db.employee.findMany({
+      where: {
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const employeeIds = allEmployees.map((e) => e.id);
+
+    // Get the last activity for each employee
+    const lastActivities = await ctx.db.activity.findMany({
+      where: {
+        employeeId: {
+          in: employeeIds,
+        },
+      },
+      orderBy: {
+        scannedAt: "desc",
+      },
+      distinct: ["employeeId"],
+    });
+
+    // Filter employees whose last activity is ENTRY with GRANTED status AND was before today
+    const employeesToSignOut = lastActivities.filter(
+      (activity) =>
+        activity.type === "ENTRY" &&
+        activity.status === "GRANTED" &&
+        activity.scannedAt < startOfToday,
+    );
+
+    // Create EXIT activities for all of them
+    const exitActivities = await ctx.db.activity.createMany({
+      data: employeesToSignOut.map((activity) => ({
+        type: "EXIT" as const,
+        status: "GRANTED" as const,
+        employeeId: activity.employeeId,
+        scannerId: ctx.session.user.id,
+        gateId: activity.gateId, // Use the same gate as their entry
+        denialReason: "Bulk sign-out by admin",
+      })),
+    });
+
+    return {
+      success: true,
+      count: exitActivities.count,
+      message: `Successfully signed out ${exitActivities.count} employee(s) from previous days`,
+    };
+  }),
 });
