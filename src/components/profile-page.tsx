@@ -11,7 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Download, LogOut, User, Mail, Shield, Calendar, Share, PlusSquare } from "lucide-react";
+import {
+  Download,
+  LogOut,
+  User,
+  Mail,
+  Shield,
+  Calendar,
+  Share,
+  PlusSquare,
+} from "lucide-react";
 import {
   Drawer,
   DrawerClose,
@@ -22,6 +31,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { format } from "date-fns";
+import { SignOutAllButton } from "./sign-out-all-button";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -46,6 +56,7 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
   const [canInstallPWA, setCanInstallPWA] = useState(false);
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [secretNumber, setSecretNumber] = useState(0);
 
   useEffect(() => {
     // For iOS, check first before other detection
@@ -138,6 +149,13 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
 
   return (
     <div className={isMobile ? "p-4 pb-20" : "container mx-auto p-6"}>
+      {" "}
+      {secretNumber > 5 ? (
+        <div className="flex items-center justify-between px-4 lg:px-6">
+          <h1 className="text-2xl font-bold">Admin only</h1>
+          <SignOutAllButton />
+        </div>
+      ) : null}
       <div className="mx-auto max-w-2xl space-y-6">
         {/* Header */}
         <div>
@@ -154,7 +172,10 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
         {/* User Info Card */}
         <Card>
           <CardHeader>
-            <CardTitle className={isMobile ? "text-lg" : ""}>
+            <CardTitle
+              onClick={() => setSecretNumber(secretNumber + 1)}
+              className={isMobile ? "text-lg" : ""}
+            >
               Account Information
             </CardTitle>
             <CardDescription className={isMobile ? "text-xs" : ""}>
@@ -329,16 +350,16 @@ export function ProfilePage({ user, variant = "dashboard" }: ProfilePageProps) {
           </CardContent>
         </Card>
       </div>
-
       <Drawer open={showIOSInstructions} onOpenChange={setShowIOSInstructions}>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Install App</DrawerTitle>
             <DrawerDescription>
-              Install this application on your home screen for quick access and a better experience.
+              Install this application on your home screen for quick access and
+              a better experience.
             </DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 p-4">
             <div className="flex items-center gap-4">
               <Share className="h-6 w-6 text-blue-500" />
               <p className="text-sm">
