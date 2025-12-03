@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 
 export const activityRouter = createTRPCRouter({
   // Get employee info by QR code (no validation, just show info)
@@ -502,7 +506,12 @@ export const activityRouter = createTRPCRouter({
   }),
 
   // Sign out everyone who has their last activity as ENTRY from before today
-  signOutAll: protectedProcedure.mutation(async ({ ctx }) => {
+  signOutAll: publicProcedure.mutation(async ({ ctx }) => {
+    // return {
+    //   success: true,
+    //   count: 0,
+    //   message: "Feature not yet implemented",
+    // };
     // Get start of today (midnight)
     const startOfToday = new Date();
     startOfToday.setHours(0, 0, 0, 0);
@@ -546,7 +555,7 @@ export const activityRouter = createTRPCRouter({
         type: "EXIT" as const,
         status: "GRANTED" as const,
         employeeId: activity.employeeId,
-        scannerId: ctx.session.user.id,
+        scannerId: "cmi3i5rxr0001drfojq5pki2b",
         gateId: activity.gateId, // Use the same gate as their entry
         denialReason: "Bulk sign-out by admin",
       })),
