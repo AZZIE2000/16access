@@ -66,6 +66,7 @@ import {
   Link2,
   Copy,
   Check,
+  History,
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -703,6 +704,16 @@ export default function EmployeeManagementPage() {
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem
+                                onClick={() =>
+                                  router.push(
+                                    `/dashboard/employee/history/${employee.id}`,
+                                  )
+                                }
+                              >
+                                <History className="mr-2 h-4 w-4" />
+                                View History
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
                                 onClick={() => {
                                   setSelectedEmployee(employee.id);
                                   setAccessCardDialogOpen(true);
@@ -787,6 +798,16 @@ export default function EmployeeManagementPage() {
                           <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              onClick={() =>
+                                router.push(
+                                  `/dashboard/employee/history/${employee.id}`,
+                                )
+                              }
+                            >
+                              <History className="mr-2 h-4 w-4" />
+                              View History
+                            </DropdownMenuItem>
                             <DropdownMenuItem
                               onClick={() => {
                                 setSelectedEmployee(employee.id);
