@@ -356,7 +356,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/duaanawwas/Desktop/workspace/github.com/AZZIE2000/16access/generated/prisma",
+      "value": "/Users/azzam/Desktop/16thofmay/16access/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -370,7 +370,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/duaanawwas/Desktop/workspace/github.com/AZZIE2000/16access/prisma/schema.prisma",
+    "sourceFilePath": "/Users/azzam/Desktop/16thofmay/16access/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
