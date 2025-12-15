@@ -171,11 +171,7 @@ export function EmployeeScanResult({
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
   const hasDateRestriction =
     employee.allowedDates && employee.allowedDates.length > 0;
-  const isAllowedToday =
-    !hasDateRestriction ||
-    employee.allowedDates!.some(
-      (ad) => new Date(ad.date).toISOString().split("T")[0] === today,
-    );
+  const isAllowedToday = true;
 
   // Check if vendor has reached maximum allowed employees in at the same time
   const hasAllowedInLimit = employee.vendor.allowedInCount > 0;
@@ -191,8 +187,7 @@ export function EmployeeScanResult({
     currentlyInCount > employee.vendor.allowedInCount;
 
   // Determine if access should be granted
-  const shouldGrantAccess =
-    isActive && hasGateAccess && isAllowedToday && !isAtMaxCapacity;
+  const shouldGrantAccess = isActive && hasGateAccess && !isAtMaxCapacity;
 
   // Get all ID card attachments
   const idCards =
@@ -498,12 +493,7 @@ export function EmployeeScanResult({
                       <span>No access permission for this gate</span>
                     </li>
                   )}
-                  {!isAllowedToday && (
-                    <li className="flex items-start gap-1.5">
-                      <span className="mt-0.5">•</span>
-                      <span>Not scheduled to work today</span>
-                    </li>
-                  )}
+                 
                   {isAtMaxCapacity && (
                     <li className="flex items-start gap-1.5">
                       <span className="mt-0.5">•</span>
